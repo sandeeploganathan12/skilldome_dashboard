@@ -295,6 +295,7 @@ function buildMockEvaluationScores(scoresObj) {
 
 function safeJsonParse(str, fallback = []) {
   if (!str) return fallback;
+  if (typeof str !== 'string') return str;
   try {
     return JSON.parse(str);
   } catch {
@@ -1479,9 +1480,17 @@ app.get('/api/mock-interviews/:id', async (req, res) => {
 app.get('/api/students/:studentId/mock-interviews', async (req, res) => {
   try {
     const { studentId } = req.params;
+    let candEmail = '';
+    try {
+      const cand = await studentMasterDb.getCandidateById(studentId);
+      if (cand && cand.email) candEmail = cand.email;
+    } catch (cErr) {
+      console.warn('Candidate lookup warning for mock interviews:', cErr.message);
+    }
+
     const [rows] = await studentMasterPool.query(
-      'SELECT id, interview_number, interview_name, total_score, result_level, interview_date FROM mock_interviews WHERE student_id = ? ORDER BY interview_number ASC, id ASC',
-      [studentId]
+      'SELECT id, student_id, interview_number, interview_name, total_score, result_level, interview_date FROM mock_interviews WHERE LOWER(TRIM(student_id)) = LOWER(TRIM(?)) OR (email != "" AND email = ?) ORDER BY interview_number ASC, id ASC',
+      [studentId, candEmail]
     );
     res.json({ success: true, history: rows });
   } catch (err) {
@@ -1534,11 +1543,12 @@ app.get('*', (req, res) => {
 });
 
 
-// Start Express Server
-const server = app.listen(PORT, async () => {
+// Start Express Server - Restricted to 127.0.0.1 (Localhost only, NOT on local network/Wi-Fi)
+const HOST = process.env.HOST || '127.0.0.1';
+const server = app.listen(PORT, HOST, async () => {
   console.log(`=======================================================`);
-  console.log(`🚀 Skilldome Admin Panel Server running on port ${PORT}`);
-  console.log(`🔗 Local URL: http://localhost:${PORT}`);
+  console.log(`🚀 Skilldome Admin Panel Server running locally`);
+  console.log(`🔗 Localhost only: http://127.0.0.1:${PORT} (Disabled on network)`);
   console.log(`📊 DB Host: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
   console.log(`📋 Source Tables: candidate_registrations, test_answers & mock_interviews`);
   console.log(`=======================================================`);

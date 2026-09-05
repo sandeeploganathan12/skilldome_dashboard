@@ -45,9 +45,19 @@ const state = {
 // ============================================================================
 // API Helper with Error Boundary & Auth Injection
 // ============================================================================
-async function apiRequest(endpoint, options = {}) {
+async function apiRequest(endpoint, optionsOrMethod = {}, maybePayload = null) {
   showLoading(true);
   try {
+    let options = {};
+    if (typeof optionsOrMethod === 'string') {
+      options = {
+        method: optionsOrMethod,
+        body: maybePayload ? JSON.stringify(maybePayload) : undefined
+      };
+    } else {
+      options = optionsOrMethod || {};
+    }
+
     const headers = {
       'Content-Type': 'application/json',
       ...(options.headers || {})
@@ -785,6 +795,18 @@ function renderCareerScorecard(data) {
   document.getElementById('cardTargetCareer').textContent = student.targetCareer || 'Full Stack Developer';
   document.getElementById('cardDistrictCity').textContent = student.districtCity || 'Coimbatore';
 
+  // Companion sync for Page 2 sidebar elements
+  const initialsP2 = document.getElementById('cardStudentInitialsP2');
+  if (initialsP2) initialsP2.textContent = candidateInitials;
+  const nameP2 = document.getElementById('cardStudentNameP2');
+  if (nameP2) nameP2.textContent = student.name.toUpperCase();
+  const idTopP2 = document.getElementById('cardStudentIdTopP2');
+  if (idTopP2) idTopP2.textContent = student.studentId;
+  const targetCareerP2 = document.getElementById('cardTargetCareerP2');
+  if (targetCareerP2) targetCareerP2.textContent = student.targetCareer || 'Full Stack Developer';
+  const scorePillP2 = document.getElementById('cardSidebarScorePillP2');
+  if (scorePillP2) scorePillP2.textContent = `${readiness.score} / 100`;
+
   // Live DB Candidate Preference Card Elements (Direct from candidate_registrations)
   const prefTargetDomain = document.getElementById('cardPrefTargetDomain');
   if (prefTargetDomain) prefTargetDomain.textContent = student.targetCareer || 'Full Stack Development';
@@ -825,6 +847,11 @@ function renderCareerScorecard(data) {
   scoreNumEl.style.color = gradeColor;
   tierTitleEl.textContent = readiness.tier;
   tierTitleEl.style.color = gradeColor;
+  const tierTitleP2 = document.getElementById('cardTierTitleP2');
+  if (tierTitleP2) {
+    tierTitleP2.textContent = readiness.tier;
+    tierTitleP2.style.color = gradeColor;
+  }
   feedbackEl.textContent = readiness.feedback;
 
   // SVG Circumference = 2 * PI * r = 314.159
@@ -2358,13 +2385,55 @@ function renderMockInterviewScorecard(interview) {
     focusEl.innerHTML = `<strong>Focus:</strong> ${interview.focus_areas || 'Python Fundamentals, Problem Solving, OOPs, SQL, API Basics & HR Fit'}`;
   }
 
+  // 1. Get structured evaluation scores directly from Database record
+  let evalScores = Array.isArray(interview.evaluation_scores) && interview.evaluation_scores.length > 0
+    ? interview.evaluation_scores
+    : safeJsonParse(interview.evaluation_scores_json, null);
+
+  // Fallback if not yet populated in DB
+  if (!evalScores || evalScores.length === 0) {
+    const defaultCriteriaList = [
+      { area_number: 1, area: 'Communication & Clarity', criteria: 'Expressing thoughts clearly, structured articulation', max_score: 15, key: 'score_communication', defaultScore: 9, color: '#8b5cf6', badge_class: 'badge-purple' },
+      { area_number: 2, area: 'Technical Knowledge', criteria: 'Concepts, accuracy, syntax and technical depth', max_score: 20, key: 'score_technical', defaultScore: 14, color: '#2563eb', badge_class: 'badge-blue' },
+      { area_number: 3, area: 'Problem Solving', criteria: 'Approach, logical thinking, edge case handling', max_score: 15, key: 'score_problem_solving', defaultScore: 10, color: '#16a34a', badge_class: 'badge-green' },
+      { area_number: 4, area: 'Understanding of Resume / Projects', criteria: 'Explaining projects, tech stack used, challenges faced', max_score: 15, key: 'score_resume_projects', defaultScore: 8, color: '#ea580c', badge_class: 'badge-orange' },
+      { area_number: 5, area: 'Behavioral / HR Responses', criteria: 'Situational questions, culture fit, attitude, ethics', max_score: 10, key: 'score_behavioral', defaultScore: 6, color: '#db2777', badge_class: 'badge-pink' },
+      { area_number: 6, area: 'Confidence & Professionalism', criteria: 'Demeanor, composure under pressure, professional attitude', max_score: 10, key: 'score_confidence', defaultScore: 6, color: '#0891b2', badge_class: 'badge-teal' },
+      { area_number: 7, area: 'Role-specific Knowledge', criteria: 'Domain standards, tools, industry awareness', max_score: 15, key: 'score_role_knowledge', defaultScore: 8, color: '#1d4ed8', badge_class: 'badge-navy' }
+    ];
+    evalScores = defaultCriteriaList.map(c => {
+      const given = (interview[c.key] !== undefined && interview[c.key] !== null) ? Number(interview[c.key]) : c.defaultScore;
+      return {
+        area_number: c.area_number,
+        area: c.area,
+        criteria: c.criteria,
+        max_score: c.max_score,
+        given_score: given,
+        percentage: Math.round((given / c.max_score) * 100),
+        color: c.color,
+        badge_class: c.badge_class
+      };
+    });
+  }
+
+  let calculatedMaxTotal = 0;
+  let calculatedGivenTotal = 0;
+  evalScores.forEach(a => {
+    calculatedMaxTotal += Number(a.max_score || 0);
+    calculatedGivenTotal += Number(a.given_score !== undefined ? a.given_score : (a.score !== undefined ? a.score : 0));
+  });
+
+  // Total Score: Always prioritize the actual sum of given scores so report marks and total ALWAYS match
+  const totalScore = (interview.total_score !== undefined && interview.total_score !== null)
+    ? Number(interview.total_score)
+    : calculatedGivenTotal;
+
   // Row 1: Overall Result Circular Gauge
   const scoreNumEl = document.getElementById('mockOverallScore');
   const levelTitleEl = document.getElementById('mockResultLevel');
   const levelDescEl = document.getElementById('mockResultDesc');
   const gaugeBar = document.getElementById('mockGaugeBar');
 
-  const totalScore = interview.total_score !== undefined ? interview.total_score : 61;
   if (scoreNumEl) scoreNumEl.textContent = totalScore;
 
   let levelColor = '#10b981'; // Green
@@ -2404,40 +2473,6 @@ function renderMockInterviewScorecard(interview) {
   const totalYourScoreEl = document.getElementById('mockTotalYourScore');
   const totalProgressBar = document.getElementById('mockTotalProgressBar');
   const totalPercentEl = document.getElementById('mockTotalPercent');
-
-  // 1. Get structured evaluation scores directly from Database record
-  let evalScores = Array.isArray(interview.evaluation_scores) && interview.evaluation_scores.length > 0
-    ? interview.evaluation_scores
-    : safeJsonParse(interview.evaluation_scores_json, null);
-
-  // Fallback if not yet populated in DB
-  if (!evalScores || evalScores.length === 0) {
-    const defaultCriteriaList = [
-      { area_number: 1, area: 'Communication & Clarity', criteria: 'Expressing thoughts clearly, structured articulation', max_score: 15, key: 'score_communication', defaultScore: 9, color: '#8b5cf6', badge_class: 'badge-purple' },
-      { area_number: 2, area: 'Technical Knowledge', criteria: 'Concepts, accuracy, syntax and technical depth', max_score: 20, key: 'score_technical', defaultScore: 14, color: '#2563eb', badge_class: 'badge-blue' },
-      { area_number: 3, area: 'Problem Solving', criteria: 'Approach, logical thinking, edge case handling', max_score: 15, key: 'score_problem_solving', defaultScore: 10, color: '#16a34a', badge_class: 'badge-green' },
-      { area_number: 4, area: 'Understanding of Resume / Projects', criteria: 'Explaining projects, tech stack used, challenges faced', max_score: 15, key: 'score_resume_projects', defaultScore: 8, color: '#ea580c', badge_class: 'badge-orange' },
-      { area_number: 5, area: 'Behavioral / HR Responses', criteria: 'Situational questions, culture fit, attitude, ethics', max_score: 10, key: 'score_behavioral', defaultScore: 6, color: '#db2777', badge_class: 'badge-pink' },
-      { area_number: 6, area: 'Confidence & Professionalism', criteria: 'Demeanor, composure under pressure, professional attitude', max_score: 10, key: 'score_confidence', defaultScore: 6, color: '#0891b2', badge_class: 'badge-teal' },
-      { area_number: 7, area: 'Role-specific Knowledge', criteria: 'Domain standards, tools, industry awareness', max_score: 15, key: 'score_role_knowledge', defaultScore: 8, color: '#1d4ed8', badge_class: 'badge-navy' }
-    ];
-    evalScores = defaultCriteriaList.map(c => {
-      const given = interview[c.key] !== undefined ? interview[c.key] : c.defaultScore;
-      return {
-        area_number: c.area_number,
-        area: c.area,
-        criteria: c.criteria,
-        max_score: c.max_score,
-        given_score: given,
-        percentage: Math.round((given / c.max_score) * 100),
-        color: c.color,
-        badge_class: c.badge_class
-      };
-    });
-  }
-
-  let calculatedMaxTotal = 0;
-  let calculatedGivenTotal = 0;
 
   if (breakdownTbody) {
     breakdownTbody.innerHTML = evalScores.map((a, idx) => {
