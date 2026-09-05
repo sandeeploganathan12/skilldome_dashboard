@@ -4153,9 +4153,10 @@ body {
 
   html, body {
     width: 210mm !important;
-    height: 297mm !important;
     max-width: 210mm !important;
-    max-height: 297mm !important;
+    height: auto !important;
+    min-height: 297mm !important;
+    max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
     background: #ffffff !important;
@@ -4163,11 +4164,7 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     font-size: 9pt !important;
     line-height: 1.3 !important;
-    overflow: hidden !important;
-    page-break-inside: avoid !important;
-    page-break-before: avoid !important;
-    page-break-after: avoid !important;
-    break-inside: avoid !important;
+    overflow: visible !important;
   }
 
   /* Hide all UI shells, toolbars, buttons, drawers and non-active views */
@@ -4245,10 +4242,10 @@ body {
     margin: 0 !important;
     padding: 0 !important;
     width: 210mm !important;
-    height: 297mm !important;
     max-width: 210mm !important;
-    max-height: 297mm !important;
-    overflow: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   /* ========================================================================
@@ -4260,43 +4257,38 @@ body {
     padding: 0 !important;
     margin: 0 !important;
     width: 210mm !important;
-    height: 297mm !important;
     max-width: 210mm !important;
-    max-height: 297mm !important;
-    overflow: hidden !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    break-inside: avoid !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   .scorecard-container {
     display: flex !important;
     flex-direction: row !important;
+    align-items: stretch !important;
     width: 210mm !important;
-    height: 297mm !important;
     max-width: 210mm !important;
-    max-height: 297mm !important;
+    height: auto !important;
     min-height: 297mm !important;
+    max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    break-inside: avoid !important;
   }
 
-  /* --- Fixed Left Sidebar on A4 (58mm x 297mm) --- */
+  /* --- Fixed Left Sidebar on A4 (58mm) --- */
   .scorecard-sidebar {
     width: 58mm !important;
     min-width: 58mm !important;
     max-width: 58mm !important;
-    height: 297mm !important;
     min-height: 297mm !important;
-    max-height: 297mm !important;
+    height: auto !important;
+    max-height: none !important;
     padding: 6mm 4.5mm !important;
     background: #08183a !important;
     color: #ffffff !important;
@@ -4305,8 +4297,9 @@ body {
     justify-content: flex-start !important;
     gap: 3mm !important;
     flex-shrink: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
+    align-self: stretch !important;
   }
 
   .sidebar-brand-box {
@@ -4453,7 +4446,7 @@ body {
   }
 
   .quote-box {
-    margin-top: auto !important;
+    margin-top: 3.5mm !important;
     padding: 2.5mm 3.2mm !important;
     background: rgba(255, 255, 255, 0.08) !important;
     border-radius: 4px !important;
@@ -4476,22 +4469,24 @@ body {
     text-align: right !important;
   }
 
-  /* --- Fixed Right Main Area on A4 (152mm x 297mm) --- */
+  /* --- Right Main Area on A4 (152mm) --- */
   .scorecard-main {
     width: 152mm !important;
     min-width: 152mm !important;
     max-width: 152mm !important;
-    height: 297mm !important;
+    height: auto !important;
     min-height: 297mm !important;
-    max-height: 297mm !important;
+    max-height: none !important;
     padding: 5.5mm 6.5mm !important;
     background: #ffffff !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
-    overflow: hidden !important;
+    justify-content: flex-start !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
-    gap: 0 !important;
+    gap: 3mm !important;
+    -webkit-box-decoration-break: clone !important;
+    box-decoration-break: clone !important;
   }
 
   /* Report Header */
@@ -4503,6 +4498,8 @@ body {
     justify-content: space-between !important;
     align-items: flex-end !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .report-title {
@@ -4551,6 +4548,8 @@ body {
     gap: 3.5mm !important;
     margin: 0 0 2mm 0 !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .readiness-card, .radar-card {
@@ -4558,6 +4557,8 @@ body {
     border: 1.5px solid #cbd5e1 !important;
     border-radius: 6px !important;
     background: #ffffff !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .card-section-title {
@@ -4696,6 +4697,8 @@ body {
     gap: 1.5mm !important;
     margin: 0 0 1.2mm 0 !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .card-header-dark, .card-header-navy {
@@ -4840,6 +4843,8 @@ body {
   .recommended-career-section {
     margin: 0 0 2mm 0 !important;
     flex-shrink: 0 !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
 
   .rec-career-table {
@@ -4848,6 +4853,15 @@ body {
     border-collapse: collapse !important;
     border: 1px solid #cbd5e1 !important;
     border-top: none !important;
+  }
+
+  .rec-career-table thead {
+    display: table-header-group !important;
+  }
+
+  .rec-career-table tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .rec-career-table th:nth-child(1),
@@ -5002,6 +5016,8 @@ body {
     margin: 0 !important;
     flex-shrink: 0 !important;
     page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    padding-top: 2mm !important;
   }
 
   .action-card {
@@ -5009,6 +5025,8 @@ body {
     border: 1.5px solid #cbd5e1 !important;
     border-radius: 6px !important;
     background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .action-card-header {
@@ -5075,6 +5093,8 @@ body {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 2.5mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .sw-column {
@@ -5082,6 +5102,8 @@ body {
     border: 1px solid #cbd5e1 !important;
     border-radius: 4px !important;
     background: #f8fafc !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .sw-col-header {
@@ -5138,29 +5160,28 @@ body {
     padding: 0 !important;
     margin: 0 !important;
     width: 210mm !important;
-    height: 297mm !important;
+    height: auto !important;
+    min-height: 297mm !important;
     max-width: 210mm !important;
-    max-height: 297mm !important;
-    overflow: hidden !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    break-inside: avoid !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   .mock-scorecard-container {
     display: flex !important;
     flex-direction: row !important;
+    align-items: stretch !important;
     width: 210mm !important;
-    height: 297mm !important;
-    max-width: 210mm !important;
-    max-height: 297mm !important;
+    height: auto !important;
     min-height: 297mm !important;
+    max-width: 210mm !important;
+    max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
   }
 
@@ -5168,9 +5189,9 @@ body {
     width: 58mm !important;
     min-width: 58mm !important;
     max-width: 58mm !important;
-    height: 297mm !important;
+    height: auto !important;
     min-height: 297mm !important;
-    max-height: 297mm !important;
+    max-height: none !important;
     padding: 6mm 4.5mm !important;
     background: #08183a !important;
     color: #ffffff !important;
@@ -5180,6 +5201,8 @@ body {
     gap: 3mm !important;
     box-sizing: border-box !important;
     flex-shrink: 0 !important;
+    overflow: visible !important;
+    align-self: stretch !important;
   }
 
   .mock-profile-box {
@@ -5263,16 +5286,19 @@ body {
     width: 152mm !important;
     min-width: 152mm !important;
     max-width: 152mm !important;
-    height: 297mm !important;
+    height: auto !important;
     min-height: 297mm !important;
-    max-height: 297mm !important;
+    max-height: none !important;
     padding: 5.5mm 6.5mm !important;
     background: #ffffff !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
-    overflow: hidden !important;
+    justify-content: flex-start !important;
+    gap: 3mm !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
+    -webkit-box-decoration-break: clone !important;
+    box-decoration-break: clone !important;
   }
 
   .mock-report-header {
@@ -5283,6 +5309,8 @@ body {
     justify-content: space-between !important;
     align-items: flex-end !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .mock-title {
@@ -5313,6 +5341,8 @@ body {
     gap: 3.5mm !important;
     margin-bottom: 2mm !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .mock-card {
@@ -5320,11 +5350,15 @@ body {
     border: 1.5px solid #cbd5e1 !important;
     border-radius: 6px !important;
     background: #ffffff !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .mock-table-card {
     margin-bottom: 2mm !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .mock-table-header-title {
@@ -5342,6 +5376,15 @@ body {
     border-collapse: collapse !important;
     border: 1px solid #cbd5e1 !important;
     border-top: none !important;
+  }
+
+  .mock-breakdown-table thead {
+    display: table-header-group !important;
+  }
+
+  .mock-breakdown-table tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .mock-breakdown-table th:nth-child(1),
@@ -5446,12 +5489,16 @@ body {
     gap: 3mm !important;
     margin-bottom: 2mm !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .mock-feedback-card {
     padding: 2.5mm 3mm !important;
     border: 1.5px solid #cbd5e1 !important;
     border-radius: 6px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .mock-feedback-card-title {
@@ -5484,6 +5531,9 @@ body {
     grid-template-columns: 1.15fr 0.85fr !important;
     gap: 3.5mm !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    padding-top: 2mm !important;
   }
 
   .interviewer-overall-text {
@@ -5520,21 +5570,19 @@ body {
     padding: 0 !important;
     margin: 0 !important;
     width: 210mm !important;
-    height: 297mm !important;
+    height: auto !important;
+    min-height: 297mm !important;
     max-width: 210mm !important;
-    max-height: 297mm !important;
-    overflow: hidden !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    break-inside: avoid !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   #careerRoadmapPrintArea {
     width: 210mm !important;
-    height: 297mm !important;
-    max-width: 210mm !important;
-    max-height: 297mm !important;
+    height: auto !important;
     min-height: 297mm !important;
+    max-width: 210mm !important;
+    max-height: none !important;
     margin: 0 !important;
     padding: 5.5mm 6.5mm !important;
     background: #ffffff !important;
@@ -5543,12 +5591,10 @@ body {
     border-radius: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
-    overflow: hidden !important;
+    justify-content: flex-start !important;
+    gap: 3mm !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    break-inside: avoid !important;
   }
 
   .crm-main-split {
@@ -5557,19 +5603,21 @@ body {
     gap: 4.5mm !important;
     width: 100% !important;
     flex: 1 !important;
-    height: 270mm !important;
-    min-height: 270mm !important;
-    max-height: 270mm !important;
+    height: auto !important;
+    min-height: 280mm !important;
+    max-height: none !important;
     margin: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
+    align-items: stretch !important;
   }
 
   .crm-sidebar-card {
     width: 50mm !important;
     max-width: 50mm !important;
-    height: 100% !important;
-    min-height: 270mm !important;
+    height: auto !important;
+    min-height: 280mm !important;
+    max-height: none !important;
     padding: 6mm 4mm !important;
     background: #08183a !important;
     color: #ffffff !important;
@@ -5578,8 +5626,9 @@ body {
     flex-direction: column !important;
     justify-content: flex-start !important;
     gap: 3mm !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
+    align-self: stretch !important;
   }
 
   .crm-sidebar-card .sidebar-brand-box {
@@ -5721,13 +5770,15 @@ body {
   .crm-main-content {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
-    height: 100% !important;
-    min-height: 270mm !important;
-    max-height: 270mm !important;
-    overflow: hidden !important;
+    justify-content: flex-start !important;
+    gap: 3mm !important;
+    height: auto !important;
+    min-height: 280mm !important;
+    max-height: none !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
-    gap: 0 !important;
+    -webkit-box-decoration-break: clone !important;
+    box-decoration-break: clone !important;
   }
 
   .crm-doc-header {
@@ -5738,6 +5789,8 @@ body {
     margin-bottom: 1.5mm !important;
     border-bottom: 2px solid #08183a !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .crm-main-title {
@@ -5781,22 +5834,35 @@ body {
     text-align: center !important;
     letter-spacing: 0.5px !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .crm-table-container {
-    overflow: hidden !important;
+    overflow: visible !important;
     margin: 0 0 2mm 0 !important;
-    flex: 1 !important;
+    flex: none !important;
+    height: auto !important;
+    max-height: none !important;
   }
 
   .crm-progression-table {
     width: 100% !important;
     table-layout: fixed !important;
     border-collapse: collapse !important;
-    height: 100% !important;
+    height: auto !important;
     border: 1px solid #cbd5e1 !important;
     border-top: none !important;
     box-sizing: border-box !important;
+  }
+
+  .crm-progression-table thead {
+    display: table-header-group !important;
+  }
+
+  .crm-progression-table tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   .crm-progression-table th:nth-child(1),
@@ -5890,11 +5956,15 @@ body {
     display: grid !important;
     grid-template-columns: 1.15fr 1fr 0.95fr !important;
     gap: 3.5mm !important;
-    height: 70mm !important;
-    max-height: 70mm !important;
+    height: auto !important;
+    min-height: 60mm !important;
+    max-height: none !important;
     margin: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     flex-shrink: 0 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    padding-top: 2mm !important;
   }
 
   .crm-insight-card {
@@ -5905,7 +5975,10 @@ body {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    height: auto !important;
   }
 
   .crm-card-title {
