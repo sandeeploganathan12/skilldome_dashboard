@@ -1,0 +1,1622 @@
+{
+  "roadmaps": {
+    "Python Development": {
+      "domainKey": "Python Development",
+      "title": "PYTHON DEVELOPMENT CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "PYTHON DEVELOPER CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "Python Developer",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "Intern / Graduate Engineer",
+          "focusAreas": [
+            "Python Basics",
+            "Programming Fundamentals",
+            "Git, SQL Basics",
+            "Learn & adapt"
+          ],
+          "package": "₹2.5 – ₹5 LPA",
+          "potentialNextStep": "Become a Junior Python Developer"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Junior Python Developer",
+          "focusAreas": [
+            "Core Python",
+            "APIs (REST)",
+            "Databases (SQL)",
+            "Debugging & Testing"
+          ],
+          "package": "₹4 – ₹7 LPA",
+          "potentialNextStep": "Grow into a Python Developer"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "Python Developer",
+          "focusAreas": [
+            "Web Frameworks (Django / Flask / FastAPI)",
+            "Writing Clean Code",
+            "Cloud Basics",
+            "Problem Solving"
+          ],
+          "package": "₹6 – ₹12 LPA",
+          "potentialNextStep": "Move towards Senior Developer"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Senior Python Developer",
+          "focusAreas": [
+            "System Design Basics",
+            "Performance Optimization",
+            "Code Review & Mentoring",
+            "Working on Scalable Apps"
+          ],
+          "package": "₹10 – ₹18 LPA",
+          "potentialNextStep": "Step up as Tech Lead"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "Tech Lead / Module Lead",
+          "focusAreas": [
+            "Leading Projects",
+            "Architecture Decisions",
+            "Team Management",
+            "Stakeholder Communication"
+          ],
+          "package": "₹15 – ₹25 LPA",
+          "potentialNextStep": "Move into Engineering Manager or Staff Engineer"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Engineering Manager / Staff Engineer",
+          "focusAreas": [
+            "People Leadership or Technical Leadership",
+            "Planning & Delivery",
+            "Mentoring & Hiring"
+          ],
+          "package": "₹20 – ₹35+ LPA",
+          "potentialNextStep": "Advance to Senior Engineering Manager / Principal"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Senior Engineering Manager / Principal Engineer",
+          "focusAreas": [
+            "Strategy & Roadmap",
+            "Organization Impact",
+            "Driving Innovation",
+            "Cross-functional Leadership"
+          ],
+          "package": "₹30 – ₹50+ LPA",
+          "potentialNextStep": "Director / Head of Engineering / CTO (Leadership Track)"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Python Programming",
+          "icon": "🐍"
+        },
+        {
+          "name": "Git & Version Control",
+          "icon": "🔄"
+        },
+        {
+          "name": "Data Structures & Algorithms",
+          "icon": "🧠"
+        },
+        {
+          "name": "Cloud Platforms (AWS/Azure)",
+          "icon": "☁️"
+        },
+        {
+          "name": "SQL & Databases",
+          "icon": "💾"
+        },
+        {
+          "name": "System Design",
+          "icon": "📐"
+        },
+        {
+          "name": "Web Frameworks (Django/Flask)",
+          "icon": "🌐"
+        },
+        {
+          "name": "Testing & Debugging",
+          "icon": "🧪"
+        },
+        {
+          "name": "REST APIs",
+          "icon": "🔌"
+        },
+        {
+          "name": "Leadership & Communication",
+          "icon": "👥"
+        }
+      ]
+    },
+    "UI/UX Design": {
+      "domainKey": "UI/UX Design",
+      "title": "UI/UX DESIGN CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "UI/UX DESIGNER CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "UI/UX Designer",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "UI/UX Design Intern / Graduate Trainee",
+          "focusAreas": [
+            "Core design tools (Figma, Adobe XD)",
+            "Fundamentals of Typography & Color Theory",
+            "Creating basic low-fidelity wireframes",
+            "UI asset preparation & developer handoff basics"
+          ],
+          "package": "₹3.5 – ₹6 LPA",
+          "potentialNextStep": "Advance to Junior UI/UX Designer"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Junior UI/UX Designer",
+          "focusAreas": [
+            "Interactive prototyping & micro-interactions",
+            "Component libraries & design tokens in Figma",
+            "Conducting usability audits & heuristic reviews",
+            "Responsive layouts & mobile-first UI patterns"
+          ],
+          "package": "₹6 – ₹9.5 LPA",
+          "potentialNextStep": "Grow into Mid-Level UI/UX Designer"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "UI/UX Designer / Product Designer",
+          "focusAreas": [
+            "User research methodologies & user persona creation",
+            "End-to-end UX flows & information architecture",
+            "A/B testing user engagement & conversion funnels",
+            "Complex dashboard & SaaS product design patterns"
+          ],
+          "package": "₹9.5 – ₹16 LPA",
+          "potentialNextStep": "Step up to Senior UI/UX Designer"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Senior UI/UX Designer",
+          "focusAreas": [
+            "Multi-brand enterprise design systems at scale",
+            "Product discovery workshops with product managers",
+            "Mentoring junior designers & design critique sessions",
+            "Advanced accessibility (WCAG AA/AAA) compliance"
+          ],
+          "package": "₹16 – ₹26 LPA",
+          "potentialNextStep": "Move towards Lead Product Designer"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "Lead Product Designer / UX Lead",
+          "focusAreas": [
+            "Cross-product UX coherence across web, iOS & Android",
+            "Strategic product roadmapping & design KPI alignment",
+            "Managing design sprints & stakeholder trade-offs",
+            "Evangelizing human-centered design across engineering"
+          ],
+          "package": "₹26 – ₹38 LPA",
+          "potentialNextStep": "Advance to Principal Designer or Design Manager"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Principal Designer / UX Manager",
+          "focusAreas": [
+            "Enterprise design strategy & innovation incubations",
+            "Design team management, hiring & talent development",
+            "Next-gen AI conversational UX & multimodal interfaces",
+            "Cross-functional executive presentation & alignment"
+          ],
+          "package": "₹35 – ₹55 LPA",
+          "potentialNextStep": "Transition to Head of Design / VP of Experience"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Head of Design / VP Experience / Chief Design Officer",
+          "focusAreas": [
+            "Global design vision, brand experience & org culture",
+            "Allocating multimillion design budgets & tooling",
+            "Shaping business strategy through transformative UX",
+            "Executive C-Suite leadership & board presentations"
+          ],
+          "package": "₹50 – ₹85+ LPA",
+          "potentialNextStep": "Chief Experience Officer (CXO) / Partner"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Figma & Design Systems",
+          "icon": "🎨"
+        },
+        {
+          "name": "User Research & Personas",
+          "icon": "🔍"
+        },
+        {
+          "name": "Wireframing & Prototyping",
+          "icon": "✏️"
+        },
+        {
+          "name": "Information Architecture",
+          "icon": "🏗️"
+        },
+        {
+          "name": "Usability Testing (A/B)",
+          "icon": "🧪"
+        },
+        {
+          "name": "Micro-interactions & Motion",
+          "icon": "✨"
+        },
+        {
+          "name": "Typography & Visual Design",
+          "icon": "📐"
+        },
+        {
+          "name": "WCAG Accessibility",
+          "icon": "♿"
+        },
+        {
+          "name": "Developer Handoff",
+          "icon": "💻"
+        },
+        {
+          "name": "Design Strategy & Leadership",
+          "icon": "👑"
+        }
+      ]
+    },
+    "Data & Analytics": {
+      "domainKey": "Data & Analytics",
+      "title": "DATA & ANALYTICS CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "DATA ANALYST & BI CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "Data Analyst / Analytics Engineer",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "Intern / Graduate Data Analyst",
+          "focusAreas": [
+            "Relational databases & SQL fundamentals (SELECT, JOINs)",
+            "Spreadsheet modeling (Excel, pivot tables, VLOOKUP)",
+            "Data cleaning & handling missing values",
+            "Basic data storytelling and dashboard creation"
+          ],
+          "package": "₹3 – ₹6 LPA",
+          "potentialNextStep": "Advance to Junior Data Analyst"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Junior Data Analyst",
+          "focusAreas": [
+            "Advanced SQL (CTEs, window functions, indexing)",
+            "Python for data analysis (Pandas, NumPy, Matplotlib)",
+            "Power BI / Tableau report building & DAX formulas",
+            "Automating daily/weekly operational reporting"
+          ],
+          "package": "₹5 – ₹8 LPA",
+          "potentialNextStep": "Grow into Full Data Analyst"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "Data Analyst / Analytics Engineer",
+          "focusAreas": [
+            "Data warehousing concepts (Snowflake, BigQuery, Redshift)",
+            "dbt (data build tool) & dimensional data modeling",
+            "Statistical hypothesis testing & metric definition",
+            "Partnering with business stakeholders to drive ROI"
+          ],
+          "package": "₹7 – ₹14 LPA",
+          "potentialNextStep": "Step up to Senior Data Analyst"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Senior Data Analyst / Lead BI Engineer",
+          "focusAreas": [
+            "Predictive modeling & machine learning integration",
+            "Data pipeline orchestration (Airflow, Mage)",
+            "Data governance, cataloging & data quality frameworks",
+            "Mentoring junior analysts & driving analytics culture"
+          ],
+          "package": "₹12 – ₹22 LPA",
+          "potentialNextStep": "Move to Analytics Manager or Staff Analyst"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "Analytics Manager / Lead Data Scientist",
+          "focusAreas": [
+            "Leading cross-functional analytics squad",
+            "Enterprise KPI frameworks & executive scorecards",
+            "Self-serve BI platform rollouts",
+            "Translating complex data findings into C-suite strategy"
+          ],
+          "package": "₹18 – ₹32 LPA",
+          "potentialNextStep": "Advance to Principal Data Architect or Director"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Principal Data Architect / Senior Analytics Manager",
+          "focusAreas": [
+            "Organization-wide data mesh & Lakehouse architecture",
+            "Enterprise data compliance, privacy (GDPR) & security",
+            "Evaluating modern data stack technologies & vendor contracts",
+            "Cross-department analytics roadmap governance"
+          ],
+          "package": "₹28 – ₹45+ LPA",
+          "potentialNextStep": "Advance to Head of Data & Analytics"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Head of Data & Analytics / Chief Data Officer (CDO)",
+          "focusAreas": [
+            "Corporate data monetization & AI strategy",
+            "Multi-million data infrastructure budget ownership",
+            "Data-driven culture transformation across enterprise",
+            "Executive C-level governance & strategic board alignment"
+          ],
+          "package": "₹40 – ₹70+ LPA",
+          "potentialNextStep": "Chief Information Officer (CIO) / Board Member"
+        }
+      ],
+      "skills": [
+        {
+          "name": "SQL & Advanced Queries",
+          "icon": "💾"
+        },
+        {
+          "name": "Python & Pandas Analytics",
+          "icon": "🐍"
+        },
+        {
+          "name": "Power BI & Tableau",
+          "icon": "📊"
+        },
+        {
+          "name": "Data Warehousing (Snowflake)",
+          "icon": "❄️"
+        },
+        {
+          "name": "Dimensional Data Modeling",
+          "icon": "📐"
+        },
+        {
+          "name": "dbt & Data Transformations",
+          "icon": "⚙️"
+        },
+        {
+          "name": "Statistical Hypothesis Testing",
+          "icon": "📈"
+        },
+        {
+          "name": "Data Storytelling & Executive Reports",
+          "icon": "📑"
+        },
+        {
+          "name": "ETL & Airflow Orchestration",
+          "icon": "🔄"
+        },
+        {
+          "name": "Data Governance & Quality",
+          "icon": "🛡️"
+        }
+      ]
+    },
+    "QA & Automation Testing": {
+      "domainKey": "QA & Automation Testing",
+      "title": "QA & AUTOMATION TESTING CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "QA AUTOMATION ENGINEER CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "QA Automation Engineer / SDET",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "QA Automation Intern / Graduate Trainee",
+          "focusAreas": [
+            "Java / Python basics & OOPs concepts",
+            "Manual testing foundations & test case design",
+            "Basic Git, HTML, CSS & DOM locators (XPath, CSS)",
+            "Writing simple Selenium or Playwright web test scripts"
+          ],
+          "package": "₹3.5 – ₹6 LPA",
+          "potentialNextStep": "Become a Junior QA Automation Engineer"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Junior QA Automation Engineer",
+          "focusAreas": [
+            "Test automation frameworks (TestNG, PyTest, JUnit)",
+            "API testing using Postman & RestAssured",
+            "Page Object Model (POM) design pattern",
+            "Defect lifecycle tracking (Jira) & boundary testing"
+          ],
+          "package": "₹5 – ₹8.5 LPA",
+          "potentialNextStep": "Grow into Full SDET / Automation Engineer"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "QA Automation Engineer / SDET",
+          "focusAreas": [
+            "Building robust data-driven & hybrid test frameworks",
+            "CI/CD pipeline integration (Jenkins, GitHub Actions)",
+            "Mobile testing using Appium (Android/iOS)",
+            "Mocking services, headless runs & parallel execution"
+          ],
+          "package": "₹8 – ₹15 LPA",
+          "potentialNextStep": "Step up to Senior QA Automation Engineer"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Senior QA Automation Engineer / Senior SDET",
+          "focusAreas": [
+            "Performance & load testing using JMeter or k6",
+            "Security testing fundamentals (OWASP Top 10)",
+            "Contract testing with Pact for microservices",
+            "Test strategy leadership & coverage optimization"
+          ],
+          "package": "₹14 – ₹24 LPA",
+          "potentialNextStep": "Advance to QA Lead or Staff SDET"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "QA Lead / Test Manager",
+          "focusAreas": [
+            "Managing multi-project automation roadmaps",
+            "Quality gates governance in agile deployment cycles",
+            "Hiring, mentoring & team performance management",
+            "Cross-squad test strategy alignment with developers"
+          ],
+          "package": "₹20 – ₹32 LPA",
+          "potentialNextStep": "Step into Principal SDET or Quality Director"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Principal SDET / Quality Architect",
+          "focusAreas": [
+            "Enterprise quality architecture & continuous testing",
+            "AI-driven test generation & self-healing test suites",
+            "Cost and infrastructure optimization for test clouds",
+            "Executive quality metrics reporting"
+          ],
+          "package": "₹30 – ₹48+ LPA",
+          "potentialNextStep": "Advance to Head of Quality Assurance"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Head of QA / VP Quality Engineering",
+          "focusAreas": [
+            "Global quality engineering vision & compliance governance",
+            "Enterprise risk management & production zero-defect culture",
+            "Tooling vendor procurement & strategic resource planning",
+            "C-suite executive strategy & corporate operational audit"
+          ],
+          "package": "₹45 – ₹75+ LPA",
+          "potentialNextStep": "VP Engineering / Head of Technology Operations"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Selenium & Playwright",
+          "icon": "🤖"
+        },
+        {
+          "name": "Java / Python for SDET",
+          "icon": "☕"
+        },
+        {
+          "name": "API Testing (RestAssured)",
+          "icon": "🔌"
+        },
+        {
+          "name": "TestNG / PyTest Frameworks",
+          "icon": "🧪"
+        },
+        {
+          "name": "CI/CD & Jenkins Pipelines",
+          "icon": "⚙️"
+        },
+        {
+          "name": "Performance Testing (JMeter)",
+          "icon": "⏱️"
+        },
+        {
+          "name": "Mobile Testing (Appium)",
+          "icon": "📱"
+        },
+        {
+          "name": "SQL & Test Data Management",
+          "icon": "💾"
+        },
+        {
+          "name": "Docker & Test Containers",
+          "icon": "🐳"
+        },
+        {
+          "name": "Quality Strategy & Leadership",
+          "icon": "🛡️"
+        }
+      ]
+    },
+    "Technical Consulting & Client Solutions": {
+      "domainKey": "Technical Consulting & Client Solutions",
+      "title": "TECHNICAL CONSULTING & CLIENT SOLUTIONS CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "TECHNICAL CONSULTANT & BUSINESS ANALYST CAREER TIMELINE",
+      "defaultTargetCareer": "Technical Consultant / Business Analyst",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "Associate Technical Consultant / BA Trainee",
+          "focusAreas": [
+            "Client communication & active listening skills",
+            "Requirement elicitation, user stories & BRD drafts",
+            "Basic SQL queries, spreadsheet analytics & flowcharts",
+            "Agile scrum ceremonies & ticketing systems (Jira)"
+          ],
+          "package": "₹3.5 – ₹6 LPA",
+          "potentialNextStep": "Advance to Technical Consultant"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Technical Consultant / Business Analyst",
+          "focusAreas": [
+            "Technical requirement translation for developer squads",
+            "API & system integration feasibility mapping",
+            "Client demos, solution mockups & proof of concepts",
+            "Process flow modeling (BPMN, UML diagrams)"
+          ],
+          "package": "₹6 – ₹9.5 LPA",
+          "potentialNextStep": "Grow into Senior Consultant"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "Senior Technical Consultant / Systems Analyst",
+          "focusAreas": [
+            "Leading discovery workshops with corporate clients",
+            "Solution architecture design & commercial RFP scoping",
+            "Cost-benefit analysis, ROI projections & risk audits",
+            "Managing change management & customer onboarding"
+          ],
+          "package": "₹9.5 – ₹16 LPA",
+          "potentialNextStep": "Step up to Lead Solution Consultant"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Lead Consultant / Solution Architect",
+          "focusAreas": [
+            "Enterprise multi-system integration architecture",
+            "Direct C-level stakeholder advisory & negotiations",
+            "Standardizing consulting delivery playbooks across firm",
+            "Mentoring associates & leading multidisciplinary pods"
+          ],
+          "package": "₹16 – ₹26 LPA",
+          "potentialNextStep": "Move towards Principal Consultant / Practice Lead"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "Principal Consultant / Practice Lead",
+          "focusAreas": [
+            "High-value deal structuring & presales leadership",
+            "Managing multimillion-dollar client account portfolios",
+            "Thought leadership: Whitepapers, webinars & industry events",
+            "Talent management, utilization tracking & margin growth"
+          ],
+          "package": "₹26 – ₹38 LPA",
+          "potentialNextStep": "Advance to Director of Consulting"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Director – Technical Consulting & Client Solutions",
+          "focusAreas": [
+            "Regional consulting practice strategy & P&L ownership",
+            "Forging strategic global technology alliances (AWS, Microsoft)",
+            "Enterprise digital transformation roadmaps for Fortune 500",
+            "Executive client advisory & high-stakes escalation handling"
+          ],
+          "package": "₹38 – ₹60+ LPA",
+          "potentialNextStep": "Advance to VP Consulting / Managing Director"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Vice President / Managing Director / Partner",
+          "focusAreas": [
+            "Firm-wide strategic vision & global market expansion",
+            "Global practice P&L, M&A due diligence & business pivots",
+            "Board-level strategic advisory & keynote leadership",
+            "Driving institutional transformation & organizational scale"
+          ],
+          "package": "₹65 LPA – ₹1.5 Cr+",
+          "potentialNextStep": "Chief Client Officer (CCO) / Senior Equity Partner"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Requirement Elicitation (BRD/FRD)",
+          "icon": "📝"
+        },
+        {
+          "name": "Executive Storytelling & Demos",
+          "icon": "🎤"
+        },
+        {
+          "name": "Process Modeling (BPMN / UML)",
+          "icon": "📊"
+        },
+        {
+          "name": "Solution & API Architecture",
+          "icon": "📐"
+        },
+        {
+          "name": "SQL & Data Analysis",
+          "icon": "💾"
+        },
+        {
+          "name": "RFP Scoping & Presales",
+          "icon": "💼"
+        },
+        {
+          "name": "Agile & Scrum Methodologies",
+          "icon": "🏃"
+        },
+        {
+          "name": "Stakeholder Negotiation",
+          "icon": "🤝"
+        },
+        {
+          "name": "Change Management",
+          "icon": "🔄"
+        },
+        {
+          "name": "Strategic Business Advisory",
+          "icon": "🎯"
+        }
+      ]
+    },
+    "Cloud & DevOps Engineering": {
+      "domainKey": "Cloud & DevOps Engineering",
+      "title": "CLOUD & DEVOPS ENGINEERING CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "DEVOPS & CLOUD ARCHITECT CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "DevOps / Cloud Engineer",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "DevOps Trainee / Intern",
+          "focusAreas": [
+            "Linux basics & command line mastery",
+            "Networking fundamentals (TCP/IP, DNS, OSI)",
+            "Git workflows & branching strategies",
+            "Cloud basics (AWS / Azure / GCP) & shell scripting"
+          ],
+          "package": "₹3.5 – ₹6 LPA",
+          "potentialNextStep": "Become a Junior DevOps Engineer"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Junior DevOps Engineer",
+          "focusAreas": [
+            "Linux administration & server configuration",
+            "CI/CD fundamentals (GitHub Actions, GitLab CI)",
+            "Docker containerization & image optimization",
+            "Basic cloud infrastructure provisioning"
+          ],
+          "package": "₹5 – ₹8 LPA",
+          "potentialNextStep": "Grow into DevOps Engineer"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "DevOps Engineer / Cloud Engineer",
+          "focusAreas": [
+            "Infrastructure as Code (Terraform, Ansible)",
+            "Kubernetes cluster administration & Helm charts",
+            "Monitoring & alerting (Prometheus, Grafana, ELK)",
+            "Automating multi-environment release pipelines"
+          ],
+          "package": "₹8 – ₹15 LPA",
+          "potentialNextStep": "Step up to Senior DevOps Engineer"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Senior DevOps Engineer / SRE",
+          "focusAreas": [
+            "Site Reliability Engineering (SLIs, SLOs, SLAs)",
+            "Cloud cost optimization (FinOps) & auto-scaling",
+            "Zero-downtime deployment strategies (Canary, Blue/Green)",
+            "DevSecOps (SAST/DAST, secrets management, IAM)"
+          ],
+          "package": "₹14 – ₹24 LPA",
+          "potentialNextStep": "Advance to DevOps Lead or Platform Architect"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "DevOps Lead / Platform Lead",
+          "focusAreas": [
+            "Internal Developer Platform (IDP) architecture",
+            "Disaster recovery planning & chaos engineering",
+            "Technical leadership & team mentoring",
+            "Cross-team engineering standards & governance"
+          ],
+          "package": "₹20 – ₹35 LPA",
+          "potentialNextStep": "Step into Principal Cloud Architect"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Principal DevOps / Platform Architect",
+          "focusAreas": [
+            "Enterprise multi-cloud architecture & hybrid strategy",
+            "Security compliance (SOC2, ISO27001) automation",
+            "Vendor evaluations & enterprise technology roadmap",
+            "Organization-wide developer velocity metrics"
+          ],
+          "package": "₹30 – ₹55+ LPA",
+          "potentialNextStep": "Advance to Head of Infrastructure & Platform"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Head of Infrastructure / Director – Cloud Platform",
+          "focusAreas": [
+            "Organization-wide cloud & platform strategy",
+            "Multi-million infrastructure budget & supplier negotiations",
+            "Enterprise security, resilience & tech governance",
+            "Executive technology leadership & business continuity"
+          ],
+          "package": "₹45 – ₹85+ LPA",
+          "potentialNextStep": "Chief Technology Officer (CTO) / VP Infrastructure"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Linux & Shell Scripting",
+          "icon": "🐧"
+        },
+        {
+          "name": "AWS / Azure Cloud",
+          "icon": "☁️"
+        },
+        {
+          "name": "Docker & Containers",
+          "icon": "🐳"
+        },
+        {
+          "name": "Kubernetes Orchestration",
+          "icon": "☸️"
+        },
+        {
+          "name": "Terraform (IaC)",
+          "icon": "🏗️"
+        },
+        {
+          "name": "CI/CD (GitHub Actions / Jenkins)",
+          "icon": "⚙️"
+        },
+        {
+          "name": "Prometheus & Grafana",
+          "icon": "📈"
+        },
+        {
+          "name": "DevSecOps & IAM Security",
+          "icon": "🔒"
+        },
+        {
+          "name": "Site Reliability (SRE)",
+          "icon": "🛡️"
+        },
+        {
+          "name": "System Architecture & Leadership",
+          "icon": "📐"
+        }
+      ]
+    },
+    "Java Full Stack Developer": {
+      "domainKey": "Java Full Stack Developer",
+      "title": "JAVA FULL STACK CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "JAVA FULL STACK CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "Java Full Stack Developer",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "Java Full Stack Intern / Junior Developer",
+          "focusAreas": [
+            "Programming & Java fundamentals (OOPs, Collections)",
+            "HTML, CSS & JavaScript basics",
+            "SQL & Database fundamentals (MySQL/PostgreSQL)",
+            "Git & version control practices"
+          ],
+          "package": "₹3 – ₹6 LPA",
+          "potentialNextStep": "Become a Junior Java Full Stack Developer"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Java Full Stack Developer",
+          "focusAreas": [
+            "Core Java, Streams & Multithreading",
+            "Spring & Spring Boot microservices basics",
+            "REST API development & JSON integration",
+            "React or Angular frontend basics & testing"
+          ],
+          "package": "₹4.5 – ₹8 LPA",
+          "potentialNextStep": "Grow into Full Stack Software Engineer"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "Full Stack Engineer / Java Developer",
+          "focusAreas": [
+            "Spring Boot, JPA/Hibernate & caching (Redis)",
+            "Advanced frontend state management (Redux/Zustand)",
+            "JWT security & OAuth2 authentication",
+            "Database indexing, query optimization & unit testing (JUnit)"
+          ],
+          "package": "₹6 – ₹12 LPA",
+          "potentialNextStep": "Step up to Senior Java Full Stack Developer"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Senior Java Full Stack Developer",
+          "focusAreas": [
+            "Microservices architecture & Kafka event streaming",
+            "Cloud deployment (AWS ECS/EKS) & Docker containers",
+            "CI/CD pipelines & automated quality gates",
+            "System design & high-concurrency performance tuning"
+          ],
+          "package": "₹10 – ₹18 LPA",
+          "potentialNextStep": "Advance to Tech Lead or Module Lead"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "Tech Lead / Staff Full Stack Engineer",
+          "focusAreas": [
+            "Application & distributed system architecture",
+            "Leading development sprints & code reviews",
+            "Technical mentoring & team capability building",
+            "Stakeholder collaboration & technical estimation"
+          ],
+          "package": "₹15 – ₹30 LPA",
+          "potentialNextStep": "Move into Engineering Manager or Principal Engineer"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Principal Engineer / Engineering Manager",
+          "focusAreas": [
+            "Enterprise application architecture standards",
+            "Technology strategy & modernization initiatives",
+            "Team delivery ownership & hiring top engineering talent",
+            "Cross-functional decision making & security governance"
+          ],
+          "package": "₹22 – ₹40 LPA",
+          "potentialNextStep": "Advance to Head of Engineering / Director"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Distinguished Engineer / Head of Engineering / VP",
+          "focusAreas": [
+            "Enterprise technology roadmap & engineering transformation",
+            "Organization-wide engineering culture & innovation",
+            "Budget ownership & vendor/cloud contract strategy",
+            "Executive C-level governance & strategic technology vision"
+          ],
+          "package": "₹30 – ₹60+ LPA",
+          "potentialNextStep": "Chief Technology Officer (CTO)"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Java & OOPs Mastery",
+          "icon": "☕"
+        },
+        {
+          "name": "Spring Boot & Microservices",
+          "icon": "🍃"
+        },
+        {
+          "name": "React / Angular Frontend",
+          "icon": "⚛️"
+        },
+        {
+          "name": "SQL & Hibernate / JPA",
+          "icon": "💾"
+        },
+        {
+          "name": "Kafka & Event Streams",
+          "icon": "📬"
+        },
+        {
+          "name": "Docker & Kubernetes",
+          "icon": "🐳"
+        },
+        {
+          "name": "AWS Cloud Deployment",
+          "icon": "☁️"
+        },
+        {
+          "name": "System Design & Caching",
+          "icon": "📐"
+        },
+        {
+          "name": "JUnit & Automated Testing",
+          "icon": "🧪"
+        },
+        {
+          "name": "Engineering Leadership",
+          "icon": "👥"
+        }
+      ]
+    },
+    "Software Development": {
+      "domainKey": "Software Development",
+      "title": "FULL STACK SOFTWARE DEVELOPMENT CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "SOFTWARE ENGINEER CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "Software Engineer / Full Stack Developer",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 Year",
+          "designation": "Junior Software Developer / Trainee",
+          "focusAreas": [
+            "Core programming languages & data structures",
+            "Web fundamentals (HTML5, CSS3, Modern JS)",
+            "Git workflows, version control & clean code basics",
+            "Database queries & RESTful API consumption"
+          ],
+          "package": "₹3 – ₹6 LPA",
+          "potentialNextStep": "Advance to Associate Software Engineer"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "1–2 Years",
+          "designation": "Software Developer",
+          "focusAreas": [
+            "Frontend frameworks (React/Vue) & component architecture",
+            "Backend API creation (Node.js/Python/Java)",
+            "Relational and NoSQL databases (PostgreSQL, MongoDB)",
+            "Writing automated unit & integration tests"
+          ],
+          "package": "₹5 – ₹9 LPA",
+          "potentialNextStep": "Grow into Full Stack Engineer"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 Years",
+          "designation": "Full Stack Engineer / Senior Developer",
+          "focusAreas": [
+            "End-to-end full stack architecture & microservices",
+            "State management, caching & CDN optimization",
+            "Cloud deployment (AWS/GCP) & containerization (Docker)",
+            "Code reviews, mentoring & technical sprint planning"
+          ],
+          "package": "₹8 – ₹15 LPA",
+          "potentialNextStep": "Step up to Senior Software Engineer"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "4–6 Years",
+          "designation": "Senior Software Engineer",
+          "focusAreas": [
+            "Distributed systems & asynchronous message queues",
+            "Application performance profiling & database indexing",
+            "High availability, fault tolerance & observability",
+            "System design & architectural trade-off analysis"
+          ],
+          "package": "₹14 – ₹24 LPA",
+          "potentialNextStep": "Advance to Tech Lead or Staff Engineer"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "6–9 Years",
+          "designation": "Tech Lead / Staff Software Engineer",
+          "focusAreas": [
+            "Leading engineering squads on mission-critical services",
+            "Technology selection, RFC authorship & tech debt strategy",
+            "Cross-team architectural alignment & API contracts",
+            "Mentoring senior engineers & fostering engineering excellence"
+          ],
+          "package": "₹20 – ₹35 LPA",
+          "potentialNextStep": "Move to Principal Engineer or Engineering Manager"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "EXPERT PHASE",
+          "experience": "9–12 Years",
+          "designation": "Principal Engineer / Engineering Manager",
+          "focusAreas": [
+            "Enterprise-scale platform architecture & tech governance",
+            "Engineering team management, delivery & headcount planning",
+            "Security, privacy & compliance frameworks at scale",
+            "Aligning technology strategy with business objectives"
+          ],
+          "package": "₹30 – ₹55+ LPA",
+          "potentialNextStep": "Advance to Director of Engineering"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "12–15 Years+",
+          "designation": "Director of Engineering / VP / CTO",
+          "focusAreas": [
+            "Multi-team engineering organizational leadership",
+            "Capital allocation, cloud budget & tech transformation",
+            "Fostering high-performance, innovation-focused culture",
+            "Executive C-suite representation & board reporting"
+          ],
+          "package": "₹45 – ₹80+ LPA",
+          "potentialNextStep": "Chief Technology Officer (CTO)"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Data Structures & Algorithms",
+          "icon": "🧠"
+        },
+        {
+          "name": "Full Stack Web (React & Node/Python)",
+          "icon": "🌐"
+        },
+        {
+          "name": "Database Engineering & SQL",
+          "icon": "💾"
+        },
+        {
+          "name": "Cloud Platforms (AWS/Azure)",
+          "icon": "☁️"
+        },
+        {
+          "name": "Docker & Containerization",
+          "icon": "🐳"
+        },
+        {
+          "name": "Distributed Systems & Queues",
+          "icon": "⚡"
+        },
+        {
+          "name": "System Design & Architecture",
+          "icon": "📐"
+        },
+        {
+          "name": "CI/CD & DevOps Automation",
+          "icon": "⚙️"
+        },
+        {
+          "name": "Testing & Code Quality",
+          "icon": "🧪"
+        },
+        {
+          "name": "Engineering Leadership",
+          "icon": "👥"
+        }
+      ]
+    },
+    "Human Resources": {
+      "domainKey": "Human Resources",
+      "title": "HUMAN RESOURCES CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "HUMAN RESOURCE CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "Human Resource",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 yr",
+          "designation": "HR Trainee / Intern",
+          "focusAreas": [
+            "HR Fundamentals",
+            "Recruitment Basics",
+            "Communication",
+            "Employee Records",
+            "MS Excel",
+            "HR Documentation"
+          ],
+          "package": "₹3–5 LPA",
+          "potentialNextStep": "Advance to HR Executive"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "0–2 yrs",
+          "designation": "HR Executive",
+          "focusAreas": [
+            "Recruitment",
+            "Screening",
+            "Onboarding",
+            "Employee Coordination",
+            "HR Documentation",
+            "HRMS Basics"
+          ],
+          "package": "₹4–7 LPA",
+          "potentialNextStep": "Grow into Senior HR Executive"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 yrs",
+          "designation": "Senior HR Executive",
+          "focusAreas": [
+            "End-to-End Recruitment",
+            "Employee Relations",
+            "Performance Management",
+            "HR Operations",
+            "HR Policies",
+            "HRMS"
+          ],
+          "package": "₹5–10 LPA",
+          "potentialNextStep": "Advance to HR Specialist / HR Generalist"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "2–5 yrs",
+          "designation": "HR Specialist / HR Generalist",
+          "focusAreas": [
+            "Talent Acquisition",
+            "Employee Engagement",
+            "Payroll Coordination",
+            "Compliance Basics",
+            "Performance Management",
+            "HR Analytics"
+          ],
+          "package": "₹6–12 LPA",
+          "potentialNextStep": "Step up to HR Manager"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "4–8 yrs",
+          "designation": "HR Manager",
+          "focusAreas": [
+            "HR Strategy",
+            "Team Management",
+            "Talent Management",
+            "Performance Management",
+            "Employee Relations",
+            "HR Policies"
+          ],
+          "package": "₹8–16 LPA",
+          "potentialNextStep": "Advance to Senior HR Manager"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "SENIOR LEADERSHIP",
+          "experience": "6–10 yrs",
+          "designation": "Senior HR Manager",
+          "focusAreas": [
+            "HR Planning",
+            "Organizational Development",
+            "Leadership Development",
+            "Workforce Planning",
+            "Employee Engagement",
+            "HR Analytics"
+          ],
+          "package": "₹12–22 LPA",
+          "potentialNextStep": "Advance to Head of Human Resources"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "9–14 yrs",
+          "designation": "Head of Human Resources",
+          "focusAreas": [
+            "HR Strategy",
+            "Talent Management",
+            "Workforce Planning",
+            "Culture Building",
+            "Compensation Strategy",
+            "Organizational Leadership"
+          ],
+          "package": "₹18–35 LPA",
+          "potentialNextStep": "Step up to Director – Human Resources"
+        },
+        {
+          "stageNum": 8,
+          "stageName": "EXECUTIVE PHASE",
+          "experience": "12–18+ yrs",
+          "designation": "Director – Human Resources",
+          "focusAreas": [
+            "Enterprise HR Strategy",
+            "Organizational Development",
+            "Talent Strategy",
+            "HR Governance",
+            "Business Partnership",
+            "Leadership"
+          ],
+          "package": "₹30–55+ LPA",
+          "potentialNextStep": "Advance to Chief Human Resources Officer (CHRO)"
+        },
+        {
+          "stageNum": 9,
+          "stageName": "ENTERPRISE C-SUITE",
+          "experience": "15–20+ yrs",
+          "designation": "Chief Human Resources Officer (CHRO)",
+          "focusAreas": [
+            "Company-Wide HR Strategy",
+            "Culture & Leadership",
+            "Workforce Strategy",
+            "Executive Compensation",
+            "Organizational Transformation",
+            "Business Alignment"
+          ],
+          "package": "₹45 LPA–1 Cr+",
+          "potentialNextStep": "Executive Leadership / Board Advisory"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Talent Acquisition & Sourcing",
+          "icon": "🔍"
+        },
+        {
+          "name": "Candidate Screening & Interviewing",
+          "icon": "🗣️"
+        },
+        {
+          "name": "HRMS & HRIS Software",
+          "icon": "💻"
+        },
+        {
+          "name": "Employee Relations & Engagement",
+          "icon": "🤝"
+        },
+        {
+          "name": "Labor Law & Statutory Compliance",
+          "icon": "⚖️"
+        },
+        {
+          "name": "Performance Appraisal & KPIs",
+          "icon": "📈"
+        },
+        {
+          "name": "Onboarding & Induction Planning",
+          "icon": "📋"
+        },
+        {
+          "name": "HR Analytics & Metrics Reporting",
+          "icon": "📊"
+        },
+        {
+          "name": "Compensation & Benefits Strategy",
+          "icon": "💰"
+        },
+        {
+          "name": "Organizational Leadership & Culture",
+          "icon": "👑"
+        }
+      ]
+    },
+    "Human Resource": {
+      "domainKey": "Human Resource",
+      "title": "HUMAN RESOURCE CAREER PATH",
+      "subtitle": "Your 10–15 Year Career Journey",
+      "tableHeader": "HUMAN RESOURCE CAREER PROGRESSION TIMELINE",
+      "defaultTargetCareer": "Human Resource",
+      "timeline": [
+        {
+          "stageNum": 1,
+          "stageName": "STARTING POINT",
+          "experience": "0–1 yr",
+          "designation": "HR Trainee / Intern",
+          "focusAreas": [
+            "HR Fundamentals",
+            "Recruitment Basics",
+            "Communication",
+            "Employee Records",
+            "MS Excel",
+            "HR Documentation"
+          ],
+          "package": "₹3–5 LPA",
+          "potentialNextStep": "Advance to HR Executive"
+        },
+        {
+          "stageNum": 2,
+          "stageName": "FOUNDATION BUILDER",
+          "experience": "0–2 yrs",
+          "designation": "HR Executive",
+          "focusAreas": [
+            "Recruitment",
+            "Screening",
+            "Onboarding",
+            "Employee Coordination",
+            "HR Documentation",
+            "HRMS Basics"
+          ],
+          "package": "₹4–7 LPA",
+          "potentialNextStep": "Grow into Senior HR Executive"
+        },
+        {
+          "stageNum": 3,
+          "stageName": "GROWTH PHASE",
+          "experience": "2–4 yrs",
+          "designation": "Senior HR Executive",
+          "focusAreas": [
+            "End-to-End Recruitment",
+            "Employee Relations",
+            "Performance Management",
+            "HR Operations",
+            "HR Policies",
+            "HRMS"
+          ],
+          "package": "₹5–10 LPA",
+          "potentialNextStep": "Advance to HR Specialist / HR Generalist"
+        },
+        {
+          "stageNum": 4,
+          "stageName": "ADVANCED PHASE",
+          "experience": "2–5 yrs",
+          "designation": "HR Specialist / HR Generalist",
+          "focusAreas": [
+            "Talent Acquisition",
+            "Employee Engagement",
+            "Payroll Coordination",
+            "Compliance Basics",
+            "Performance Management",
+            "HR Analytics"
+          ],
+          "package": "₹6–12 LPA",
+          "potentialNextStep": "Step up to HR Manager"
+        },
+        {
+          "stageNum": 5,
+          "stageName": "LEADERSHIP PHASE",
+          "experience": "4–8 yrs",
+          "designation": "HR Manager",
+          "focusAreas": [
+            "HR Strategy",
+            "Team Management",
+            "Talent Management",
+            "Performance Management",
+            "Employee Relations",
+            "HR Policies"
+          ],
+          "package": "₹8–16 LPA",
+          "potentialNextStep": "Advance to Senior HR Manager"
+        },
+        {
+          "stageNum": 6,
+          "stageName": "SENIOR LEADERSHIP",
+          "experience": "6–10 yrs",
+          "designation": "Senior HR Manager",
+          "focusAreas": [
+            "HR Planning",
+            "Organizational Development",
+            "Leadership Development",
+            "Workforce Planning",
+            "Employee Engagement",
+            "HR Analytics"
+          ],
+          "package": "₹12–22 LPA",
+          "potentialNextStep": "Advance to Head of Human Resources"
+        },
+        {
+          "stageNum": 7,
+          "stageName": "STRATEGIC PHASE",
+          "experience": "9–14 yrs",
+          "designation": "Head of Human Resources",
+          "focusAreas": [
+            "HR Strategy",
+            "Talent Management",
+            "Workforce Planning",
+            "Culture Building",
+            "Compensation Strategy",
+            "Organizational Leadership"
+          ],
+          "package": "₹18–35 LPA",
+          "potentialNextStep": "Step up to Director – Human Resources"
+        },
+        {
+          "stageNum": 8,
+          "stageName": "EXECUTIVE PHASE",
+          "experience": "12–18+ yrs",
+          "designation": "Director – Human Resources",
+          "focusAreas": [
+            "Enterprise HR Strategy",
+            "Organizational Development",
+            "Talent Strategy",
+            "HR Governance",
+            "Business Partnership",
+            "Leadership"
+          ],
+          "package": "₹30–55+ LPA",
+          "potentialNextStep": "Advance to Chief Human Resources Officer (CHRO)"
+        },
+        {
+          "stageNum": 9,
+          "stageName": "ENTERPRISE C-SUITE",
+          "experience": "15–20+ yrs",
+          "designation": "Chief Human Resources Officer (CHRO)",
+          "focusAreas": [
+            "Company-Wide HR Strategy",
+            "Culture & Leadership",
+            "Workforce Strategy",
+            "Executive Compensation",
+            "Organizational Transformation",
+            "Business Alignment"
+          ],
+          "package": "₹45 LPA–1 Cr+",
+          "potentialNextStep": "Executive Leadership / Board Advisory"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Talent Acquisition & Sourcing",
+          "icon": "🔍"
+        },
+        {
+          "name": "Candidate Screening & Interviewing",
+          "icon": "🗣️"
+        },
+        {
+          "name": "HRMS & HRIS Software",
+          "icon": "💻"
+        },
+        {
+          "name": "Employee Relations & Engagement",
+          "icon": "🤝"
+        },
+        {
+          "name": "Labor Law & Statutory Compliance",
+          "icon": "⚖️"
+        },
+        {
+          "name": "Performance Appraisal & KPIs",
+          "icon": "📈"
+        },
+        {
+          "name": "Onboarding & Induction Planning",
+          "icon": "📋"
+        },
+        {
+          "name": "HR Analytics & Metrics Reporting",
+          "icon": "📊"
+        },
+        {
+          "name": "Compensation & Benefits Strategy",
+          "icon": "💰"
+        },
+        {
+          "name": "Organizational Leadership & Culture",
+          "icon": "👑"
+        }
+      ]
+    }
+  },
+  "domainAliases": {
+    "ui/ux design": "UI/UX Design",
+    "ui-ux designer": "UI/UX Design",
+    "product designer": "UI/UX Design",
+    "data & analytics": "Data & Analytics",
+    "data analyst": "Data & Analytics",
+    "ds&analytics": "Data & Analytics",
+    "qa & automation testing": "QA & Automation Testing",
+    "qa automation engineer": "QA & Automation Testing",
+    "automation testing": "QA & Automation Testing",
+    "technical consulting & client solutions": "Technical Consulting & Client Solutions",
+    "technical consulting": "Technical Consulting & Client Solutions",
+    "business analyst": "Technical Consulting & Client Solutions",
+    "python development": "Python Development",
+    "python developer": "Python Development",
+    "python full stack developer": "Python Development",
+    "cloud & devops engineering": "Cloud & DevOps Engineering",
+    "cloud engineer": "Cloud & DevOps Engineering",
+    "devops engineer": "Cloud & DevOps Engineering",
+    "java full stack developer": "Java Full Stack Developer",
+    "software development": "Software Development",
+    "full stack development": "Software Development",
+    "human resources": "Human Resources",
+    "human resource": "Human Resources",
+    "human resources (hr)": "Human Resources",
+    "hr": "Human Resources",
+    "recruiter": "Human Resources",
+    "recruitment": "Human Resources",
+    "talent acquisition": "Human Resources",
+    "hr recruiter": "Human Resources",
+    "hr executive": "Human Resources",
+    "hr trainee": "Human Resources",
+    "hr specialist": "Human Resources",
+    "hr manager": "Human Resources",
+    "hr generalist": "Human Resources"
+  },
+  "generatedAt": "2026-09-04T12:12:16.876Z"
+}

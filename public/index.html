@@ -1,0 +1,4717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skilldome - Admin Operations & Career Readiness Scorecard</title>
+  <meta name="description" content="Skilldome Campus to Corporate internal operations admin panel for managing candidate registrations, test answers, and career readiness reports.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/logo.png?v=17.0">
+  <link rel="stylesheet" href="styles.css?v=17.0">
+  <style>
+    /* ==========================================================
+       CRITICAL UI OVERRIDES & GUARANTEED STYLES
+       ========================================================== */
+    
+    /* Glowing Neon Tiles (Exact Match to User Snippet) */
+    .neon-tiles-wrapper {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 32px !important;
+      max-width: 900px !important;
+      margin: 36px auto 20px auto !important;
+      flex-wrap: wrap !important;
+    }
+
+    .neon-glow-tile {
+      width: 380px !important;
+      min-height: 180px !important;
+      background: radial-gradient(120% 120% at 20% 20%, #0c2461 0%, #07173e 60%, #040d25 100%) !important;
+      border: 2px solid #1a65ff !important;
+      border-radius: 20px !important;
+      padding: 22px 24px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      align-items: stretch !important;
+      text-align: left !important;
+      cursor: pointer !important;
+      box-shadow: 0 0 22px rgba(0, 85, 255, 0.65), 0 0 45px rgba(0, 85, 255, 0.25), 0 12px 28px rgba(0, 0, 0, 0.45) !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      user-select: none !important;
+      position: relative !important;
+      overflow: hidden !important;
+      animation: neonPulseGlow 4s ease-in-out infinite alternate !important;
+    }
+
+    .neon-glow-tile::before {
+      content: '' !important;
+      position: absolute !important;
+      top: -50% !important;
+      left: -60% !important;
+      width: 45% !important;
+      height: 200% !important;
+      background: linear-gradient(
+        60deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.24) 50%,
+        rgba(255, 255, 255, 0) 100%
+      ) !important;
+      transform: rotate(25deg) !important;
+      pointer-events: none !important;
+      opacity: 0 !important;
+    }
+
+    .neon-glow-tile:hover {
+      transform: translateY(-6px) scale(1.025) !important;
+      border-color: #00d2ff !important;
+      box-shadow: 0 0 35px rgba(0, 180, 255, 0.95), 0 0 70px rgba(0, 120, 255, 0.45), 0 18px 36px rgba(0, 0, 0, 0.55) !important;
+    }
+
+    .neon-glow-tile:hover::before {
+      opacity: 1 !important;
+      animation: tileShimmerSweep 0.9s ease-out forwards !important;
+    }
+
+    .neon-glow-tile:active {
+      transform: translateY(-2px) scale(0.99) !important;
+    }
+
+    .neon-tile-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-bottom: 12px !important;
+    }
+
+    .neon-tile-label {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.25rem !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      letter-spacing: 0.3px !important;
+      margin: 0 !important;
+    }
+
+    .neon-tile-badge {
+      font-size: 0.68rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.4px !important;
+      text-transform: uppercase !important;
+      color: #38bdf8 !important;
+      background: rgba(56, 189, 248, 0.14) !important;
+      border: 1px solid rgba(56, 189, 248, 0.35) !important;
+      padding: 3px 9px !important;
+      border-radius: 999px !important;
+    }
+
+    .neon-tile-visual {
+      display: flex !important;
+      align-items: center !important;
+      gap: 14px !important;
+      margin: 4px 0 14px 0 !important;
+    }
+
+    .neon-icon-circle {
+      width: 50px !important;
+      height: 50px !important;
+      border-radius: 14px !important;
+      background: linear-gradient(135deg, rgba(0, 140, 255, 0.25) 0%, rgba(0, 85, 255, 0.45) 100%) !important;
+      border: 1.5px solid rgba(56, 189, 248, 0.5) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+      box-shadow: 0 0 16px rgba(0, 140, 255, 0.45) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+
+    .neon-glow-tile:hover .neon-icon-circle {
+      transform: scale(1.1) rotate(4deg) !important;
+      box-shadow: 0 0 24px rgba(0, 200, 255, 0.8) !important;
+      border-color: #38bdf8 !important;
+    }
+
+    .neon-tile-emoji {
+      font-size: 1.7rem !important;
+      line-height: 1 !important;
+      display: inline-block !important;
+      animation: emojiFloat 2.8s ease-in-out infinite alternate !important;
+    }
+
+    .neon-tile-info {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 3px !important;
+    }
+
+    .neon-info-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.95rem !important;
+      font-weight: 700 !important;
+      color: #f8fafc !important;
+      letter-spacing: 0.2px !important;
+    }
+
+    .neon-info-sub {
+      font-size: 0.73rem !important;
+      color: #94a3b8 !important;
+      font-weight: 500 !important;
+      line-height: 1.35 !important;
+    }
+
+    .neon-tile-sub {
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      color: #60a5fa !important;
+      letter-spacing: 0.3px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      transition: all 0.25s ease !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.09) !important;
+      padding-top: 10px !important;
+      margin-top: auto !important;
+    }
+
+    .tile-arrow {
+      display: inline-block !important;
+      transition: transform 0.25s ease !important;
+      color: #38bdf8 !important;
+      font-weight: 700 !important;
+    }
+
+    .neon-glow-tile:hover .neon-tile-sub {
+      color: #ffffff !important;
+    }
+
+    .neon-glow-tile:hover .tile-arrow {
+      transform: translateX(5px) !important;
+    }
+
+    /* Evaluation Cockpit Form */
+    .evaluation-form-container {
+      max-width: 1100px !important;
+      margin: 0 auto !important;
+      padding: 30px 24px 80px 24px !important;
+    }
+
+    .evaluation-form-header {
+      margin-bottom: 28px !important;
+    }
+
+    .evaluation-header-bar {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      gap: 20px !important;
+      margin-top: 14px !important;
+      flex-wrap: wrap !important;
+    }
+
+    .page-main-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 2.2rem !important;
+      font-weight: 900 !important;
+      color: #08183a !important;
+      margin: 0 0 6px 0 !important;
+    }
+
+    .page-main-subtitle {
+      font-size: 0.95rem !important;
+      color: #64748b !important;
+      margin: 0 !important;
+    }
+
+    .page-calc-banner {
+      background: linear-gradient(135deg, #08183a 0%, #0e2a63 100%) !important;
+      color: #ffffff !important;
+      border-radius: 14px !important;
+      padding: 14px 26px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 20px !important;
+      box-shadow: 0 8px 24px rgba(8, 24, 58, 0.25) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    }
+
+    .calc-number {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 2.4rem !important;
+      font-weight: 900 !important;
+      color: #10b981 !important;
+      line-height: 1 !important;
+    }
+
+    .live-level-badge {
+      font-size: 0.82rem !important;
+      font-weight: 900 !important;
+      padding: 6px 14px !important;
+      border-radius: 8px !important;
+      letter-spacing: 0.6px !important;
+      text-transform: uppercase !important;
+    }
+
+    .badge-developing { background: #f59e0b !important; color: #ffffff !important; }
+    .badge-proficient { background: #0284c7 !important; color: #ffffff !important; }
+    .badge-jobready { background: #10b981 !important; color: #ffffff !important; }
+
+    .form-section-card {
+      background: #ffffff !important;
+      border: 1.5px solid #e2e8f0 !important;
+      border-radius: 16px !important;
+      padding: 28px 32px !important;
+      margin-bottom: 24px !important;
+      box-shadow: 0 4px 16px rgba(8, 24, 58, 0.05) !important;
+    }
+
+    .form-group-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.25rem !important;
+      font-weight: 800 !important;
+      color: #08183a !important;
+      margin: 0 0 22px 0 !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .step-num-circle {
+      width: 28px !important;
+      height: 28px !important;
+      border-radius: 50% !important;
+      background: #08183a !important;
+      color: #ffffff !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 0.85rem !important;
+      font-weight: 900 !important;
+      margin-right: 12px !important;
+    }
+
+    .form-grid-3 {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 18px !important;
+    }
+
+    .form-field {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 7px !important;
+    }
+
+    .form-field label {
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      color: #1e293b !important;
+    }
+
+    .form-input {
+      width: 100% !important;
+      padding: 10px 14px !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 10px !important;
+      font-size: 0.92rem !important;
+      color: #0f172a !important;
+      background: #ffffff !important;
+      transition: all 0.2s ease !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+    }
+
+    .form-input:focus {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18) !important;
+    }
+
+    .form-input-highlight {
+      border: 2px solid #0284c7 !important;
+      background: #f0f9ff !important;
+      font-weight: 700 !important;
+    }
+
+    .form-span-2 { grid-column: span 2 !important; }
+    .form-span-3 { grid-column: span 3 !important; }
+
+    .field-hint {
+      font-size: 0.75rem !important;
+      color: #64748b !important;
+      margin-top: 4px !important;
+    }
+
+    /* Score Breakdown Matrix Table */
+    .matrix-table-card {
+      padding: 0 !important;
+      overflow: hidden !important;
+      border: 2px solid #08183a !important;
+    }
+
+    .matrix-table-header-bar {
+      background: #08183a !important;
+      color: #ffffff !important;
+      padding: 16px 24px !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+    }
+
+    .matrix-table-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.1rem !important;
+      font-weight: 800 !important;
+      margin: 0 !important;
+      color: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+
+    .matrix-table-wrap {
+      width: 100% !important;
+      overflow-x: auto !important;
+    }
+
+    .score-matrix-table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      background: #ffffff !important;
+    }
+
+    .score-matrix-table th {
+      background: #0e224d !important;
+      color: #ffffff !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.76rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.6px !important;
+      text-transform: uppercase !important;
+      padding: 12px 18px !important;
+      border: none !important;
+    }
+
+    .score-matrix-table td {
+      padding: 13px 18px !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      vertical-align: middle !important;
+    }
+
+    .score-matrix-table tr:hover td {
+      background: #f8fafc !important;
+    }
+
+    .matrix-num-badge {
+      width: 26px !important;
+      height: 26px !important;
+      border-radius: 7px !important;
+      color: #ffffff !important;
+      font-size: 0.78rem !important;
+      font-weight: 900 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .matrix-area-col {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 3px !important;
+    }
+
+    .matrix-area-name {
+      font-weight: 800 !important;
+      color: #08183a !important;
+      font-size: 0.92rem !important;
+    }
+
+    .matrix-area-desc {
+      font-size: 0.75rem !important;
+      color: #64748b !important;
+    }
+
+    .matrix-max-badge {
+      background: #f1f5f9 !important;
+      color: #334155 !important;
+      font-size: 0.82rem !important;
+      font-weight: 800 !important;
+      padding: 5px 12px !important;
+      border-radius: 8px !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+
+    .matrix-score-input {
+      width: 80px !important;
+      padding: 9px 12px !important;
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 10px !important;
+      font-size: 1rem !important;
+      font-weight: 900 !important;
+      text-align: center !important;
+      color: #08183a !important;
+      background: #ffffff !important;
+      outline: none !important;
+    }
+
+    .matrix-score-input:focus {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2) !important;
+    }
+
+    .matrix-progress-wrap {
+      display: flex !important;
+      align-items: center !important;
+      gap: 14px !important;
+    }
+
+    .matrix-progress-track {
+      flex: 1 !important;
+      height: 10px !important;
+      background: #e2e8f0 !important;
+      border-radius: 6px !important;
+      overflow: hidden !important;
+    }
+
+    .matrix-progress-fill {
+      height: 100% !important;
+      border-radius: 6px !important;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .matrix-percent-label {
+      font-size: 0.82rem !important;
+      font-weight: 900 !important;
+      color: #08183a !important;
+      min-width: 44px !important;
+      text-align: right !important;
+    }
+
+    .fill-purple { background: #8b5cf6 !important; }
+    .fill-blue   { background: #2563eb !important; }
+    .fill-green  { background: #16a34a !important; }
+    .fill-orange { background: #ea580c !important; }
+    .fill-pink   { background: #db2777 !important; }
+    .fill-teal   { background: #0891b2 !important; }
+    .fill-navy   { background: #1d4ed8 !important; }
+
+    .badge-purple { background: #8b5cf6 !important; }
+    .badge-blue   { background: #2563eb !important; }
+    .badge-green  { background: #16a34a !important; }
+    .badge-orange { background: #ea580c !important; }
+    .badge-pink   { background: #db2777 !important; }
+    .badge-teal   { background: #0891b2 !important; }
+    .badge-navy   { background: #1d4ed8 !important; }
+
+    .matrix-total-row {
+      background: #f8fafc !important;
+      border-top: 2.5px solid #08183a !important;
+    }
+
+    .matrix-total-row td {
+      padding: 16px 18px !important;
+      font-weight: 900 !important;
+      color: #08183a !important;
+    }
+
+    .matrix-total-badge {
+      background: #08183a !important;
+      color: #ffffff !important;
+      font-size: 1.05rem !important;
+      font-weight: 900 !important;
+      padding: 7px 16px !important;
+      border-radius: 9px !important;
+    }
+
+    .form-grid-2 {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 18px !important;
+    }
+
+    .form-textarea {
+      font-family: inherit !important;
+      resize: vertical !important;
+      min-height: 90px !important;
+      line-height: 1.5 !important;
+    }
+
+    .evaluation-form-footer-actions {
+      display: flex !important;
+      justify-content: flex-end !important;
+      align-items: center !important;
+      gap: 16px !important;
+      margin-top: 32px !important;
+      padding-top: 24px !important;
+      border-top: 1.5px solid #e2e8f0 !important;
+    }
+
+    .btn-action-outline {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      color: #475569 !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.92rem !important;
+      font-weight: 800 !important;
+      padding: 12px 22px !important;
+      border-radius: 10px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+    }
+
+    .btn-action-outline:hover {
+      background: #f1f5f9 !important;
+      border-color: #94a3b8 !important;
+      color: #08183a !important;
+    }
+
+    .btn-primary-action {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      background: linear-gradient(135deg, #0284c7 0%, #1d4ed8 100%) !important;
+      border: none !important;
+      color: #ffffff !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.95rem !important;
+      font-weight: 800 !important;
+      padding: 14px 28px !important;
+      border-radius: 10px !important;
+      cursor: pointer !important;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+      transition: all 0.25s ease !important;
+    }
+
+    .btn-primary-action:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(29, 78, 216, 0.45) !important;
+      background: linear-gradient(135deg, #0369a1 0%, #1e40af 100%) !important;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif !important;
+      background-color: #f8fafc !important;
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(0, 192, 243, 0.08) 0px, transparent 45%),
+        radial-gradient(at 85% 10%, rgba(99, 102, 241, 0.07) 0px, transparent 40%),
+        radial-gradient(at 50% 90%, rgba(14, 165, 233, 0.06) 0px, transparent 45%) !important;
+      background-attachment: fixed !important;
+    }
+
+    .portal-hero-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 2.75rem !important;
+      font-weight: 900 !important;
+      color: #08183a !important;
+      margin: 0 0 10px 0 !important;
+      letter-spacing: -0.8px !important;
+    }
+
+    .portal-hero-sub {
+      font-size: 1.05rem !important;
+      color: #64748b !important;
+      max-width: 650px !important;
+      margin: 0 auto 30px auto !important;
+      line-height: 1.6 !important;
+    }
+
+    .btn-breadcrumb {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      color: #08183a !important;
+      font-size: 0.8rem !important;
+      font-weight: 800 !important;
+      padding: 8px 16px !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .btn-breadcrumb:hover {
+      background: #f1f5f9 !important;
+      border-color: #0284c7 !important;
+      transform: translateY(-1px) !important;
+    }
+
+    /* Auto-Summary Live Generation Section in Evaluation Form */
+    .auto-summary-card {
+      background: #f8fafc !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 12px !important;
+      padding: 22px !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .section-header-flex {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      gap: 12px !important;
+      margin-bottom: 12px !important;
+    }
+
+    .btn-regenerate-summary {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+      color: #ffffff !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 800 !important;
+      padding: 8px 16px !important;
+      border: none !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25) !important;
+      transition: all 0.2s ease !important;
+    }
+
+    .btn-regenerate-summary:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #075985 100%) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35) !important;
+    }
+
+    .auto-summary-live-bar {
+      display: flex !important;
+      align-items: center !important;
+      gap: 9px !important;
+      background: #e0f2fe !important;
+      border: 1px solid #7dd3fc !important;
+      border-radius: 8px !important;
+      padding: 8px 14px !important;
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      color: #0369a1 !important;
+      margin-bottom: 14px !important;
+    }
+
+    .pulse-dot {
+      width: 8px !important;
+      height: 8px !important;
+      border-radius: 50% !important;
+      background: #10b981 !important;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7) !important;
+      animation: pulseGreen 2s infinite !important;
+      flex-shrink: 0 !important;
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .field-label-accent {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: baseline !important;
+      font-size: 0.82rem !important;
+      font-weight: 800 !important;
+      margin-bottom: 6px !important;
+    }
+
+    .label-sub {
+      font-size: 0.68rem !important;
+      font-weight: 600 !important;
+      color: #64748b !important;
+    }
+
+    /* Exact points card styling matching user reference image */
+    .summary-points-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 16px !important;
+      margin-top: 12px !important;
+    }
+
+    .summary-points-card {
+      background: #ffffff !important;
+      border: 1.5px solid #e2e8f0 !important;
+      border-radius: 12px !important;
+      padding: 18px 20px !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .points-card-header {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      margin-bottom: 14px !important;
+    }
+
+    .feedback-icon-circle {
+      width: 26px !important;
+      height: 26px !important;
+      border-radius: 50% !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #ffffff !important;
+      font-size: 13px !important;
+      font-weight: 900 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .circle-green {
+      background: #16a34a !important;
+    }
+
+    .circle-orange {
+      background: #ea580c !important;
+    }
+
+    .circle-blue {
+      background: #0284c7 !important;
+    }
+
+    .points-card-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.94rem !important;
+      font-weight: 800 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      margin: 0 !important;
+    }
+
+    .title-green {
+      color: #16a34a !important;
+    }
+
+    .title-orange {
+      color: #ea580c !important;
+    }
+
+    .title-blue {
+      color: #0284c7 !important;
+    }
+
+    .points-items-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+
+    .point-item-row {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+      font-size: 0.86rem !important;
+      color: #1e293b !important;
+      line-height: 1.45 !important;
+      position: relative !important;
+    }
+
+    .point-circle-bullet, .list-item-bullet {
+      width: 18px !important;
+      height: 18px !important;
+      min-width: 18px !important;
+      border-radius: 50% !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #ffffff !important;
+      font-size: 10px !important;
+      font-weight: 900 !important;
+      flex-shrink: 0 !important;
+      margin-top: 2px !important;
+    }
+
+    .bullet-green {
+      background: #16a34a !important;
+    }
+
+    .bullet-orange {
+      background: #ea580c !important;
+      font-size: 11px !important;
+    }
+
+    .bullet-blue, .number-bullet {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      width: 18px !important;
+      height: 18px !important;
+      min-width: 18px !important;
+      border-radius: 50% !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 10px !important;
+      font-weight: 800 !important;
+      flex-shrink: 0 !important;
+      margin-top: 2px !important;
+    }
+
+    .point-text-content {
+      flex: 1 !important;
+      outline: none !important;
+      border-radius: 4px !important;
+      padding: 1px 5px !important;
+      transition: background 0.15s ease !important;
+    }
+
+    .point-text-content[contenteditable="true"]:hover {
+      background: #f1f5f9 !important;
+    }
+
+    .point-text-content[contenteditable="true"]:focus {
+      background: #ffffff !important;
+      box-shadow: 0 0 0 2px #0284c7 !important;
+    }
+
+    /* ==========================================================
+       MOCK INTERVIEW SCORECARD STYLING (MATCHING ASSESSMENT PAGE & TEMPLATE)
+       ========================================================== */
+    .mock-scorecard-container {
+      display: flex !important;
+      flex-direction: row !important;
+      background: #ffffff !important;
+      border-radius: 12px !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+      overflow: hidden !important;
+      max-width: 1100px !important;
+      margin: 20px auto 40px auto !important;
+      border: 1.5px solid #e2e8f0 !important;
+    }
+
+    .mock-sidebar {
+      width: 250px !important;
+      min-width: 250px !important;
+      background: #0c192c !important;
+      color: #ffffff !important;
+      padding: 22px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      flex-shrink: 0 !important;
+    }
+
+    .mock-profile-box {
+      text-align: center !important;
+      margin: 14px 0 18px 0 !important;
+    }
+
+    .mock-monogram-circle {
+      width: 52px !important;
+      height: 52px !important;
+      border-radius: 50% !important;
+      border: 2.5px solid #ffffff !important;
+      background: linear-gradient(135deg, #1e3a8a 0%, #08183a 100%) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin: 0 auto 8px auto !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+      overflow: hidden !important;
+      position: relative !important;
+    }
+
+    .mock-monogram-text {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.35rem !important;
+      font-weight: 900 !important;
+      color: #facc15 !important;
+    }
+
+    .mock-student-name {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 800 !important;
+      color: #facc15 !important;
+      text-align: center !important;
+      margin: 0 !important;
+      letter-spacing: 0.5px !important;
+    }
+
+    .mock-meta-list {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 8px !important;
+      flex: 1 !important;
+    }
+
+    .mock-meta-item {
+      display: flex !important;
+      align-items: center !important;
+      gap: 9px !important;
+    }
+
+    .mock-meta-icon {
+      width: 24px !important;
+      height: 24px !important;
+      border-radius: 50% !important;
+      background: rgba(255, 255, 255, 0.12) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #93c5fd !important;
+      flex-shrink: 0 !important;
+    }
+
+    .mock-meta-icon svg {
+      width: 12px !important;
+      height: 12px !important;
+    }
+
+    .mock-meta-info {
+      display: flex !important;
+      flex-direction: column !important;
+      line-height: 1.2 !important;
+    }
+
+    .mock-meta-label {
+      font-size: 0.62rem !important;
+      color: #94a3b8 !important;
+      font-weight: 600 !important;
+    }
+
+    .mock-meta-val {
+      font-size: 0.76rem !important;
+      color: #f8fafc !important;
+      font-weight: 700 !important;
+    }
+
+    .mock-main {
+      flex: 1 !important;
+      padding: 22px 26px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 14px !important;
+      background: #ffffff !important;
+      overflow: hidden !important;
+    }
+
+    .mock-report-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      border-bottom: 2px solid #08183a !important;
+      padding-bottom: 10px !important;
+    }
+
+    .mock-report-header .report-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.4rem !important;
+      font-weight: 900 !important;
+      color: #08183a !important;
+      margin: 0 !important;
+      letter-spacing: 0.2px !important;
+    }
+
+    .mock-report-header .report-subtitle {
+      font-size: 0.72rem !important;
+      color: #64748b !important;
+      font-weight: 600 !important;
+      margin-top: 2px !important;
+    }
+
+    .interview-number-badge {
+      background: #08183a !important;
+      color: #ffffff !important;
+      border-radius: 8px !important;
+      padding: 5px 14px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      line-height: 1.1 !important;
+    }
+
+    .int-num-lead {
+      font-size: 0.55rem !important;
+      font-weight: 800 !important;
+      color: #93c5fd !important;
+      letter-spacing: 0.6px !important;
+      text-transform: uppercase !important;
+    }
+
+    .int-num-val {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.2rem !important;
+      font-weight: 900 !important;
+      color: #ffffff !important;
+    }
+
+    .mock-row-1 {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 14px !important;
+    }
+
+    .mock-card {
+      border: 1.5px solid #e2e8f0 !important;
+      border-radius: 12px !important;
+      padding: 12px 16px !important;
+      background: #ffffff !important;
+    }
+
+    .mock-card-label {
+      font-size: 0.66rem !important;
+      font-weight: 800 !important;
+      color: #64748b !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.6px !important;
+      margin-bottom: 6px !important;
+    }
+
+    .mock-interview-pill {
+      display: inline-block !important;
+      background: #08183a !important;
+      color: #ffffff !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.88rem !important;
+      font-weight: 800 !important;
+      padding: 5px 14px !important;
+      border-radius: 20px !important;
+      margin-bottom: 6px !important;
+    }
+
+    .mock-focus-desc {
+      font-size: 0.74rem !important;
+      color: #334155 !important;
+      line-height: 1.35 !important;
+    }
+
+    .mock-gauge-layout {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+
+    .mock-level-tag {
+      font-size: 0.6rem !important;
+      font-weight: 800 !important;
+      color: #64748b !important;
+      text-transform: uppercase !important;
+    }
+
+    .mock-level-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.1rem !important;
+      font-weight: 900 !important;
+      color: #ea580c !important;
+      margin: 1px 0 3px 0 !important;
+    }
+
+    .mock-level-desc {
+      font-size: 0.7rem !important;
+      color: #475569 !important;
+      line-height: 1.3 !important;
+      margin: 0 !important;
+    }
+
+    .mock-table-card {
+      border: 1.5px solid #08183a !important;
+      border-radius: 10px !important;
+      overflow: hidden !important;
+    }
+
+    .mock-table-header-title {
+      background: #08183a !important;
+      color: #ffffff !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.76rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.6px !important;
+      padding: 7px 14px !important;
+      text-transform: uppercase !important;
+    }
+
+    /* Recommended Career Domains Table - Guaranteed Full Coverage */
+    .rec-table-wrapper {
+      width: 100% !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .rec-career-table {
+      width: 100% !important;
+      max-width: 100% !important;
+      table-layout: fixed !important;
+      border-collapse: collapse !important;
+      font-size: 0.70rem !important;
+      box-sizing: border-box !important;
+    }
+
+    .rec-career-table th:nth-child(1),
+    .rec-career-table td:nth-child(1) {
+      width: 19% !important;
+    }
+
+    .rec-career-table th:nth-child(2),
+    .rec-career-table td:nth-child(2) {
+      width: 11% !important;
+    }
+
+    .rec-career-table th:nth-child(3),
+    .rec-career-table td:nth-child(3) {
+      width: 23% !important;
+    }
+
+    .rec-career-table th:nth-child(4),
+    .rec-career-table td:nth-child(4) {
+      width: 18% !important;
+    }
+
+    .rec-career-table th:nth-child(5),
+    .rec-career-table td:nth-child(5) {
+      width: 11% !important;
+      text-align: center !important;
+    }
+
+    .rec-career-table th:nth-child(6),
+    .rec-career-table td:nth-child(6) {
+      width: 18% !important;
+    }
+
+    .rec-career-table th {
+      padding: 2.5px 5px !important;
+      text-align: left !important;
+      font-weight: 800 !important;
+      color: #08183a !important;
+      font-size: 0.60rem !important;
+      line-height: 1.15 !important;
+      white-space: normal !important;
+      word-break: normal !important;
+      box-sizing: border-box !important;
+    }
+
+    .rec-career-table td {
+      padding: 2.5px 5px !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+      vertical-align: top !important;
+      font-size: 0.60rem !important;
+      line-height: 1.18 !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+    }
+
+    /* ==========================================================
+       SCORECARD ULTRA-COMPACT HIGH-DENSITY OVERRIDES
+       (ENSURES 100% VISIBILITY FOR ALL 4 ROWS & ZERO CUTOFF)
+       ========================================================== */
+    .scorecard-main {
+      padding: 6px 12px !important;
+      gap: 3px !important;
+    }
+
+    .report-header {
+      padding-bottom: 2px !important;
+      margin-bottom: 1.5px !important;
+    }
+
+    .report-title {
+      font-size: 1.10rem !important;
+      line-height: 1.15 !important;
+    }
+
+    .report-subtitle {
+      font-size: 0.62rem !important;
+    }
+
+    .student-id-header-badge {
+      padding: 1.5px 5px !important;
+    }
+
+    /* Row 1: Overall Career Readiness & Radar Chart Ultra Compact */
+    .top-analytics-grid {
+      gap: 6px !important;
+      margin: 0 0 2px 0 !important;
+    }
+
+    .readiness-card, .radar-card {
+      padding: 4px 6px !important;
+    }
+
+    .card-section-title {
+      font-size: 0.64rem !important;
+      margin-bottom: 2px !important;
+    }
+
+    .readiness-summary-row {
+      gap: 6px !important;
+      margin-bottom: 2px !important;
+    }
+
+    .gauge-container {
+      width: 58px !important;
+      height: 58px !important;
+    }
+
+    .gauge-score {
+      font-size: 1.15rem !important;
+    }
+
+    .tier-headline-pill {
+      font-size: 0.58rem !important;
+      padding: 1px 4px !important;
+    }
+
+    .tier-desc {
+      font-size: 0.56rem !important;
+      line-height: 1.15 !important;
+    }
+
+    .scale-bar-track {
+      height: 3px !important;
+      margin: 2px 0 1.5px !important;
+    }
+
+    .scale-labels-row {
+      margin-top: 1px !important;
+    }
+
+    .label-range {
+      font-size: 0.48rem !important;
+    }
+
+    .label-tier {
+      font-size: 0.46rem !important;
+    }
+
+    .radar-container-large {
+      height: 88px !important;
+      min-height: 88px !important;
+    }
+
+    .radar-svg {
+      height: 88px !important;
+    }
+
+    /* Row 2: Aptitude & Technical Boxes - Ultra Compact High-Density */
+    .mid-analytics-grid {
+      display: grid !important;
+      grid-template-columns: 1.25fr 0.75fr !important;
+      gap: 6px !important;
+      margin: 0 0 2px 0 !important;
+    }
+
+    .area-scores-card, .technical-skills-card {
+      border: 1px solid var(--border-light) !important;
+      border-radius: var(--radius-sm) !important;
+      background: #ffffff !important;
+    }
+
+    .card-header-dark {
+      padding: 2.5px 6px !important;
+      font-size: 0.62rem !important;
+      line-height: 1.15 !important;
+    }
+
+    .domain-scope-tag {
+      font-size: 0.50rem !important;
+      padding: 0.5px 3px !important;
+    }
+
+    .area-table-header {
+      padding: 1.5px 6px !important;
+      font-size: 0.52rem !important;
+      line-height: 1.1 !important;
+      background: #f8fafc !important;
+    }
+
+    .col-area { flex: 1 !important; min-width: 0 !important; }
+    .col-score { width: 44px !important; flex-shrink: 0 !important; text-align: left !important; }
+    .col-level { width: 34px !important; flex-shrink: 0 !important; text-align: right !important; }
+
+    .area-bars-container {
+      padding: 1.5px 6px !important;
+      gap: 0px !important;
+    }
+
+    .score-bar-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 3px !important;
+      padding: 0.3px 0 !important;
+      font-size: 0.54rem !important;
+      line-height: 1.08 !important;
+    }
+
+    .bar-icon-box {
+      width: 10px !important;
+      height: 10px !important;
+      font-size: 0.48rem !important;
+      border-radius: 2px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .bar-area-name {
+      flex: 1 !important;
+      min-width: 0 !important;
+      font-size: 0.54rem !important;
+      font-weight: 600 !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+      line-height: 1.08 !important;
+    }
+
+    .bar-score-group {
+      width: 44px !important;
+      flex-shrink: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 2px !important;
+    }
+
+    .bar-num {
+      font-size: 0.54rem !important;
+      font-weight: 700 !important;
+      width: 13px !important;
+      text-align: right !important;
+    }
+
+    .bar-track {
+      flex: 1 !important;
+      height: 2.5px !important;
+      background: #e2e8f0 !important;
+      border-radius: 1.5px !important;
+      overflow: hidden !important;
+    }
+
+    .bar-level-badge {
+      width: 34px !important;
+      text-align: right !important;
+      font-size: 0.50rem !important;
+      font-weight: 700 !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Technical Test Box Blank / Pending State */
+    .technical-test-blank-card {
+      padding: 3px 5px !important;
+      margin: 1px !important;
+      gap: 1.5px !important;
+      border-radius: var(--radius-sm) !important;
+      border: 1.5px dashed #cbd5e1 !important;
+      background: #f8fafc !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      flex: 1 !important;
+    }
+
+    .test-pending-icon {
+      font-size: 0.85rem !important;
+      margin-bottom: 0px !important;
+      line-height: 1 !important;
+    }
+
+    .test-pending-title {
+      font-size: 0.60rem !important;
+      font-weight: 800 !important;
+      margin-bottom: 0px !important;
+      line-height: 1.15 !important;
+    }
+
+    .test-pending-desc {
+      font-size: 0.52rem !important;
+      line-height: 1.1 !important;
+      max-width: 220px !important;
+      color: #64748b !important;
+    }
+
+    .test-pending-footer {
+      font-size: 0.48rem !important;
+      padding: 0.5px 4px !important;
+      background: #fef3c7 !important;
+      border-radius: 2.5px !important;
+    }
+
+    /* Row 3: Domain Table & Legend - Optimized Column Proportions */
+    .card-header-navy {
+      padding: 2.5px 6px !important;
+      font-size: 0.62rem !important;
+      font-weight: 800 !important;
+    }
+
+    .rec-career-table th:nth-child(1),
+    .rec-career-table td:nth-child(1) {
+      width: 22% !important;
+    }
+
+    .rec-career-table th:nth-child(2),
+    .rec-career-table td:nth-child(2) {
+      width: 12% !important;
+    }
+
+    .rec-career-table th:nth-child(3),
+    .rec-career-table td:nth-child(3) {
+      width: 21% !important;
+    }
+
+    .rec-career-table th:nth-child(4),
+    .rec-career-table td:nth-child(4) {
+      width: 17% !important;
+    }
+
+    .rec-career-table th:nth-child(5),
+    .rec-career-table td:nth-child(5) {
+      width: 10% !important;
+      text-align: center !important;
+    }
+
+    .rec-career-table th:nth-child(6),
+    .rec-career-table td:nth-child(6) {
+      width: 18% !important;
+    }
+
+    .rec-career-table th {
+      padding: 2px 4px !important;
+      font-size: 0.56rem !important;
+      line-height: 1.1 !important;
+    }
+
+    .rec-career-table td {
+      padding: 1.5px 4px !important;
+      font-size: 0.56rem !important;
+      line-height: 1.12 !important;
+    }
+
+    .domain-cell {
+      gap: 4px !important;
+    }
+
+    .rec-icon {
+      width: 14px !important;
+      height: 14px !important;
+      font-size: 0.65rem !important;
+    }
+
+    .rec-domain-title {
+      font-size: 0.60rem !important;
+      line-height: 1.15 !important;
+    }
+
+    .rec-domain-sub {
+      font-size: 0.50rem !important;
+      line-height: 1.05 !important;
+    }
+
+    .star-rating {
+      font-size: 0.62rem !important;
+      line-height: 1 !important;
+    }
+
+    .match-label {
+      font-size: 0.52rem !important;
+    }
+
+    .why-text {
+      font-size: 0.54rem !important;
+      line-height: 1.12 !important;
+      margin: 0 !important;
+    }
+
+    .designation-list li, .focus-list li {
+      font-size: 0.54rem !important;
+      line-height: 1.12 !important;
+    }
+
+    .readiness-circle {
+      font-size: 0.54rem !important;
+      padding: 1px 3px !important;
+    }
+
+    .readiness-caption {
+      font-size: 0.48rem !important;
+    }
+
+    .match-legend-bar {
+      padding: 1.5px 5px !important;
+      font-size: 0.50rem !important;
+      gap: 5px !important;
+    }
+
+    .disclaimer-note {
+      font-size: 0.50rem !important;
+      margin: 0.5px 0 !important;
+      line-height: 1 !important;
+      color: #64748b !important;
+    }
+
+    /* Row 4: Bottom 3 Action Boxes - Guaranteed 100% Fully Visible */
+    .bottom-action-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1.15fr !important;
+      gap: 5px !important;
+      margin: 0 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .action-card {
+      padding: 3px 6px !important;
+      border: 1px solid #cbd5e1 !important;
+      border-radius: 4px !important;
+      background: #ffffff !important;
+    }
+
+    .action-card-header {
+      margin-bottom: 1.5px !important;
+      padding-bottom: 1.5px !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    .action-card-title {
+      font-size: 0.58rem !important;
+      font-weight: 800 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 2.5px !important;
+      margin: 0 !important;
+    }
+
+    .card-title-icon {
+      font-size: 0.65rem !important;
+    }
+
+    .card-badge-tag {
+      font-size: 0.50rem !important;
+      padding: 0.5px 3px !important;
+    }
+
+    .service-check-list {
+      gap: 1px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+    }
+
+    .service-check-list li {
+      font-size: 0.54rem !important;
+      line-height: 1.14 !important;
+      gap: 2.5px !important;
+      display: flex !important;
+      align-items: flex-start !important;
+    }
+
+    .check-icon {
+      font-size: 0.54rem !important;
+      color: #16a34a !important;
+      font-weight: 900 !important;
+      line-height: 1.14 !important;
+    }
+
+    .service-desc {
+      font-size: 0.54rem !important;
+      line-height: 1.14 !important;
+    }
+
+    .sw-split-container {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 4px !important;
+    }
+
+    .sw-column {
+      padding: 1.5px 3px !important;
+      gap: 1px !important;
+      border-radius: 3px !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .sw-col-header {
+      font-size: 0.52rem !important;
+      font-weight: 800 !important;
+      margin-bottom: 1px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 2px !important;
+    }
+
+    .sw-col-icon {
+      font-size: 0.56rem !important;
+    }
+
+    .sw-bullet-list {
+      gap: 1px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .sw-bullet-row {
+      font-size: 0.52rem !important;
+      line-height: 1.14 !important;
+      gap: 2.5px !important;
+      display: flex !important;
+      align-items: flex-start !important;
+    }
+
+    .sw-bullet-dot {
+      font-size: 0.52rem !important;
+      font-weight: 900 !important;
+      line-height: 1.14 !important;
+    }
+
+    .sw-bullet-text {
+      font-size: 0.52rem !important;
+      line-height: 1.14 !important;
+    }
+
+    /* Mock Interview Breakdown Table - Guaranteed Full Coverage */
+    .mock-breakdown-table {
+      width: 100% !important;
+      max-width: 100% !important;
+      table-layout: fixed !important;
+      border-collapse: collapse !important;
+      font-size: 0.72rem !important;
+      box-sizing: border-box !important;
+    }
+
+    .mock-breakdown-table th:nth-child(1),
+    .mock-breakdown-table td:nth-child(1) {
+      width: 5% !important;
+      text-align: center !important;
+    }
+
+    .mock-breakdown-table th:nth-child(2),
+    .mock-breakdown-table td:nth-child(2) {
+      width: 41% !important;
+    }
+
+    .mock-breakdown-table th:nth-child(3),
+    .mock-breakdown-table td:nth-child(3) {
+      width: 13% !important;
+      text-align: center !important;
+    }
+
+    .mock-breakdown-table th:nth-child(4),
+    .mock-breakdown-table td:nth-child(4) {
+      width: 13% !important;
+      text-align: center !important;
+    }
+
+    .mock-breakdown-table th:nth-child(5),
+    .mock-breakdown-table td:nth-child(5) {
+      width: 28% !important;
+    }
+
+    .mock-breakdown-table th {
+      background: #f1f5f9 !important;
+      color: #08183a !important;
+      font-weight: 800 !important;
+      padding: 7px 8px !important;
+      font-size: 0.68rem !important;
+      border-bottom: 1.5px solid #cbd5e1 !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+    }
+
+    .mock-breakdown-table td {
+      padding: 6px 8px !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+      vertical-align: middle !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+    }
+
+    .mock-total-row {
+      background: #f8fafc !important;
+      border-top: 2px solid #08183a !important;
+      font-weight: 800 !important;
+    }
+
+    .mock-feedback-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr 1fr !important;
+      gap: 12px !important;
+    }
+
+    .mock-feedback-card {
+      border: 1.5px solid #e2e8f0 !important;
+      border-radius: 10px !important;
+      padding: 10px 12px !important;
+      background: #ffffff !important;
+    }
+
+    .feedback-card-header {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.74rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+      margin-bottom: 6px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      text-transform: uppercase !important;
+    }
+
+    .feedback-list, .feedback-numbered-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 5px !important;
+    }
+
+    .feedback-list li, .feedback-numbered-list li {
+      font-size: 0.7rem !important;
+      color: #334155 !important;
+      line-height: 1.3 !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 5px !important;
+    }
+
+    .mock-remarks-grid {
+      display: grid !important;
+      grid-template-columns: 2fr 1fr !important;
+      gap: 12px !important;
+    }
+
+    .interviewer-overall-text {
+      font-size: 0.72rem !important;
+      color: #334155 !important;
+      line-height: 1.4 !important;
+      margin: 0 !important;
+    }
+
+    .rating-stars-row {
+      color: #f59e0b !important;
+      font-size: 1.2rem !important;
+      letter-spacing: 2px !important;
+      margin: 2px 0 !important;
+    }
+
+    .rating-verdict {
+      font-size: 0.7rem !important;
+      font-weight: 800 !important;
+      color: #1e293b !important;
+    }
+
+    .mock-bottom-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+    }
+
+    .action-plan-items {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 4px !important;
+    }
+
+    .action-plan-items li {
+      font-size: 0.7rem !important;
+      color: #334155 !important;
+      line-height: 1.3 !important;
+    }
+
+    .journey-table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      font-size: 0.7rem !important;
+    }
+
+    .journey-table th {
+      background: #f8fafc !important;
+      color: #08183a !important;
+      padding: 5px 6px !important;
+      border-bottom: 1.5px solid #cbd5e1 !important;
+    }
+
+    .journey-table td {
+      padding: 4px 6px !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+    }
+
+    .area-row-flex {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+
+    .area-icon-wrap {
+      width: 20px !important;
+      height: 20px !important;
+      border-radius: 5px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 0.65rem !important;
+      color: #ffffff !important;
+      flex-shrink: 0 !important;
+    }
+
+    .icon-badge-1 { background: #8b5cf6 !important; }
+    .icon-badge-2 { background: #2563eb !important; }
+    .icon-badge-3 { background: #16a34a !important; }
+    .icon-badge-4 { background: #ea580c !important; }
+    .icon-badge-5 { background: #db2777 !important; }
+    .icon-badge-6 { background: #0891b2 !important; }
+    .icon-badge-7 { background: #1d4ed8 !important; }
+
+    .area-name-text {
+      font-weight: 800 !important;
+      color: #08183a !important;
+      font-size: 0.76rem !important;
+    }
+
+    .area-desc-text {
+      display: block !important;
+      font-size: 0.64rem !important;
+      color: #64748b !important;
+      margin-top: 2px !important;
+      padding-left: 26px !important;
+    }
+
+    .score-percent-wrap {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+
+    .score-percent-num {
+      font-size: 0.72rem !important;
+      font-weight: 800 !important;
+      min-width: 32px !important;
+      text-align: right !important;
+    }
+
+    .score-track {
+      flex: 1 !important;
+      height: 8px !important;
+      background: #e2e8f0 !important;
+      border-radius: 4px !important;
+      overflow: hidden !important;
+    }
+
+    .score-bar-fill {
+      height: 100% !important;
+      border-radius: 4px !important;
+      transition: width 0.3s ease !important;
+    }
+
+    .list-item-bullet {
+      width: 15px !important;
+      height: 15px !important;
+      border-radius: 50% !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 0.6rem !important;
+      font-weight: 900 !important;
+      color: #ffffff !important;
+      flex-shrink: 0 !important;
+      margin-top: 1px !important;
+    }
+
+    .bullet-green { background: #16a34a !important; }
+    .bullet-orange { background: #ea580c !important; }
+
+    .number-bullet {
+      width: 16px !important;
+      height: 16px !important;
+      border-radius: 50% !important;
+      background: #2563eb !important;
+      color: #ffffff !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 0.6rem !important;
+      font-weight: 800 !important;
+      flex-shrink: 0 !important;
+      margin-top: 1px !important;
+    }
+
+    /* ==========================================================
+       VIEW 5: CAREER ROADMAP (10-15 YEAR PROGRESSION) GUARANTEED STYLES
+       Exact Match to User Blueprint - Pure Monogram (Strictly No Photos)
+       ========================================================== */
+    .crm-document-container {
+      background: #ffffff !important;
+      border-radius: 14px !important;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+      padding: 24px 24px 28px 24px !important;
+      max-width: 1240px !important;
+      margin: 20px auto !important;
+      border: 1px solid #cbd5e1 !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      overflow: hidden !important;
+    }
+
+    .crm-main-split {
+      display: grid !important;
+      grid-template-columns: 250px 1fr !important;
+      gap: 20px !important;
+      width: 100% !important;
+      align-items: stretch !important;
+      box-sizing: border-box !important;
+    }
+
+    /* LEFT SIDEBAR: Corporate Navy Blueprint */
+    .crm-sidebar-card {
+      background: linear-gradient(180deg, #08183a 0%, #06122c 100%) !important;
+      border-radius: 12px !important;
+      padding: 20px 16px !important;
+      color: #ffffff !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      box-shadow: 0 8px 24px rgba(8, 24, 58, 0.2) !important;
+      box-sizing: border-box !important;
+      width: 250px !important;
+      min-width: 250px !important;
+    }
+
+    .crm-sidebar-brand {
+      text-align: center !important;
+      padding-bottom: 14px !important;
+      margin-bottom: 14px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+
+    .crm-sidebar-logo-img {
+      width: 100% !important;
+      max-width: 218px !important;
+      height: auto !important;
+      display: block !important;
+      margin: 0 auto !important;
+      object-fit: contain !important;
+    }
+
+    .crm-profile-hero {
+      text-align: center !important;
+      padding-bottom: 14px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      margin-bottom: 14px !important;
+    }
+
+    .crm-avatar-wrapper {
+      margin: 0 auto 10px auto !important;
+      display: flex !important;
+      justify-content: center !important;
+    }
+
+    .crm-monogram-circle {
+      width: 86px !important;
+      height: 86px !important;
+      border-radius: 50% !important;
+      border: 3.5px solid #ffffff !important;
+      background: linear-gradient(135deg, #1e3a8a 0%, #08183a 100%) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45) !important;
+      overflow: hidden !important;
+      position: relative !important;
+    }
+
+    .crm-monogram-text {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.95rem !important;
+      font-weight: 900 !important;
+      letter-spacing: 2px !important;
+      color: #f59e0b !important;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .crm-candidate-name {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.28rem !important;
+      font-weight: 900 !important;
+      letter-spacing: 1.5px !important;
+      color: #f59e0b !important;
+      text-transform: uppercase !important;
+    }
+
+    .crm-meta-list {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 11px !important;
+      flex: 1 !important;
+    }
+
+    .crm-meta-item {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+    }
+
+    .crm-meta-icon {
+      font-size: 0.95rem !important;
+      line-height: 1.2 !important;
+      flex-shrink: 0 !important;
+      margin-top: 1px !important;
+    }
+
+    .crm-meta-content {
+      display: flex !important;
+      flex-direction: column !important;
+      min-width: 0 !important;
+    }
+
+    .crm-meta-label {
+      font-size: 0.66rem !important;
+      font-weight: 600 !important;
+      color: #94a3b8 !important;
+      letter-spacing: 0.3px !important;
+    }
+
+    .crm-meta-val {
+      font-size: 0.77rem !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      word-break: break-word !important;
+      line-height: 1.25 !important;
+      margin-top: 1px !important;
+    }
+
+    .crm-readiness-item {
+      margin-top: 3px !important;
+      padding-top: 8px !important;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15) !important;
+    }
+
+    .crm-score-pill {
+      display: inline-flex !important;
+      align-items: baseline !important;
+      gap: 4px !important;
+      margin-top: 2px !important;
+    }
+
+    .crm-score-num {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.25rem !important;
+      font-weight: 900 !important;
+      color: #22d3ee !important;
+    }
+
+    .crm-score-denom {
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      color: #94a3b8 !important;
+    }
+
+    .crm-motivation-box {
+      margin-top: 16px !important;
+      padding: 10px 10px !important;
+      background: rgba(255, 255, 255, 0.07) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 8px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+
+    .crm-rocket-icon {
+      font-size: 1.2rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .crm-motivation-text {
+      font-size: 0.7rem !important;
+      color: #f1f5f9 !important;
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+    }
+
+    /* RIGHT MAIN CONTENT */
+    .crm-main-content {
+      display: flex !important;
+      flex-direction: column !important;
+      min-width: 0 !important;
+      width: 100% !important;
+    }
+
+    .crm-main-content .crm-doc-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      gap: 16px !important;
+      padding-bottom: 14px !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+      margin-bottom: 14px !important;
+      width: 100% !important;
+    }
+
+    .crm-header-titles {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .crm-main-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 2rem !important;
+      font-weight: 900 !important;
+      letter-spacing: 1.5px !important;
+      color: #08183a !important;
+      margin: 0 0 3px 0 !important;
+      line-height: 1.1 !important;
+    }
+
+    .crm-path-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 1.12rem !important;
+      font-weight: 800 !important;
+      color: #10b981 !important;
+      letter-spacing: 0.8px !important;
+      margin-bottom: 2px !important;
+      text-transform: uppercase !important;
+    }
+
+    .crm-journey-sub {
+      font-size: 0.85rem !important;
+      font-weight: 600 !important;
+      color: #334155 !important;
+    }
+
+    .crm-header-right {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      gap: 8px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .crm-page-badge {
+      background: #08183a !important;
+      color: #ffffff !important;
+      font-size: 0.72rem !important;
+      font-weight: 800 !important;
+      padding: 4px 12px !important;
+      border-radius: 4px !important;
+      letter-spacing: 1px !important;
+    }
+
+    .crm-quote-box {
+      background: #f1f5f9 !important;
+      border-left: 3.5px solid #10b981 !important;
+      padding: 7px 12px !important;
+      border-radius: 0 8px 8px 0 !important;
+      font-size: 0.76rem !important;
+      color: #334155 !important;
+      font-style: italic !important;
+      line-height: 1.35 !important;
+      max-width: 270px !important;
+    }
+
+    .crm-quote-mark {
+      font-size: 1rem !important;
+      color: #10b981 !important;
+      font-weight: 900 !important;
+    }
+
+    .crm-timeline-header-band {
+      background: #08183a !important;
+      color: #ffffff !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.86rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 1.2px !important;
+      text-align: center !important;
+      padding: 8px 16px !important;
+      border-radius: 6px 6px 0 0 !important;
+      text-transform: uppercase !important;
+    }
+
+    .crm-table-container {
+      overflow: hidden !important;
+      border: 1px solid #cbd5e1 !important;
+      border-top: none !important;
+      background: #ffffff !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .crm-progression-table {
+      width: 100% !important;
+      max-width: 100% !important;
+      border-collapse: collapse !important;
+      font-size: 0.74rem !important;
+      table-layout: fixed !important;
+      box-sizing: border-box !important;
+    }
+
+    .crm-progression-table th:nth-child(1),
+    .crm-progression-table td:nth-child(1) {
+      width: 17% !important;
+    }
+
+    .crm-progression-table th:nth-child(2),
+    .crm-progression-table td:nth-child(2) {
+      width: 11% !important;
+      text-align: center !important;
+    }
+
+    .crm-progression-table th:nth-child(3),
+    .crm-progression-table td:nth-child(3) {
+      width: 19% !important;
+    }
+
+    .crm-progression-table th:nth-child(4),
+    .crm-progression-table td:nth-child(4) {
+      width: 27% !important;
+    }
+
+    .crm-progression-table th:nth-child(5),
+    .crm-progression-table td:nth-child(5) {
+      width: 13% !important;
+      text-align: center !important;
+    }
+
+    .crm-progression-table th:nth-child(6),
+    .crm-progression-table td:nth-child(6) {
+      width: 13% !important;
+    }
+
+    .crm-progression-table thead th {
+      background: #f8fafc !important;
+      color: #1e293b !important;
+      font-size: 0.69rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+      padding: 8px 7px !important;
+      text-align: center !important;
+      border: 1px solid #cbd5e1 !important;
+      line-height: 1.2 !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+    }
+
+    .crm-progression-table tbody td {
+      padding: 9px 8px !important;
+      border: 1px solid #cbd5e1 !important;
+      vertical-align: top !important;
+      line-height: 1.35 !important;
+      color: #334155 !important;
+      word-break: break-word !important;
+      box-sizing: border-box !important;
+    }
+
+    .crm-progression-table tbody tr:nth-child(even) {
+      background: #fbfcfe !important;
+    }
+
+    .crm-stage-wrap {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+
+    .crm-stage-badge {
+      width: 22px !important;
+      height: 22px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #ffffff !important;
+      font-size: 0.72rem !important;
+      font-weight: 900 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .stage-badge-1 { background: #22c55e !important; }
+    .stage-badge-2 { background: #16a34a !important; }
+    .stage-badge-3 { background: #2563eb !important; }
+    .stage-badge-4 { background: #4f46e5 !important; }
+    .stage-badge-5 { background: #7c3aed !important; }
+    .stage-badge-6 { background: #ea580c !important; }
+    .stage-badge-7 { background: #dc2626 !important; }
+    .stage-badge-8 { background: #b91c1c !important; }
+    .stage-badge-9 { background: #881337 !important; }
+
+    .crm-stage-name {
+      font-size: 0.68rem !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      line-height: 1.15 !important;
+      text-transform: uppercase !important;
+    }
+
+    .crm-exp-cell {
+      text-align: center !important;
+      font-weight: 600 !important;
+      color: #334155 !important;
+      font-size: 0.73rem !important;
+    }
+
+    .crm-designation-cell {
+      font-weight: 700 !important;
+      color: #0f172a !important;
+      font-size: 0.75rem !important;
+    }
+
+    .crm-focus-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .crm-focus-list li {
+      position: relative !important;
+      padding-left: 9px !important;
+      margin-bottom: 3px !important;
+      font-size: 0.71rem !important;
+      color: #334155 !important;
+      line-height: 1.3 !important;
+    }
+
+    .crm-focus-list li::before {
+      content: "•" !important;
+      position: absolute !important;
+      left: 0 !important;
+      top: -1px !important;
+      font-size: 0.85rem !important;
+      color: #475569 !important;
+    }
+
+    .crm-package-cell {
+      text-align: center !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      font-size: 0.74rem !important;
+      white-space: nowrap !important;
+    }
+
+    .crm-nextstep-cell {
+      font-size: 0.71rem !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+      line-height: 1.25 !important;
+    }
+
+    .crm-salary-footnote {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      font-size: 0.69rem !important;
+      color: #64748b !important;
+      padding: 7px 4px 10px 4px !important;
+    }
+
+    .crm-footnote-icon {
+      font-size: 0.85rem !important;
+    }
+
+    /* BOTTOM 3 INSIGHT CARDS */
+    .crm-bottom-insights-grid {
+      display: grid !important;
+      grid-template-columns: 1.35fr 1.25fr 1.2fr !important;
+      gap: 16px !important;
+      margin-top: 16px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .crm-insight-card {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      border-radius: 8px !important;
+      padding: 12px 14px !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+      box-sizing: border-box !important;
+    }
+
+    .crm-card-title {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.74rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+      color: #08183a !important;
+      padding-bottom: 7px !important;
+      border-bottom: 1.5px solid #e2e8f0 !important;
+      margin-bottom: 9px !important;
+      text-transform: uppercase !important;
+    }
+
+    .crm-skills-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 7px 10px !important;
+    }
+
+    .crm-skill-item {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      font-size: 0.71rem !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+      line-height: 1.2 !important;
+    }
+
+    .crm-skill-icon {
+      font-size: 0.88rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    .crm-switch-header {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      margin-bottom: 5px !important;
+    }
+
+    .crm-switch-icon {
+      font-size: 0.95rem !important;
+    }
+
+    .crm-switch-sub {
+      font-size: 0.71rem !important;
+      font-weight: 700 !important;
+      color: #1e293b !important;
+    }
+
+    .crm-switch-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 0 8px 0 !important;
+    }
+
+    .crm-switch-list li {
+      position: relative !important;
+      padding-left: 9px !important;
+      font-size: 0.69rem !important;
+      color: #475569 !important;
+      line-height: 1.32 !important;
+      margin-bottom: 3px !important;
+    }
+
+    .crm-switch-list li::before {
+      content: "•" !important;
+      position: absolute !important;
+      left: 0 !important;
+      top: -1px !important;
+      font-size: 0.8rem !important;
+      color: #64748b !important;
+    }
+
+    .crm-switch-window-badge {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 6px !important;
+      padding: 5px 8px !important;
+      font-size: 0.71rem !important;
+      color: #0f172a !important;
+    }
+
+    .crm-benefits-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 5px !important;
+    }
+
+    .crm-benefits-list li {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 7px !important;
+      font-size: 0.71rem !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+      line-height: 1.28 !important;
+    }
+
+    .crm-check-circle {
+      width: 14px !important;
+      height: 14px !important;
+      border-radius: 50% !important;
+      background: #1e3a8a !important;
+      color: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 0.6rem !important;
+      font-weight: 900 !important;
+      flex-shrink: 0 !important;
+      margin-top: 1px !important;
+    }
+  </style>
+
+  <style media="print">
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="app-body">
+
+  <!-- ========================================================== -->
+  <!-- ========================================================== -->
+  <!-- Executive Admin Authentication Screen with Rich Animations -->
+  <!-- ========================================================== -->
+  <div id="authScreen" class="auth-screen">
+    <!-- Animated Ambient Backdrop Lighting Orbs -->
+    <div class="auth-ambient-orb orb-1"></div>
+    <div class="auth-ambient-orb orb-2"></div>
+    <div class="auth-ambient-orb orb-3"></div>
+    <div class="auth-grid-pattern"></div>
+
+    <!-- Glassmorphic Executive Card -->
+    <div class="auth-card">
+      <div class="auth-card-highlight"></div>
+
+      <div class="auth-header">
+        <div class="brand-logo-container">
+          <img src="assets/logo.png?v=10.0" alt="Skilldome - Campus to Corporate" class="auth-brand-logo" />
+        </div>
+        <div class="auth-badge-pill">
+          <span class="badge-dot"></span>
+          <span>ADMIN CONSOLE</span>
+        </div>
+        <h2 class="auth-title">Sign In to Skilldome</h2>
+        <p class="auth-subtitle">Enter your administrative credentials to access the candidate directory &amp; mock interview hub.</p>
+      </div>
+
+      <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="adminEmail">Email or Username</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" id="adminEmail" required placeholder="admin@skilldom.com" autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="adminPassword">Password</label>
+          </div>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="adminPassword" required placeholder="Enter your password" autocomplete="current-password">
+            <button type="button" class="btn-toggle-pw" onclick="togglePasswordVisibility()" title="Toggle password visibility" tabindex="-1">
+              <svg id="pwEyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options-row">
+          <label class="remember-me-label">
+            <input type="checkbox" id="rememberMeCheckbox" checked>
+            <span>Remember this device</span>
+          </label>
+          <span class="security-indicator" title="256-bit TLS encrypted session">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Secure Access</span>
+          </span>
+        </div>
+
+        <div id="authErrorMsg" class="auth-error-msg hidden"></div>
+
+        <button type="submit" id="loginBtn" class="btn-primary auth-submit-btn">
+          <span id="loginBtnText">Sign In to Dashboard</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <div class="auth-footer-shield">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Protected Enterprise Session • Hostinger MySQL Cloud</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- Main Application Wrapper                                   -->
+  <!-- ========================================================== -->
+  <div id="mainApp" class="main-app hidden">
+    
+    <!-- Top Header Navigation Bar -->
+    <header class="top-nav">
+      <div class="nav-left">
+        <div class="brand-badge" onclick="showPortalHome()" style="cursor: pointer;" title="Back to Welcome Portal">
+          <img src="assets/logo.png?v=10.0" alt="Skilldome Logo" class="nav-brand-logo" />
+        </div>
+
+        <!-- Back to Portal Home Button (Shown inside sub-modules) -->
+        <button id="btnPortalHomeReturn" class="btn-home-return hidden" onclick="showPortalHome()" title="Return to Welcome Admin Portal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Portal Home</span>
+        </button>
+
+        <!-- Navigation Tabs: Assessment Module (Zero Mock Interview elements!) -->
+        <nav id="assessmentNavTabs" class="nav-tabs hidden">
+          <button id="tabOverview" class="nav-tab active" onclick="openAssessmentModule('overview')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Candidate Directory</span>
+          </button>
+          <button id="tabScorecard" class="nav-tab" onclick="openAssessmentModule('scorecard')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Career Readiness Scorecard</span>
+          </button>
+        </nav>
+
+        <!-- Navigation Tabs: Mock Interview Module -->
+        <nav id="mockNavTabs" class="nav-tabs hidden">
+          <button id="tabMockInput" class="nav-tab" onclick="openMockInputForm()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <span>Evaluation Input Form</span>
+          </button>
+          <button id="tabMockDashboard" class="nav-tab" onclick="openMockScorecardDashboard()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>Mock Interview Scorecard</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="nav-right">
+        <!-- Database Sync Status Badge -->
+        <div class="db-status-group" title="Database Connected">
+          <div id="dbStatusBadge" class="db-pill db-online">
+            <span class="status-dot"></span>
+            <span class="db-label">Hostinger DB: Connected</span>
+          </div>
+        </div>
+
+        <!-- Admin Profile & Logout -->
+        <div class="admin-user-pill">
+          <div class="user-avatar">AD</div>
+          <span class="user-name">Admin</span>
+          <button class="btn-logout" title="Sign Out" onclick="handleLogout()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Global Persistent Filter Toolbar (Exclusive to Assessment Candidate Directory) -->
+    <section id="assessmentFilterToolbar" class="filter-toolbar hidden">
+      <div class="filter-container">
+        <!-- Feature 1: Domain Filter -->
+        <div class="filter-block domain-filter-block">
+          <label class="filter-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Domain Filter:
+          </label>
+          <div class="domain-btn-group" id="domainButtonGroup">
+            <button class="domain-pill active" data-domain="All" onclick="setDomainFilter('All')">
+              <span>All Domains</span>
+              <span class="pill-count" id="countAll">0</span>
+            </button>
+            <button class="domain-pill" data-domain="Coding" onclick="setDomainFilter('Coding')">
+              <span class="domain-dot dot-coding"></span>
+              <span>Coding</span>
+              <span class="pill-count" id="countCoding">0</span>
+            </button>
+            <button class="domain-pill" data-domain="Non-Coding" onclick="setDomainFilter('Non-Coding')">
+              <span class="domain-dot dot-noncoding"></span>
+              <span>Non-Coding</span>
+              <span class="pill-count" id="countNonCoding">0</span>
+            </button>
+            <button class="domain-pill" data-domain="Aptitude" onclick="setDomainFilter('Aptitude')">
+              <span class="domain-dot dot-aptitude"></span>
+              <span>Aptitude</span>
+              <span class="pill-count" id="countAptitude">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Feature 2: Student ID Searchable Dropdown / Selector -->
+        <div class="filter-block student-filter-block">
+          <label class="filter-label" for="studentSearchInput">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Select Candidate:
+          </label>
+          <div class="student-select-wrapper">
+            <div class="search-input-box">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="studentSearchInput" placeholder="Search Candidate ID (e.g. SDC00001, Sanjeevi)..." autocomplete="off" oninput="handleStudentSearchInput(this.value)" onfocus="showStudentDropdown()" />
+              <button id="clearStudentBtn" class="clear-btn hidden" onclick="clearSelectedStudent()" title="Clear student filter">×</button>
+            </div>
+            <!-- Autocomplete Dropdown List -->
+            <div id="studentDropdownList" class="student-dropdown-menu hidden">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Reset & Action Controls -->
+        <div class="filter-actions">
+          <button class="btn-filter-action" onclick="resetAllFilters()" title="Reset All Filters">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            <span>Reset</span>
+          </button>
+          <button class="btn-filter-action btn-refresh" onclick="refreshCurrentView()" title="Refresh Data">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            <span>Sync DB</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Filter Context Tag Bar -->
+      <div id="activeFilterTags" class="active-tags-bar">
+        <!-- Dynamically rendered tags -->
+      </div>
+    </section>
+
+    <!-- Global Connection Error Banner -->
+    <div id="globalErrorBanner" class="error-banner hidden">
+      <div class="error-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="error-content">
+        <h4 id="errorBannerTitle">Database Connection Error</h4>
+        <p id="errorBannerMessage">Unable to connect to database. Please check connection parameters or retry.</p>
+      </div>
+      <div class="error-actions">
+        <button class="btn-retry" onclick="retryFailedQuery()">Retry Connection</button>
+        <button class="btn-dismiss" onclick="dismissErrorBanner()">Dismiss</button>
+      </div>
+    </div>
+
+    <!-- Async Global Loading Indicator -->
+    <div id="globalLoadingBar" class="loading-bar-container hidden">
+      <div class="loading-bar-progress"></div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 0: WELCOME ADMIN PORTAL HOME (2 PRIMARY TILES)        -->
+    <!-- ========================================================== -->
+    <main id="viewPortalHome" class="view-content active-view">
+      <div class="portal-home-container">
+        <div class="portal-welcome-hero">
+          <div class="portal-hero-badge">
+            <span class="pulse-dot"></span>
+            Skilldome Operations Platform
+          </div>
+          <h1 class="portal-hero-title">Welcome, Admin</h1>
+          <p class="portal-hero-sub">Select an operations workspace below to manage candidate assessments or conduct mock interviews:</p>
+        </div>
+
+        <div class="neon-tiles-wrapper">
+          <!-- Tile 1: Assessment -->
+          <div class="neon-glow-tile" onclick="openAssessmentModule('overview')" title="Click to open Assessment Module">
+            <div class="neon-tile-header">
+              <div class="neon-tile-label">Candidate Assessment</div>
+              <span class="neon-tile-badge">Campus to Corporate</span>
+            </div>
+            <div class="neon-tile-visual">
+              <div class="neon-icon-circle">
+                <span class="neon-tile-emoji">📊</span>
+              </div>
+              <div class="neon-tile-info">
+                <span class="neon-info-title">Candidate Directory</span>
+                <span class="neon-info-sub">10 Evaluated Competencies & Readiness</span>
+              </div>
+            </div>
+            <div class="neon-tile-sub">Candidate Directory & Scorecards <span class="tile-arrow">→</span></div>
+          </div>
+
+          <!-- Tile 2: Mock Interview -->
+          <div class="neon-glow-tile" onclick="openMockInterviewHub()" title="Click to open Mock Interview Hub">
+            <div class="neon-tile-header">
+              <div class="neon-tile-label">Mock Interview</div>
+              <span class="neon-tile-badge">Live Evaluation</span>
+            </div>
+            <div class="neon-tile-visual">
+              <div class="neon-icon-circle">
+                <span class="neon-tile-emoji">🎙️</span>
+              </div>
+              <div class="neon-tile-info">
+                <span class="neon-info-title">Corporate Interview Hub</span>
+                <span class="neon-info-sub">7-Area Performance Matrix & Rubrics</span>
+              </div>
+            </div>
+            <div class="neon-tile-sub">Evaluation Form & Dashboard <span class="tile-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 0B: MOCK INTERVIEW SUB-HUB (2 SUB-TILES)              -->
+    <!-- ========================================================== -->
+    <main id="viewMockHub" class="view-content hidden">
+      <div class="portal-home-container">
+        <div class="portal-subhub-header">
+          <div class="subhub-breadcrumbs">
+            <button class="btn-breadcrumb" onclick="showPortalHome()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+              <span>Back to Portal Home</span>
+            </button>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Mock Interview Hub</span>
+          </div>
+          <h1 class="portal-hero-title">Mock Interview Management</h1>
+          <p class="portal-hero-sub">Choose an action below to evaluate a candidate using the Student ID form or review the scorecard dashboard:</p>
+        </div>
+
+        <div class="neon-tiles-wrapper">
+          <!-- Sub-Tile 1: Evaluation Input Form -->
+          <div class="neon-glow-tile" onclick="openMockInputForm()" title="Click to open Evaluation Input Form">
+            <div class="neon-tile-header">
+              <div class="neon-tile-label">Evaluation Input Form</div>
+              <span class="neon-tile-badge">Scoring Cockpit</span>
+            </div>
+            <div class="neon-tile-visual">
+              <div class="neon-icon-circle">
+                <span class="neon-tile-emoji">📝</span>
+              </div>
+              <div class="neon-tile-info">
+                <span class="neon-info-title">Interviewer Scoring Matrix</span>
+                <span class="neon-info-sub">Student ID • 7 Areas • Strengths & Verdict</span>
+              </div>
+            </div>
+            <div class="neon-tile-sub">Student ID Dropdown & 7-Area Matrix <span class="tile-arrow">→</span></div>
+          </div>
+
+          <!-- Sub-Tile 2: Mock Interview Dashboard -->
+          <div class="neon-glow-tile" onclick="openMockScorecardDashboard()" title="Click to open Scorecard Dashboard">
+            <div class="neon-tile-header">
+              <div class="neon-tile-label">Mock Interview Dashboard</div>
+              <span class="neon-tile-badge">Executive Report</span>
+            </div>
+            <div class="neon-tile-visual">
+              <div class="neon-icon-circle">
+                <span class="neon-tile-emoji">🏆</span>
+              </div>
+              <div class="neon-tile-info">
+                <span class="neon-info-title">Scorecard & Analytics</span>
+                <span class="neon-info-sub">Corporate Scorecard & A4 Print Ready</span>
+              </div>
+            </div>
+            <div class="neon-tile-sub">Corporate Scorecard & A4 Print <span class="tile-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 1: ADMIN TABLE / CANDIDATE DIRECTORY (ASSESSMENT)     -->
+    <!-- ========================================================== -->
+    <main id="viewOverview" class="view-content hidden">
+      
+      <!-- Summary KPI Metric Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-label">Registered Candidates</span>
+            <h3 class="kpi-value" id="kpiTotalStudents">0</h3>
+            <span class="kpi-sub">Total enrolled</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-label">Average Readiness Score</span>
+            <h3 class="kpi-value"><span id="kpiAvgScore">0</span><span class="kpi-max">/100</span></h3>
+            <span class="kpi-sub" id="kpiAvgTier">Calculating...</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-label">Evaluated Categories</span>
+            <h3 class="kpi-value" id="kpiTotalCategories">10 <span class="kpi-unit">Areas</span></h3>
+            <span class="kpi-sub">Skill Competencies</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon icon-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-label">Top Readiness Score</span>
+            <h3 class="kpi-value" id="kpiTopScore">93<span class="kpi-max">/100</span></h3>
+            <span class="kpi-sub">Industry Ready Tier</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Candidates Data Table Section -->
+      <section class="table-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2 class="section-title">Candidate Directory</h2>
+            <p class="section-desc">Data dynamically loaded from candidate_registrations & test_answers</p>
+          </div>
+
+          <div class="table-toolbar">
+            <!-- Search bar -->
+            <div class="table-search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="adminTableSearch" placeholder="Filter by Name, ID, College..." oninput="handleAdminTableSearch(this.value)" />
+            </div>
+
+            <!-- Export to CSV -->
+            <button class="btn-secondary" onclick="exportAdminTableToCSV()" title="Export candidate data to CSV spreadsheet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <span>Export CSV</span>
+            </button>
+            <!-- Download Directory PDF -->
+            <button class="btn-action-primary" onclick="downloadDirectoryPDF()" title="Download Candidate Assessment Directory as PDF">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Directory (PDF)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Responsive -->
+        <div class="table-responsive">
+          <table class="data-table" id="adminStudentsTable">
+            <thead>
+              <tr>
+                <th onclick="sortAdminTable('studentId')">
+                  <div class="th-content">
+                    <span>Student ID</span>
+                    <span class="sort-icon" id="sort-studentId">↕</span>
+                  </div>
+                </th>
+                <th onclick="sortAdminTable('name')">
+                  <div class="th-content">
+                    <span>Candidate Name & Degree</span>
+                    <span class="sort-icon" id="sort-name">↕</span>
+                  </div>
+                </th>
+                <th>Target Career / Domain</th>
+                <th onclick="sortAdminTable('overallScore')">
+                  <div class="th-content">
+                    <span>Readiness Score</span>
+                    <span class="sort-icon active" id="sort-overallScore">↓</span>
+                  </div>
+                </th>
+                <th>Domain Breakdown</th>
+                <th>Assessment Date</th>
+                <th class="th-action">Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminStudentsTableBody">
+              <!-- Dynamically populated from candidate_registrations -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Pagination Controls -->
+        <div class="pagination-footer">
+          <div class="pagination-info">
+            Showing <span id="pageStart">0</span> to <span id="pageEnd">0</span> of <span id="totalStudentsCount">0</span> candidates
+          </div>
+
+          <div class="pagination-controls">
+            <button id="btnPrevPage" class="btn-page" onclick="changeAdminPage(-1)" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              Previous
+            </button>
+            <div id="pageNumberPills" class="page-pills">
+              <!-- Dynamic page numbers -->
+            </div>
+            <button id="btnNextPage" class="btn-page" onclick="changeAdminPage(1)" disabled>
+              Next
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 2: CAREER READINESS SCORECARD (Reference Blueprint)  -->
+    <!-- Matching Reference Image 3 Layout                          -->
+    <!-- ========================================================== -->
+    <main id="viewScorecard" class="view-content">
+      
+      <!-- Back to Admin Directory Button Bar -->
+      <div class="scorecard-top-bar">
+        <button class="btn-back" onclick="switchView('overview')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          <span>Back to Candidate Directory</span>
+        </button>
+
+        <div class="scorecard-actions">
+          <button class="btn-action-primary btn-print" onclick="downloadScorecardPDF()" title="Download Career Readiness Scorecard as PDF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Scorecard (PDF)</span>
+          </button>
+          <button class="btn-action-outline" onclick="openCareerRoadmap()" title="View 10–15 Year Career Roadmap for this Candidate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <span>View Career Roadmap</span>
+          </button>
+          <button class="btn-action-outline" onclick="exportCategoryScoresCSV()" title="Export category scores as CSV">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Export CSV</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Scorecard Layout Container -->
+      <div class="scorecard-container" id="scorecardPrintArea">
+        
+        <!-- ==================================== -->
+        <!-- Left Sidebar: Corporate Navy Theme   -->
+        <!-- Matching Image 3 Reference           -->
+        <!-- ==================================== -->
+        <aside class="scorecard-sidebar">
+          <!-- Official Skilldome Logo -->
+          <div class="sidebar-brand-box">
+            <img src="assets/logo.png?v=10.0" alt="Skilldome Logo" class="sidebar-logo-img" />
+          </div>
+
+          <!-- Student Monogram Initials Badge -->
+          <div class="student-profile-box">
+            <div class="avatar-ring-monogram">
+              <span id="cardStudentInitials" class="monogram-text">SK</span>
+            </div>
+            <h2 id="cardStudentName" class="student-name">SANJEEVI K</h2>
+          </div>
+
+          <!-- Profile Metadata Info List -->
+          <div class="student-meta-list">
+            
+            <div class="meta-item">
+              <div class="meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">Email ID</span>
+                <span id="cardStudentEmail" class="meta-value">sanjeevikandasamy233@gmail.com</span>
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">Assessment Date</span>
+                <span id="cardAssessmentDate" class="meta-value">02 September 2026</span>
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">Education</span>
+                <span id="cardStudentDegree" class="meta-value">B.Com - General Commerce</span>
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M6 7V3h12v4M10 11v6M14 11v6"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">College / University</span>
+                <span id="cardStudentCollege" class="meta-value">SNR</span>
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">Year of Graduation / Status</span>
+                <span id="cardCurrentStatus" class="meta-value">Working Professional</span>
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">Target Career Choice</span>
+                <span id="cardTargetCareer" class="meta-value">Full Stack Developer</span>
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <div class="meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">Location / City</span>
+                <span id="cardDistrictCity" class="meta-value">Coimbatore</span>
+              </div>
+            </div>
+
+            <!-- Career Readiness Score Pill Badge -->
+            <div class="meta-item score-highlight-item">
+              <div class="meta-icon icon-score-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+              </div>
+              <div class="meta-content">
+                <span class="meta-title">Career Readiness Score</span>
+                <span id="cardSidebarScorePill" class="score-gold-badge">93 / 100</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Motivational Quote Box -->
+          <div class="quote-box">
+            <div class="quote-mark">“</div>
+            <p class="quote-text">Today's preparation shapes tomorrow's opportunities.</p>
+            <div class="quote-author">– Skilldome Team</div>
+          </div>
+        </aside>
+
+        <!-- ==================================== -->
+        <!-- Right Main Area: Assessment Report   -->
+        <!-- Matching Image 3 Structure           -->
+        <!-- ==================================== -->
+        <div class="scorecard-main">
+          
+          <!-- Top Header Bar with Student ID Badge -->
+          <div class="report-header">
+            <div class="report-title-group">
+              <h1 class="report-title">CAREER READINESS SCORECARD</h1>
+              <span class="report-subtitle">Assessment Summary Report • Powered by Skilldome Campus to Corporate</span>
+            </div>
+            <div class="student-id-header-badge">
+              <span class="id-lead">Student ID</span>
+              <span id="cardStudentIdTop" class="id-val">SDC00001</span>
+            </div>
+          </div>
+
+          <!-- ================================================== -->
+          <!-- ROW 1: OVERALL READINESS (LEFT) + SKILL PROFILE RADAR (RIGHT) -->
+          <!-- Solves empty space on right of gauge & small radar! -->
+          <!-- ================================================== -->
+          <div class="top-analytics-grid">
+            
+            <!-- Left Card: Overall Career Readiness (Gauge + Scale) -->
+            <section class="readiness-card">
+              <h3 class="card-section-title">OVERALL CAREER READINESS</h3>
+              
+              <div class="readiness-summary-row">
+                <!-- Circular Progress Gauge with Tier underneath -->
+                <div class="gauge-vertical-col">
+                  <div class="gauge-container">
+                    <div class="gauge-svg-wrap">
+                      <svg class="circular-chart" viewBox="0 0 120 120">
+                        <circle class="circle-bg" cx="60" cy="60" r="50" />
+                        <circle id="gaugeProgressCircle" class="circle-progress" cx="60" cy="60" r="50" />
+                      </svg>
+                      <div class="gauge-inner-text">
+                        <span id="cardScoreNumber" class="gauge-score">93</span>
+                        <span class="gauge-denom">/100</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="cardTierTitle" class="tier-headline-pill">INDUSTRY READY</div>
+                </div>
+
+                <!-- Right feedback text -->
+                <div class="readiness-feedback-box">
+                  <p id="cardFeedbackText" class="tier-desc">
+                    Outstanding technical and behavioral mastery. You exceed market benchmarks and are fully equipped for corporate placement. Focus on keeping practical exposure active.
+                  </p>
+                </div>
+              </div>
+
+              <!-- 5-Stage Spectrum Bracket Scale -->
+              <div class="bracket-scale-wrapper">
+                <div class="scale-bar-track">
+                  <div class="scale-segment seg-foundation" title="0-39: Foundation"></div>
+                  <div class="scale-segment seg-developing" title="40-59: Developing"></div>
+                  <div class="scale-segment seg-jobprep" title="60-74: Job Preparation"></div>
+                  <div class="scale-segment seg-jobready" title="75-89: Job Ready"></div>
+                  <div class="scale-segment seg-industryready" title="90-100: Industry Ready"></div>
+
+                  <!-- Floating Pointer -->
+                  <div id="scalePointer" class="scale-pointer" style="left: 93%;">
+                    <div class="pointer-triangle"></div>
+                  </div>
+                </div>
+
+                <!-- Scale Labels -->
+                <div class="scale-labels-row">
+                  <div class="scale-label-item">
+                    <span class="label-range">0-39</span>
+                    <span class="label-tier tier-red">FOUNDATION</span>
+                  </div>
+                  <div class="scale-label-item">
+                    <span class="label-range">40-59</span>
+                    <span class="label-tier tier-orange">DEVELOPING</span>
+                  </div>
+                  <div class="scale-label-item">
+                    <span class="label-range">60-74</span>
+                    <span class="label-tier tier-green">JOB PREPARATION</span>
+                  </div>
+                  <div class="scale-label-item">
+                    <span class="label-range">75-89</span>
+                    <span class="label-tier tier-blue">JOB READY</span>
+                  </div>
+                  <div class="scale-label-item">
+                    <span class="label-range">90-100</span>
+                    <span class="label-tier tier-purple">INDUSTRY READY</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Right Card: Skill Profile Overview (LARGE RADAR CHART) -->
+            <section class="radar-card">
+              <h3 class="card-section-title">SKILL PROFILE OVERVIEW</h3>
+              <div class="radar-container-large">
+                <svg id="radarSvg" class="radar-svg" viewBox="0 0 340 230">
+                  <!-- Dynamically rendered large radar chart -->
+                </svg>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- ================================================== -->
+          <!-- ROW 2: ASSESSMENT AREA SCORES (LEFT) + CAREER INTEREST (RIGHT) -->
+          <!-- Strict 3-Tier Color Grading: Red, Amber, Green     -->
+          <!-- ================================================== -->
+          <div class="mid-analytics-grid">
+            
+            <!-- Left: Test 1 - Aptitude & Core Competencies Assessment -->
+            <div class="analytics-card area-scores-card">
+              <div class="card-header-dark">
+                <span>APTITUDE & CORE COMPETENCIES (Test 1)</span>
+                <span id="domainFilterActiveTag" class="domain-scope-tag">Test 1: Aptitude & Soft Skills</span>
+              </div>
+
+              <div class="area-table-header">
+                <span class="col-area">COMPETENCY AREA</span>
+                <span class="col-score">SCORE (/100)</span>
+                <span class="col-level">LEVEL</span>
+              </div>
+
+              <div class="area-bars-container" id="assessmentAreaBars">
+                <!-- Dynamically generated bars from real test_answers (Aptitude & Non-Coding) -->
+              </div>
+            </div>
+
+            <!-- Right: Test 2 - Technical / Coding & Tools Skills Assessment -->
+            <div class="analytics-card area-scores-card technical-skills-card">
+              <div class="card-header-dark">
+                <span>TECHNICAL & DOMAIN SKILLS (Test 2)</span>
+                <span class="domain-scope-tag">Test 2: Coding & Tools</span>
+              </div>
+
+              <div class="area-table-header">
+                <span class="col-area">TECHNICAL SKILL / TOOL</span>
+                <span class="col-score">SCORE (/100)</span>
+                <span class="col-level">LEVEL</span>
+              </div>
+
+              <div class="area-bars-container" id="technicalSkillsBars">
+                <!-- Dynamically populated from test_answers when student attends Technical Test (Coding/Tools) -->
+              </div>
+            </div>
+
+          </div>
+
+          <div class="disclaimer-note">
+            Note: Scores are based on assessment performance and self-evaluation. They indicate career readiness, not a guarantee of employment.
+          </div>
+
+          <!-- ================================================== -->
+          <!-- ROW 3: RECOMMENDED CAREER DOMAINS & ENTRY LEVEL DESIGNATIONS -->
+          <!-- Strict Red, Amber, Green Grading & Centered Readiness -->
+          <!-- ================================================== -->
+          <section class="recommended-career-section">
+            <div class="card-header-navy">
+              <span>RECOMMENDED CAREER DOMAINS & ENTRY LEVEL DESIGNATIONS</span>
+            </div>
+
+            <div class="rec-table-wrapper">
+              <table class="rec-career-table">
+                <thead>
+                  <tr>
+                    <th style="width: 22%;">DOMAIN</th>
+                    <th style="width: 12%;">MATCH</th>
+                    <th style="width: 21%;">WHY THIS MATCH?</th>
+                    <th style="width: 17%;">POSSIBLE ENTRY LEVEL DESIGNATIONS</th>
+                    <th style="width: 10%; text-align: center;">READINESS</th>
+                    <th style="width: 18%;">RECOMMENDED FOCUS</th>
+                  </tr>
+                </thead>
+                <tbody id="recCareerTableBody">
+                  <!-- Row 1: Software & Full Stack Development -->
+                  <tr class="clickable-domain-row" onclick="openCareerRoadmap('Full Stack Development')" title="Click to view 10–15 Year Career Roadmap for Full Stack Development">
+                    <td>
+                      <div class="domain-cell">
+                        <div class="rec-icon icon-bg-blue">🎯</div>
+                        <div>
+                          <div class="rec-domain-title">Full Stack Development</div>
+                          <div class="rec-domain-sub">Candidate Registered Target</div>
+                          <div class="domain-roadmap-link">
+                            <span>View Career Roadmap</span>
+                            <span>&rarr;</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="star-rating stars-green">★★★★★</div>
+                      <div class="match-label text-grade-green">Strong Match</div>
+                    </td>
+                    <td>
+                      <p class="why-text">Strong mastery in Critical Thinking, Problem Solving & Decision Making (100%).</p>
+                    </td>
+                    <td>
+                      <ul class="designation-list">
+                        <li>• Junior Developer / Associate</li>
+                        <li>• Full Stack Trainee</li>
+                      </ul>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                      <div class="readiness-col-wrap">
+                        <div class="readiness-circle circle-high" title="High (Best Fit)">High</div>
+                        <div class="readiness-caption text-grade-green">Best Fit</div>
+                      </div>
+                    </td>
+                    <td>
+                      <ul class="focus-list">
+                        <li>• Production Projects on GitHub</li>
+                        <li>• API & Database Schemas</li>
+                      </ul>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2: Data & Analytics -->
+                  <tr class="clickable-domain-row" onclick="openCareerRoadmap('Data & Analytics')" title="Click to view 10–15 Year Career Roadmap for Data & Analytics">
+                    <td>
+                      <div class="domain-cell">
+                        <div class="rec-icon icon-bg-green">📊</div>
+                        <div>
+                          <div class="rec-domain-title">Data & Analytics</div>
+                          <div class="rec-domain-sub">Analytical & BI Systems</div>
+                          <div class="domain-roadmap-link">
+                            <span>View Career Roadmap</span>
+                            <span>&rarr;</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="star-rating stars-green">★★★★☆</div>
+                      <div class="match-label text-grade-green">Good Match</div>
+                    </td>
+                    <td>
+                      <p class="why-text">High aptitude in Analytical Thinking & Decision Making (100%).</p>
+                    </td>
+                    <td>
+                      <ul class="designation-list">
+                        <li>• Junior Data Analyst</li>
+                        <li>• BI / Reporting Trainee</li>
+                      </ul>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                      <div class="readiness-col-wrap">
+                        <div class="readiness-circle circle-high" title="High (Best Fit)">High</div>
+                        <div class="readiness-caption text-grade-green">Best Fit</div>
+                      </div>
+                    </td>
+                    <td>
+                      <ul class="focus-list">
+                        <li>• Master SQL & Relational Queries</li>
+                        <li>• Data Modeling with Python</li>
+                      </ul>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3: QA & Automation Testing -->
+                  <tr class="clickable-domain-row" onclick="openCareerRoadmap('QA & Automation Testing')" title="Click to view 10–15 Year Career Roadmap for QA & Automation Testing">
+                    <td>
+                      <div class="domain-cell">
+                        <div class="rec-icon icon-bg-purple">🛡️</div>
+                        <div>
+                          <div class="rec-domain-title">QA & Automation Testing</div>
+                          <div class="rec-domain-sub">Software Quality & Validation</div>
+                          <div class="domain-roadmap-link">
+                            <span>View Career Roadmap</span>
+                            <span>&rarr;</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="star-rating stars-green">★★★★☆</div>
+                      <div class="match-label text-grade-green">Good Match</div>
+                    </td>
+                    <td>
+                      <p class="why-text">Excellent Adaptability & Problem Solving competencies (100%).</p>
+                    </td>
+                    <td>
+                      <ul class="designation-list">
+                        <li>• QA Engineer (Trainee)</li>
+                        <li>• Software Test Engineer</li>
+                      </ul>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle;">
+                      <div class="readiness-col-wrap">
+                        <div class="readiness-circle circle-high" title="High (Best Fit)">High</div>
+                        <div class="readiness-caption text-grade-green">Best Fit</div>
+                      </div>
+                    </td>
+                    <td>
+                      <ul class="focus-list">
+                        <li>• Test Case Design & Automation</li>
+                        <li>• CI/CD Quality Gates</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Match Legend Bar -->
+              <div class="match-legend-bar">
+                <span class="legend-title">Match Legend:</span>
+                <span class="legend-item"><span class="stars-green">★★★★★</span> Strong Match</span>
+                <span class="legend-item"><span class="stars-green">★★★★☆</span> Good Match</span>
+                <span class="legend-item"><span class="stars-amber">★★★☆☆</span> Explore</span>
+                <span class="legend-item"><span class="stars-red">★★☆☆☆</span> Low Match</span>
+                <span class="legend-item"><span class="stars-red">★☆☆☆☆</span> Not Recommended</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========================================================== -->
+          <!-- ROW 4: BOTTOM STRATEGIC ACTION CARDS (2 COLUMNS)           -->
+          <!-- Box 1: Skilldome Services Next Steps | Box 2: Auto S&W     -->
+          <!-- ========================================================== -->
+          <div class="bottom-action-grid">
+            
+            <!-- Box 1: Recommended Next Steps (Skilldome Campus to Corporate Services) -->
+            <div class="action-card next-steps-card" id="cardNextStepsBox">
+              <div class="action-card-header">
+                <h4 class="action-card-title">
+                  <span class="card-title-icon">🚀</span>
+                  RECOMMENDED NEXT STEPS (SKILLDOME JOURNEY)
+                </h4>
+                <span class="card-badge-tag">Campus to Corporate</span>
+              </div>
+              <ul class="action-check-list service-check-list" id="cardRecommendedNextStepsList">
+                <li><span class="check-icon">✔</span> <span class="service-desc">Build 2-3 strong production projects and host on GitHub with Skilldome.</span></li>
+                <li><span class="check-icon">✔</span> <span class="service-desc">Improve communication skills and mock interview confidence at Skilldome.</span></li>
+                <li><span class="check-icon">✔</span> <span class="service-desc">Learn SQL, APIs, Git, and System Design basics through Skilldome.</span></li>
+                <li><span class="check-icon">✔</span> <span class="service-desc">Create a professional LinkedIn profile with portfolio links guided by Skilldome.</span></li>
+                <li><span class="check-icon">✔</span> <span class="service-desc">Practice 10 timed mock interview rounds with Skilldome.</span></li>
+              </ul>
+            </div>
+
+            <!-- Box 2: Candidate Assessment Strengths & Weaknesses (Auto-Generated from Real Scores) -->
+            <div class="action-card strengths-weaknesses-card" id="cardStrengthsWeaknessesBox">
+              <div class="action-card-header">
+                <h4 class="action-card-title">
+                  <span class="card-title-icon">⚖️</span>
+                  ASSESSMENT STRENGTHS & WEAKNESSES
+                </h4>
+                <span class="card-badge-tag badge-tag-dynamic" id="swScoreBasedBadge">Automated Score Analysis</span>
+              </div>
+              <div class="sw-split-container" id="cardStrengthsWeaknessesContent">
+                <!-- Dynamically populated by app.js as bullet points summary -->
+                <div class="sw-column sw-strengths-col">
+                  <div class="sw-col-header text-grade-green">
+                    <span class="sw-col-icon">💪</span>
+                    <span class="sw-col-title">KEY STRENGTHS</span>
+                  </div>
+                  <ul class="sw-bullet-list" id="swStrengthsList">
+                    <li class="sw-bullet-placeholder">Analyzing test scores...</li>
+                  </ul>
+                </div>
+
+                <div class="sw-column sw-weaknesses-col">
+                  <div class="sw-col-header text-grade-amber">
+                    <span class="sw-col-icon">🎯</span>
+                    <span class="sw-col-title">AREAS FOR IMPROVEMENT</span>
+                  </div>
+                  <ul class="sw-bullet-list" id="swWeaknessesList">
+                    <li class="sw-bullet-placeholder">Analyzing test scores...</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 3: MOCK INTERVIEW SCORECARD (Reference Blueprint)     -->
+    <!-- Practice Today. Perform Tomorrow.                          -->
+    <!-- ========================================================== -->
+    <main id="viewMockInterview" class="view-content hidden">
+      
+      <!-- Top Action Controls -->
+      <div class="scorecard-top-bar mock-top-bar">
+        <div class="top-bar-left">
+          <button class="btn-back" onclick="openMockInterviewHub()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            <span>Back to Mock Hub</span>
+          </button>
+          <div class="crm-top-breadcrumb">
+            <span>Mock Hub</span>
+            <span class="crumb-sep">/</span>
+            <span class="crumb-current">Interview Scorecard</span>
+          </div>
+        </div>
+
+        <div class="top-bar-right mock-top-bar-right">
+          <div class="mock-selector-wrap">
+            <div class="mock-select-group">
+              <label for="mockSelectStudent" class="crm-select-label">Candidate:</label>
+              <select id="mockSelectStudent" class="mock-select-styled" onchange="onMockStudentChange(this.value)">
+                <!-- Options populated dynamically by Student ID -->
+              </select>
+            </div>
+
+            <div class="mock-select-group">
+              <label for="mockSelectSession" class="crm-select-label">Session:</label>
+              <select id="mockSelectSession" class="mock-select-styled" onchange="onMockSessionChange(this.value)">
+                <!-- Options populated dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="scorecard-actions mock-header-actions">
+            <button class="btn-action-outline btn-mock-eval-btn" onclick="openMockInputForm(state.selectedMockStudentId)" title="Open Evaluation Form to enter marks">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span>+ Evaluation Input Form</span>
+            </button>
+            <button class="btn-action-primary btn-mock-print-btn" onclick="downloadMockScorecardPDF()" title="Download Mock Interview Scorecard as PDF">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Scorecard (PDF)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Mock Interview Scorecard Container -->
+      <div class="scorecard-container mock-scorecard-container" id="mockPrintArea">
+        
+        <!-- Left Sidebar: Corporate Navy Theme (Matching Assessment Page - Strictly NO Photo) -->
+        <aside class="scorecard-sidebar mock-sidebar">
+          <div class="sidebar-brand-box">
+            <img src="assets/logo.png?v=10.0" alt="Skilldome Logo" class="sidebar-logo-img" />
+          </div>
+
+          <!-- Student Profile Monogram Initials Avatar -->
+          <div class="student-profile-box mock-profile-box">
+            <div class="avatar-ring-monogram mock-monogram-circle" id="mockMonogramContainer">
+              <span class="monogram-text mock-monogram-text" id="mockMonogram">SK</span>
+            </div>
+            <h2 class="student-name mock-student-name" id="mockStudentName">SANJEEVI K</h2>
+          </div>
+
+          <!-- Metadata Properties with Assessment-style Circular Icons -->
+          <div class="student-meta-list mock-meta-list">
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Student ID</span>
+                <span class="meta-value mock-meta-val" id="mockStudentId">SKD-2026-0001</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Email ID</span>
+                <span class="meta-value mock-meta-val" id="mockEmail">dinesh.kumar@email.com</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Target Role</span>
+                <span class="meta-value mock-meta-val" id="mockTargetRole">Python Developer</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Experience Level</span>
+                <span class="meta-value mock-meta-val" id="mockExperienceLevel">Fresher / 0–1 Year</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Interview Date</span>
+                <span class="meta-value mock-meta-val" id="mockInterviewDate">02 September 2026</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Interview Mode</span>
+                <span class="meta-value mock-meta-val" id="mockInterviewMode">Online (Google Meet)</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Interviewer</span>
+                <span class="meta-value mock-meta-val" id="mockInterviewer">Skilldome Panel</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Interview Type</span>
+                <span class="meta-value mock-meta-val" id="mockInterviewType">Technical + HR</span>
+              </div>
+            </div>
+
+            <div class="meta-item mock-meta-item">
+              <div class="meta-icon mock-meta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="meta-content mock-meta-info">
+                <span class="meta-title mock-meta-label">Duration</span>
+                <span class="meta-value mock-meta-val" id="mockDuration">42 Minutes</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Main Report Area -->
+        <main class="scorecard-main mock-main">
+          
+          <!-- Header -->
+          <div class="report-header mock-report-header">
+            <div>
+              <h1 class="report-title">MOCK INTERVIEW SCORECARD</h1>
+              <div class="report-subtitle">Practice Today. Perform Tomorrow. • Powered by Skilldome</div>
+            </div>
+            <div class="interview-number-badge">
+              <span class="int-num-lead">INTERVIEW NUMBER</span>
+              <span class="int-num-val" id="mockInterviewNumber">1 / 10</span>
+            </div>
+          </div>
+
+          <!-- ROW 1: Interview Summary & Overall Result Gauge -->
+          <div class="mock-row-1">
+            <!-- Left Card: Interview Name & Focus -->
+            <div class="mock-card mock-interview-name-card">
+              <div class="mock-card-label">INTERVIEW NAME</div>
+              <div class="mock-interview-pill" id="mockInterviewName">★ CodeStart Sprint</div>
+              <div class="mock-focus-desc" id="mockFocusAreas">
+                <strong>Focus:</strong> Python Fundamentals, Problem Solving, OOPs, SQL, API Basics & HR Fit
+              </div>
+            </div>
+
+            <!-- Right Card: Overall Result -->
+            <div class="mock-card mock-overall-result-card">
+              <div class="mock-card-label">OVERALL RESULT</div>
+              <div class="mock-gauge-layout">
+                <div class="gauge-container" style="width: 76px; height: 76px; position: relative; flex-shrink: 0;">
+                  <svg class="circular-chart" viewBox="0 0 100 100" style="width: 76px; height: 76px; transform: rotate(-90deg);">
+                    <circle class="circle-bg" cx="50" cy="50" r="42" fill="none" stroke="#e2e8f0" stroke-width="8" />
+                    <circle class="circle-progress" id="mockGaugeBar" cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="103" stroke-linecap="round" />
+                  </svg>
+                  <div class="gauge-inner-text" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1;">
+                    <span class="gauge-score" id="mockOverallScore" style="font-family: 'Outfit', sans-serif; font-size: 1.55rem; font-weight: 900; color: #08183a;">61</span>
+                    <span class="gauge-denom" style="font-size: 0.65rem; color: #64748b; font-weight: 600;">/100</span>
+                  </div>
+                </div>
+
+                <div class="mock-gauge-info">
+                  <div class="mock-level-header">
+                    <span class="mock-level-tag">LEVEL</span>
+                    <h3 class="mock-level-title" id="mockResultLevel">DEVELOPING</h3>
+                  </div>
+                  <p class="mock-level-desc" id="mockResultDesc">
+                    Good start! You have shown potential. Consistent practice and focused improvement in weak areas will help you perform much better.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ROW 2: SCORE BREAKDOWN TABLE -->
+          <div class="mock-table-card">
+            <div class="mock-table-header-title">SCORE BREAKDOWN</div>
+            <table class="mock-breakdown-table score-matrix-table">
+              <thead>
+                <tr>
+                  <th style="width: 5%; text-align: center;">#</th>
+                  <th style="width: 41%; text-align: left;">EVALUATION AREA &amp; CRITERIA</th>
+                  <th style="width: 13%; text-align: center;">MAX SCORE</th>
+                  <th style="width: 13%; text-align: center;">GIVEN SCORE</th>
+                  <th style="width: 28%; text-align: left;">SCORE (%) &amp; LIVE PROGRESS</th>
+                </tr>
+              </thead>
+              <tbody id="mockScoreBreakdownBody">
+                <!-- 7 rows dynamically generated from DB evaluation_scores -->
+              </tbody>
+              <tfoot>
+                <tr class="mock-total-row matrix-total-row">
+                  <td style="text-align: center; font-weight: 900; font-size: 1rem; color: #08183a;">Σ</td>
+                  <td style="font-weight: 900; color: #08183a; letter-spacing: 0.5px; font-size: 0.76rem;">TOTAL EVALUATION SCORE</td>
+                  <td style="text-align: center;"><span class="matrix-total-badge" id="mockTotalMaxBadge">100</span></td>
+                  <td style="text-align: center;"><span class="matrix-total-badge" id="mockTotalYourScore">61</span></td>
+                  <td style="text-align: left;">
+                    <div class="matrix-progress-wrap score-matrix-progress-wrap">
+                      <div class="matrix-progress-track score-matrix-track">
+                        <div id="mockTotalProgressBar" class="matrix-progress-fill score-matrix-fill" style="width: 61%; background: linear-gradient(90deg, #ea580c, #16a34a);"></div>
+                      </div>
+                      <span id="mockTotalPercent" class="matrix-percent-label score-matrix-pct-label">61%</span>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- ROW 3: Three Feedback Cards -->
+          <div class="mock-feedback-grid">
+            <!-- Card 1: What Did Well -->
+            <div class="mock-feedback-card feedback-well-card">
+              <div class="feedback-card-header text-grade-green">
+                <span class="feedback-icon-circle circle-green">✓</span>
+                <span id="mockDidWellHeader">WHAT CANDIDATE DID WELL</span>
+              </div>
+              <ul class="feedback-list list-green" id="mockDidWellList">
+                <!-- Items populated dynamically -->
+              </ul>
+            </div>
+
+            <!-- Card 2: Areas to Improve -->
+            <div class="mock-feedback-card feedback-improve-card">
+              <div class="feedback-card-header text-grade-amber">
+                <span class="feedback-icon-circle circle-orange">!</span>
+                <span>AREAS TO IMPROVE</span>
+              </div>
+              <ul class="feedback-list list-amber" id="mockImproveList">
+                <!-- Items populated dynamically -->
+              </ul>
+            </div>
+
+            <!-- Card 3: Top Questions Asked -->
+            <div class="mock-feedback-card feedback-questions-card">
+              <div class="feedback-card-header text-brand-blue">
+                <span class="feedback-icon-circle circle-blue">?</span>
+                <span>TOP QUESTIONS ASKED</span>
+              </div>
+              <ol class="feedback-numbered-list" id="mockQuestionsList">
+                <!-- Items populated dynamically -->
+              </ol>
+            </div>
+          </div>
+
+          <!-- ROW 4: Interviewer Remarks & Rating -->
+          <div class="mock-remarks-grid">
+            <div class="mock-feedback-card">
+              <div class="feedback-card-header text-brand-navy">
+                <span class="feedback-icon">💬</span>
+                <span>INTERVIEWER'S OVERALL FEEDBACK</span>
+              </div>
+              <p class="interviewer-overall-text" id="mockOverallFeedback">
+                Candidate has a good foundation in core technical concepts. Need to work on structured communication, depth in system design, and code optimization. With consistent practice and focused preparation, performance will improve significantly.
+              </p>
+            </div>
+
+            <div class="mock-feedback-card rating-card">
+              <div class="feedback-card-header text-brand-navy">
+                <span>INTERVIEWER'S RATING</span>
+              </div>
+              <div class="rating-stars-row" id="mockRatingStars">
+                ★★★☆☆
+              </div>
+              <div class="rating-verdict" id="mockRatingVerdict">Good Effort! Keep Improving.</div>
+            </div>
+          </div>
+
+          <!-- ROW 5: Action Plan & 10-Interview Journey -->
+          <div class="mock-bottom-grid">
+            <!-- Left: Action Plan -->
+            <div class="mock-feedback-card action-plan-card">
+              <div class="feedback-card-header text-brand-navy">
+                <span class="feedback-icon">🎯</span>
+                <span>ACTION PLAN BEFORE NEXT INTERVIEW</span>
+              </div>
+              <ul class="action-plan-items" id="mockActionPlanList">
+                <!-- Populated dynamically -->
+              </ul>
+              <div class="action-quote-bar">
+                “ Small daily improvements lead to big interview success. ”
+              </div>
+            </div>
+
+            <!-- Right: 10-Interview Journey Tracker & Next Interview -->
+            <div class="mock-journey-column">
+              <!-- Journey Table -->
+              <div class="mock-feedback-card journey-card">
+                <div class="journey-header">
+                  <div class="journey-title-row">
+                    <span class="journey-icon">📈</span>
+                    <span class="journey-title" id="mockJourneyTitle">MOCK INTERVIEW JOURNEY</span>
+                  </div>
+                  <span class="journey-sub">Track your progress across 10 mock interviews</span>
+                </div>
+
+                <div class="journey-table-wrapper">
+                  <table class="journey-table">
+                    <thead>
+                      <tr>
+                        <th>Interview #</th>
+                        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                        <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id="journeyScoreRow">
+                        <td class="row-label">Score (/100)</td>
+                        <!-- Populated dynamically -->
+                      </tr>
+                      <tr id="journeyLevelRow">
+                        <td class="row-label">Level</td>
+                        <!-- Populated dynamically -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="journey-legend">
+                  <span class="legend-badge-item"><span class="badge-dot dot-d"></span> (D) - Developing</span>
+                  <span class="legend-badge-item"><span class="badge-dot dot-p"></span> (P) - Proficient</span>
+                  <span class="legend-badge-item"><span class="badge-dot dot-r"></span> (R) - Job Ready</span>
+                </div>
+              </div>
+
+              <!-- Next Interview Box -->
+              <div class="next-interview-box">
+                <div class="next-int-info">
+                  <span class="next-int-icon">📅</span>
+                  <div>
+                    <div class="next-int-lead">NEXT INTERVIEW</div>
+                    <div class="next-int-name" id="mockNextInterviewName">Interview #2 – LogicLeap Challenge</div>
+                    <div class="next-int-date" id="mockNextInterviewDate">Scheduled On: 05 September 2026</div>
+                  </div>
+                </div>
+
+                <div class="next-int-cheer">
+                  <span class="cheer-rocket">🚀</span>
+                  <div>
+                    <div class="cheer-title">Keep Going!</div>
+                    <div class="cheer-sub">Every interview makes you better.</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <footer class="mock-scorecard-footer">
+            <div class="footer-brand-tag">
+              <strong>SKILLDOME</strong> • Campus to Corporate
+            </div>
+            <div class="footer-id-tag">
+              Student ID: <span id="mockFooterStudentId">SDC00001</span>
+            </div>
+            <div class="footer-closing-tag">
+              Thank you for choosing Skilldome!
+            </div>
+          </footer>
+
+        </main>
+
+      </div>
+
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 4: DEDICATED EVALUATION INPUT FORM PAGE                -->
+    <!-- Saves directly to Hostinger MySQL table: mock_interviews   -->
+    <!-- ========================================================== -->
+    <main id="viewMockInputForm" class="view-content hidden">
+      <div class="input-form-page-container">
+        
+        <!-- Header Bar with Breadcrumb and Live Score Banner -->
+        <div class="input-form-page-header">
+          <div class="header-left-sub">
+            <button class="btn-breadcrumb" onclick="openMockInterviewHub()" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+              <span>Back to Mock Interview Hub</span>
+            </button>
+            <h1 class="page-main-title">Candidate Mock Evaluation Form</h1>
+            <p class="page-main-subtitle">Select candidate by Student ID, grade the 7 competency areas, and record evaluation notes.</p>
+          </div>
+
+          <div class="live-calculator-banner page-calc-banner">
+            <div class="calc-label-col">
+              <span class="calc-label">Calculated Score</span>
+              <span class="calc-max-text">out of 100 max</span>
+            </div>
+            <strong id="liveFormTotalScore" class="calc-number">61</strong>
+            <span id="liveFormLevelBadge" class="live-level-badge badge-developing">DEVELOPING</span>
+          </div>
+        </div>
+
+        <form id="mockInterviewForm" class="evaluation-page-form" onsubmit="handleSaveMockInterview(event)">
+          
+          <!-- Section 1: Candidate & Session Details -->
+          <div class="form-section-card">
+            <h3 class="form-group-title">
+              <span class="step-num-circle">1</span>
+              Candidate & Interview Information
+            </h3>
+            
+            <div class="form-grid-3">
+              <div class="form-field form-span-2">
+                <label for="formStudentSelect"><strong>Select Candidate (by Student ID): *</strong></label>
+                <select id="formStudentSelect" class="form-input form-input-highlight" required onchange="onFormCandidateSelect(this.value)">
+                  <!-- Populated dynamically from candidate_registrations.student_id -->
+                </select>
+                <span class="field-hint">Selecting a Student ID auto-fills the candidate's name, email, and target role.</span>
+              </div>
+
+              <div class="form-field">
+                <label for="formInterviewNumber">Interview Number (1–10): *</label>
+                <input type="number" id="formInterviewNumber" class="form-input" min="1" max="10" value="1" required>
+              </div>
+
+              <div class="form-field">
+                <label for="formStudentNameDisplay">Candidate Full Name:</label>
+                <input type="text" id="formStudentNameDisplay" class="form-input" readonly placeholder="Auto-filled from Student ID">
+              </div>
+
+              <div class="form-field">
+                <label for="formStudentEmailDisplay">Candidate Email:</label>
+                <input type="text" id="formStudentEmailDisplay" class="form-input" readonly placeholder="Auto-filled from Student ID">
+              </div>
+
+              <div class="form-field">
+                <label for="formTargetRole">Target Role / Domain: *</label>
+                <input type="text" id="formTargetRole" class="form-input" value="Python Developer" placeholder="e.g. Python Developer" required>
+              </div>
+
+              <div class="form-field">
+                <label for="formInterviewName">Interview Name: *</label>
+                <input type="text" id="formInterviewName" class="form-input" value="CodeStart Sprint" placeholder="e.g. CodeStart Sprint" required>
+              </div>
+
+              <div class="form-field">
+                <label for="formExperienceLevel">Experience Level:</label>
+                <select id="formExperienceLevel" class="form-input">
+                  <option value="Fresher / 0–1 Year" selected>Fresher / 0–1 Year</option>
+                  <option value="1–2 Years">1–2 Years</option>
+                  <option value="3+ Years">3+ Years</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="formInterviewDate">Interview Date: *</label>
+                <input type="date" id="formInterviewDate" class="form-input" required>
+              </div>
+
+              <div class="form-field">
+                <label for="formInterviewMode">Interview Mode:</label>
+                <select id="formInterviewMode" class="form-input">
+                  <option value="Online (Google Meet)" selected>Online (Google Meet)</option>
+                  <option value="Online (Zoom)">Online (Zoom)</option>
+                  <option value="In-Person">In-Person</option>
+                  <option value="Telephonic">Telephonic</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="formInterviewer">Interviewer Panel:</label>
+                <input type="text" id="formInterviewer" class="form-input" value="Skilldome Panel">
+              </div>
+
+              <div class="form-field">
+                <label for="formInterviewType">Interview Type:</label>
+                <select id="formInterviewType" class="form-input">
+                  <option value="Technical + HR" selected>Technical + HR</option>
+                  <option value="Technical Coding">Technical Coding</option>
+                  <option value="System Design">System Design</option>
+                  <option value="HR / Behavioral">HR / Behavioral</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="formDuration">Duration (Minutes):</label>
+                <input type="number" id="formDuration" class="form-input" min="15" max="180" value="42">
+              </div>
+
+              <div class="form-field form-span-3">
+                <label for="formFocusAreas">Focus Areas Description:</label>
+                <input type="text" id="formFocusAreas" class="form-input" value="Python Fundamentals, Problem Solving, OOPs, SQL, API Basics & HR Fit">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Score Breakdown Matrix Table (Matching user snippet media_1788448777977.png) -->
+          <div class="form-section-card matrix-table-card">
+            <div class="matrix-table-header-bar">
+              <h3 class="matrix-table-title">
+                <span class="step-num-circle" style="background: #ffffff; color: #08183a;">2</span>
+                SCORE BREAKDOWN (7 Competency Areas — Max 100)
+              </h3>
+              <span class="calc-max-text" style="color: #93c5fd; font-weight: 700;">Exact Evaluation Framework</span>
+            </div>
+
+            <div class="matrix-table-wrap">
+              <table class="score-matrix-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;" class="col-center">#</th>
+                    <th>EVALUATION AREA & CRITERIA</th>
+                    <th style="width: 120px;" class="col-center">MAX SCORE</th>
+                    <th style="width: 140px;" class="col-center">GIVEN SCORE</th>
+                    <th style="width: 240px;">SCORE (%) & LIVE PROGRESS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- 1: Communication -->
+                  <tr>
+                    <td class="col-center"><span class="matrix-num-badge badge-purple">1</span></td>
+                    <td>
+                      <div class="matrix-area-col">
+                        <span class="matrix-area-name">Communication & Clarity</span>
+                        <span class="matrix-area-desc">Expressing thoughts clearly, structured articulation</span>
+                      </div>
+                    </td>
+                    <td class="col-center"><span class="matrix-max-badge">15</span></td>
+                    <td class="col-center">
+                      <div class="matrix-input-wrap">
+                        <input type="number" id="formScoreComm" class="matrix-score-input" min="0" max="15" value="9" required oninput="calcFormMockTotal()">
+                      </div>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track">
+                          <div id="commPercentBar" class="matrix-progress-fill fill-purple" style="width: 60%;"></div>
+                        </div>
+                        <span id="commPercentText" class="matrix-percent-label">60%</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- 2: Technical -->
+                  <tr>
+                    <td class="col-center"><span class="matrix-num-badge badge-blue">2</span></td>
+                    <td>
+                      <div class="matrix-area-col">
+                        <span class="matrix-area-name">Technical Knowledge</span>
+                        <span class="matrix-area-desc">Concepts, accuracy, syntax and technical depth</span>
+                      </div>
+                    </td>
+                    <td class="col-center"><span class="matrix-max-badge">20</span></td>
+                    <td class="col-center">
+                      <div class="matrix-input-wrap">
+                        <input type="number" id="formScoreTech" class="matrix-score-input" min="0" max="20" value="14" required oninput="calcFormMockTotal()">
+                      </div>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track">
+                          <div id="techPercentBar" class="matrix-progress-fill fill-blue" style="width: 70%;"></div>
+                        </div>
+                        <span id="techPercentText" class="matrix-percent-label">70%</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- 3: Problem Solving -->
+                  <tr>
+                    <td class="col-center"><span class="matrix-num-badge badge-green">3</span></td>
+                    <td>
+                      <div class="matrix-area-col">
+                        <span class="matrix-area-name">Problem Solving</span>
+                        <span class="matrix-area-desc">Approach, logical thinking, edge case handling</span>
+                      </div>
+                    </td>
+                    <td class="col-center"><span class="matrix-max-badge">15</span></td>
+                    <td class="col-center">
+                      <div class="matrix-input-wrap">
+                        <input type="number" id="formScoreProb" class="matrix-score-input" min="0" max="15" value="10" required oninput="calcFormMockTotal()">
+                      </div>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track">
+                          <div id="probPercentBar" class="matrix-progress-fill fill-green" style="width: 67%;"></div>
+                        </div>
+                        <span id="probPercentText" class="matrix-percent-label">67%</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- 4: Resume & Projects -->
+                  <tr>
+                    <td class="col-center"><span class="matrix-num-badge badge-orange">4</span></td>
+                    <td>
+                      <div class="matrix-area-col">
+                        <span class="matrix-area-name">Understanding of Resume / Projects</span>
+                        <span class="matrix-area-desc">Explaining projects, tech stack used, challenges faced</span>
+                      </div>
+                    </td>
+                    <td class="col-center"><span class="matrix-max-badge">15</span></td>
+                    <td class="col-center">
+                      <div class="matrix-input-wrap">
+                        <input type="number" id="formScoreResume" class="matrix-score-input" min="0" max="15" value="8" required oninput="calcFormMockTotal()">
+                      </div>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track">
+                          <div id="resumePercentBar" class="matrix-progress-fill fill-orange" style="width: 53%;"></div>
+                        </div>
+                        <span id="resumePercentText" class="matrix-percent-label">53%</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- 5: Behavioral -->
+                  <tr>
+                    <td class="col-center"><span class="matrix-num-badge badge-pink">5</span></td>
+                    <td>
+                      <div class="matrix-area-col">
+                        <span class="matrix-area-name">Behavioral / HR Responses</span>
+                        <span class="matrix-area-desc">Situational questions, culture fit, attitude, ethics</span>
+                      </div>
+                    </td>
+                    <td class="col-center"><span class="matrix-max-badge">10</span></td>
+                    <td class="col-center">
+                      <div class="matrix-input-wrap">
+                        <input type="number" id="formScoreBehav" class="matrix-score-input" min="0" max="10" value="6" required oninput="calcFormMockTotal()">
+                      </div>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track">
+                          <div id="behavPercentBar" class="matrix-progress-fill fill-pink" style="width: 60%;"></div>
+                        </div>
+                        <span id="behavPercentText" class="matrix-percent-label">60%</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- 6: Confidence -->
+                  <tr>
+                    <td class="col-center"><span class="matrix-num-badge badge-teal">6</span></td>
+                    <td>
+                      <div class="matrix-area-col">
+                        <span class="matrix-area-name">Confidence & Professionalism</span>
+                        <span class="matrix-area-desc">Demeanor, composure under pressure, professional attitude</span>
+                      </div>
+                    </td>
+                    <td class="col-center"><span class="matrix-max-badge">10</span></td>
+                    <td class="col-center">
+                      <div class="matrix-input-wrap">
+                        <input type="number" id="formScoreConf" class="matrix-score-input" min="0" max="10" value="6" required oninput="calcFormMockTotal()">
+                      </div>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track">
+                          <div id="confPercentBar" class="matrix-progress-fill fill-teal" style="width: 60%;"></div>
+                        </div>
+                        <span id="confPercentText" class="matrix-percent-label">60%</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- 7: Role Knowledge -->
+                  <tr>
+                    <td class="col-center"><span class="matrix-num-badge badge-navy">7</span></td>
+                    <td>
+                      <div class="matrix-area-col">
+                        <span class="matrix-area-name">Role-specific Knowledge</span>
+                        <span class="matrix-area-desc">Domain standards, tools, industry awareness</span>
+                      </div>
+                    </td>
+                    <td class="col-center"><span class="matrix-max-badge">15</span></td>
+                    <td class="col-center">
+                      <div class="matrix-input-wrap">
+                        <input type="number" id="formScoreRole" class="matrix-score-input" min="0" max="15" value="8" required oninput="calcFormMockTotal()">
+                      </div>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track">
+                          <div id="rolePercentBar" class="matrix-progress-fill fill-navy" style="width: 53%;"></div>
+                        </div>
+                        <span id="rolePercentText" class="matrix-percent-label">53%</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- TOTAL ROW -->
+                  <tr class="matrix-total-row">
+                    <td class="col-center"><strong>∑</strong></td>
+                    <td>
+                      <strong>TOTAL EVALUATION SCORE</strong>
+                    </td>
+                    <td class="col-center"><span class="matrix-total-badge">100</span></td>
+                    <td class="col-center">
+                      <span id="formTotalRowScore" class="matrix-total-badge" style="background: #0284c7;">61</span>
+                    </td>
+                    <td class="matrix-progress-cell">
+                      <div class="matrix-progress-wrap">
+                        <div class="matrix-progress-track" style="height: 12px;">
+                          <div id="formTotalRowBar" class="matrix-progress-fill" style="width: 61%; background: linear-gradient(90deg, #f59e0b, #10b981);"></div>
+                        </div>
+                        <span id="formTotalRowPercent" class="matrix-percent-label" style="font-size: 0.95rem;">61%</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 3: Automated Summary & Evaluation Insights (Points Cards Matching Reference UI) -->
+          <div class="form-section-card auto-summary-card" id="formSummarySection">
+            <div class="section-header-flex">
+              <div>
+                <h3 class="form-group-title" style="margin-bottom: 2px;">
+                  <span class="step-num-circle">3</span>
+                  Generated Evaluation Summary
+                </h3>
+                <span style="font-size: 0.74rem; color: #64748b;">Generated as structured points based on candidate domain and marks. Click any point to edit.</span>
+              </div>
+              <button type="button" class="btn-regenerate-summary" onclick="triggerRegenerateSummary()" title="Re-synthesize summary from marks">
+                <span>⚡</span>
+                <span>Regenerate Summary Points</span>
+              </button>
+            </div>
+
+            <div class="auto-summary-live-bar">
+              <span class="pulse-dot"></span>
+              <span id="autoSummaryStatusText">Auto-generated points based on current marks</span>
+            </div>
+
+            <!-- Two Cards: What Candidate Did Well & Areas to Improve (Exact UI from user snip) -->
+            <div class="summary-points-grid">
+              <!-- Card 1: What Candidate Did Well (Green) -->
+              <div class="summary-points-card well-card">
+                <div class="points-card-header">
+                  <div class="feedback-icon-circle circle-green">✓</div>
+                  <h4 class="points-card-title title-green" id="formDidWellTitle">WHAT CANDIDATE DID WELL</h4>
+                </div>
+                <ul class="points-items-list" id="formDidWellList">
+                  <!-- Auto-populated points -->
+                </ul>
+              </div>
+
+              <!-- Card 2: Areas to Improve (Orange) -->
+              <div class="summary-points-card improve-card">
+                <div class="points-card-header">
+                  <div class="feedback-icon-circle circle-orange">!</div>
+                  <h4 class="points-card-title title-orange">AREAS TO IMPROVE</h4>
+                </div>
+                <ul class="points-items-list" id="formImproveList">
+                  <!-- Auto-populated points -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Row 2: Top Questions Asked & Overall Feedback -->
+            <div class="summary-points-grid" style="margin-top: 14px;">
+              <!-- Card 3: Top Questions Asked (Blue) -->
+              <div class="summary-points-card">
+                <div class="points-card-header">
+                  <div class="feedback-icon-circle circle-blue">?</div>
+                  <h4 class="points-card-title title-blue">TOP QUESTIONS ASKED IN INTERVIEW</h4>
+                </div>
+                <ul class="points-items-list" id="formQuestionsList">
+                  <!-- Auto-populated questions -->
+                </ul>
+              </div>
+
+              <!-- Card 4: Interviewer Feedback Narrative & Rating -->
+              <div class="summary-points-card">
+                <div class="points-card-header">
+                  <div class="feedback-icon-circle" style="background: #08183a;">💬</div>
+                  <h4 class="points-card-title" style="color: #08183a;">INTERVIEWER'S OVERALL FEEDBACK</h4>
+                </div>
+                <div class="feedback-narrative-box" id="formOverallFeedbackText" contenteditable="true" style="font-size: 0.84rem; color: #1e293b; line-height: 1.5; padding: 10px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; min-height: 70px; background: #ffffff; margin-bottom: 12px; outline: none;">
+                </div>
+
+                <div style="border-top: 1px solid #f1f5f9; padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.78rem; font-weight: 800; color: #08183a;">INTERVIEWER RATING:</span>
+                  <select id="formRating" class="form-input" style="width: auto; height: 36px; font-size: 0.84rem;">
+                    <option value="5">★★★★★ — Outstanding / Job Ready</option>
+                    <option value="4">★★★★☆ — Very Good / Proficient</option>
+                    <option value="3" selected>★★★☆☆ — Good Effort / Keep Improving</option>
+                    <option value="2">★★☆☆☆ — Needs Focus & Practice</option>
+                    <option value="1">★☆☆☆☆ — Critical Foundation Needed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Action Plan & Next Challenge -->
+            <div class="summary-points-grid" style="margin-top: 14px;">
+              <!-- Card 5: Action Plan -->
+              <div class="summary-points-card">
+                <div class="points-card-header">
+                  <div class="feedback-icon-circle" style="background: #08183a;">🎯</div>
+                  <h4 class="points-card-title" style="color: #08183a;">ACTION PLAN BEFORE NEXT INTERVIEW</h4>
+                </div>
+                <ul class="points-items-list" id="formActionPlanList">
+                  <!-- Auto-populated action items -->
+                </ul>
+              </div>
+
+              <!-- Next Interview Schedule -->
+              <div class="summary-points-card" style="display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+                <div class="points-card-header" style="margin-bottom: 0;">
+                  <div class="feedback-icon-circle" style="background: #08183a;">📅</div>
+                  <h4 class="points-card-title" style="color: #08183a;">NEXT MOCK INTERVIEW SCHEDULE</h4>
+                </div>
+                <div>
+                  <label for="formNextInterviewName" style="font-size: 0.74rem; font-weight: 700; color: #64748b;">Next Challenge Name:</label>
+                  <input type="text" id="formNextInterviewName" class="form-input" value="Interview #2 – LogicLeap Challenge" style="height: 38px; margin-top: 3px;">
+                </div>
+                <div>
+                  <label for="formNextInterviewDate" style="font-size: 0.74rem; font-weight: 700; color: #64748b;">Scheduled Date:</label>
+                  <input type="date" id="formNextInterviewDate" class="form-input" style="height: 38px; margin-top: 3px;">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Page Form Actions -->
+          <div class="evaluation-form-footer-actions">
+            <button type="button" class="btn-action-outline btn-lg" onclick="openMockInterviewHub()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              <span>Cancel / Back to Hub</span>
+            </button>
+            <button type="submit" class="btn-primary-action btn-lg" id="btnSubmitMockForm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Save Evaluation to Database & View Scorecard</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- VIEW 5: CAREER ROADMAP VIEW (10-15 Year Progression)       -->
+    <!-- Pixel-perfect match to Career Roadmap reference design     -->
+    <!-- ========================================================== -->
+    <main id="viewCareerRoadmap" class="view-content hidden">
+      
+      <!-- Top Action Controls -->
+      <div class="scorecard-top-bar">
+        <div class="top-bar-left">
+          <button class="btn-back" onclick="returnToScorecard()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            <span>Back to Scorecard</span>
+          </button>
+          <div class="crm-top-breadcrumb">
+            <span>Scorecard</span>
+            <span class="crumb-sep">/</span>
+            <span class="crumb-current" id="crmBreadcrumbTitle">Python Development Roadmap</span>
+          </div>
+        </div>
+
+        <div class="top-bar-right">
+          <div class="crm-selector-wrap">
+            <label for="crmDomainSelect" class="crm-select-label">Switch Domain:</label>
+            <select id="crmDomainSelect" class="crm-select-input" onchange="changeRoadmapDomain(this.value)">
+              <option value="Python Development">Python Development</option>
+              <option value="UI/UX Design">UI/UX Design</option>
+              <option value="Data & Analytics">Data & Analytics</option>
+              <option value="QA & Automation Testing">QA & Automation Testing</option>
+              <option value="Technical Consulting & Client Solutions">Technical Consulting & Client Solutions</option>
+              <option value="Cloud & DevOps Engineering">Cloud & DevOps Engineering</option>
+              <option value="Java Full Stack Developer">Java Full Stack Developer</option>
+              <option value="Software Development">Full Stack Software Development</option>
+              <option value="Human Resources">Human Resources (HR / Recruiter)</option>
+            </select>
+          </div>
+
+          <button class="btn-action-primary btn-crm-print" onclick="downloadRoadmapPDF()" title="Download 10–15 Year Career Roadmap as PDF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Roadmap (PDF)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Career Roadmap Canvas Area (Matching Blueprint Reference) -->
+      <div class="crm-document-container" id="careerRoadmapPrintArea">
+        
+        <!-- Top Split Area: Left Navy Sidebar + Right Main Timeline Section -->
+        <div class="crm-main-split">
+          
+          <!-- LEFT SIDEBAR: Candidate Profile Card (Dark Navy) -->
+          <aside class="crm-sidebar-card">
+            
+            <!-- Skilldome Brand -->
+            <div class="sidebar-brand-box" style="margin-bottom: 16px; width: 100%; box-sizing: border-box;">
+              <img src="assets/logo.png?v=10.0" alt="Skilldome Logo" class="sidebar-logo-img" />
+            </div>
+
+            <!-- Candidate Avatar & Name (Pure Monogram Initials) -->
+            <div class="crm-profile-hero">
+              <div class="crm-avatar-wrapper">
+                <div class="crm-monogram-circle" id="crmMonogramContainer">
+                  <span class="crm-monogram-text" id="crmAvatarInitials">SK</span>
+                </div>
+              </div>
+              <div class="crm-candidate-name" id="crmCandidateName">SANJEEVI K</div>
+            </div>
+
+            <!-- Candidate Details List with Icons -->
+            <div class="crm-meta-list">
+              
+              <div class="crm-meta-item">
+                <div class="crm-meta-icon">✉️</div>
+                <div class="crm-meta-content">
+                  <span class="crm-meta-label">Email ID</span>
+                  <span class="crm-meta-val" id="crmCandidateEmail">dinesh.kumar@email.com</span>
+                </div>
+              </div>
+
+              <div class="crm-meta-item">
+                <div class="crm-meta-icon">📅</div>
+                <div class="crm-meta-content">
+                  <span class="crm-meta-label">Date</span>
+                  <span class="crm-meta-val" id="crmReportDate">02 September 2026</span>
+                </div>
+              </div>
+
+              <div class="crm-meta-item">
+                <div class="crm-meta-icon">🎓</div>
+                <div class="crm-meta-content">
+                  <span class="crm-meta-label">Degree</span>
+                  <span class="crm-meta-val" id="crmCandidateDegree">B.E. Computer Science and Engineering</span>
+                </div>
+              </div>
+
+              <div class="crm-meta-item">
+                <div class="crm-meta-icon">🏛️</div>
+                <div class="crm-meta-content">
+                  <span class="crm-meta-label">College / University</span>
+                  <span class="crm-meta-val" id="crmCandidateCollege">ABC Engineering College</span>
+                </div>
+              </div>
+
+              <div class="crm-meta-item">
+                <div class="crm-meta-icon">📆</div>
+                <div class="crm-meta-content">
+                  <span class="crm-meta-label">Year of Graduation</span>
+                  <span class="crm-meta-val" id="crmGraduationYear">2026</span>
+                </div>
+              </div>
+
+              <div class="crm-meta-item">
+                <div class="crm-meta-icon">🎯</div>
+                <div class="crm-meta-content">
+                  <span class="crm-meta-label">Target Career</span>
+                  <span class="crm-meta-val" id="crmTargetCareer">Python Developer</span>
+                </div>
+              </div>
+
+              <div class="crm-meta-item crm-readiness-item">
+                <div class="crm-meta-icon">⭐</div>
+                <div class="crm-meta-content">
+                  <span class="crm-meta-label">Career Readiness Score</span>
+                  <div class="crm-score-pill">
+                    <span class="crm-score-num" id="crmReadinessScore">68</span>
+                    <span class="crm-score-denom">/ 100</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Motivational Card -->
+            <div class="crm-motivation-box">
+              <div class="crm-rocket-icon">🚀</div>
+              <div class="crm-motivation-text">
+                Every expert was once a beginner. Your journey starts today!
+              </div>
+            </div>
+
+          </aside>
+
+          <!-- RIGHT MAIN SECTION: Career Header, Timeline Banner & Table -->
+          <section class="crm-main-content">
+            
+            <!-- Document Header inside Right Section (Matching Blueprint) -->
+            <header class="crm-doc-header">
+              <div class="crm-header-titles">
+                <h1 class="crm-main-title">CAREER ROADMAP</h1>
+                <div class="crm-path-title" id="crmPathTitle">PYTHON DEVELOPMENT CAREER PATH</div>
+                <div class="crm-journey-sub" id="crmPathSubtitle">Your 10–15 Year Career Journey</div>
+              </div>
+
+              <div class="crm-header-right">
+                <div class="crm-page-badge">CAREER BLUEPRINT</div>
+                <div class="crm-quote-box">
+                  <span class="crm-quote-mark">“</span>
+                  <span class="crm-quote-text">A roadmap gives you direction today and a better future tomorrow.</span>
+                  <span class="crm-quote-mark">”</span>
+                </div>
+              </div>
+            </header>
+
+            <!-- Navy Timeline Header Banner -->
+            <div class="crm-timeline-header-band" id="crmTimelineBanner">
+              PYTHON DEVELOPER CAREER PROGRESSION TIMELINE
+            </div>
+
+            <!-- 7-Stage Career Progression Table -->
+            <div class="crm-table-container">
+              <table class="crm-progression-table">
+                <thead>
+                  <tr>
+                    <th style="width: 17%;">STAGE</th>
+                    <th style="width: 11%;">EXPERIENCE</th>
+                    <th style="width: 19%;">DESIGNATION</th>
+                    <th style="width: 27%;">FOCUS AREAS</th>
+                    <th style="width: 13%;">INDICATIVE PACKAGE<br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.85;">(INR PER ANNUM)</span></th>
+                    <th style="width: 13%;">POTENTIAL NEXT STEP</th>
+                  </tr>
+                </thead>
+                <tbody id="crmTimelineBody">
+                  <!-- Dynamic 7 Stages Populated by app.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Footnote / Salary Disclaimer -->
+            <div class="crm-salary-footnote">
+              <span class="crm-footnote-icon">ℹ️</span>
+              <span><strong>Note:</strong> Salary ranges are indicative and may vary based on location, company size, skills, performance and market conditions.</span>
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- Bottom 3-Card Insights Grid (Spanning Across Document) -->
+        <div class="crm-bottom-insights-grid">
+          
+          <!-- Card 1: Key Skills to Master Across the Journey -->
+          <div class="crm-insight-card">
+            <div class="crm-card-title">KEY SKILLS TO MASTER ACROSS THE JOURNEY</div>
+            <div class="crm-skills-grid" id="crmSkillsGrid">
+              <!-- 10 Skills Populated by app.js -->
+            </div>
+          </div>
+
+          <!-- Card 2: Best Time to Consider a Job Switch -->
+          <div class="crm-insight-card">
+            <div class="crm-card-title">BEST TIME TO CONSIDER A JOB SWITCH</div>
+            <div class="crm-switch-content">
+              <div class="crm-switch-header">
+                <span class="crm-switch-icon">⏱️</span>
+                <span class="crm-switch-sub">Consider switching when:</span>
+              </div>
+              <ul class="crm-switch-list">
+                <li>You have mastered your current role</li>
+                <li>Growth, learning or responsibilities have plateaued</li>
+                <li>You are not getting appropriate compensation for your impact</li>
+                <li>You have the skills to step into the next level</li>
+              </ul>
+              <div class="crm-switch-window-badge">
+                <strong>Ideal switch window:</strong> Every 2–3 years <span style="font-weight: normal; font-size: 0.68rem;">(based on your growth & readiness)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: What This Roadmap Gives You -->
+          <div class="crm-insight-card">
+            <div class="crm-card-title">WHAT THIS ROADMAP GIVES YOU</div>
+            <ul class="crm-benefits-list">
+              <li>
+                <span class="crm-check-circle">✓</span>
+                <span>Clear career direction for next 10–15 years</span>
+              </li>
+              <li>
+                <span class="crm-check-circle">✓</span>
+                <span>Role progression with responsibilities</span>
+              </li>
+              <li>
+                <span class="crm-check-circle">✓</span>
+                <span>Skills to build at each level</span>
+              </li>
+              <li>
+                <span class="crm-check-circle">✓</span>
+                <span>Indicative salary expectations</span>
+              </li>
+              <li>
+                <span class="crm-check-circle">✓</span>
+                <span>Best time to switch & grow</span>
+              </li>
+              <li>
+                <span class="crm-check-circle">✓</span>
+                <span>Multiple career opportunities ahead</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+
+  <!-- Main JavaScript Bundle -->
+  <script src="app.js?v=17.0"></script>
+</body>
+</html>
