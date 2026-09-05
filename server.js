@@ -1543,12 +1543,29 @@ app.get('*', (req, res) => {
 });
 
 
-// Start Express Server - Restricted to 127.0.0.1 (Localhost only, NOT on local network/Wi-Fi)
-const HOST = process.env.HOST || '127.0.0.1';
+// Start Express Server - Available on Localhost and Network (Wi-Fi/LAN)
+const os = require('os');
+const HOST = process.env.HOST || '0.0.0.0';
+
+function getNetworkIp() {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return 'localhost';
+}
+
+const localIp = getNetworkIp();
+
 const server = app.listen(PORT, HOST, async () => {
   console.log(`=======================================================`);
-  console.log(`🚀 Skilldome Admin Panel Server running locally`);
-  console.log(`🔗 Localhost only: http://127.0.0.1:${PORT} (Disabled on network)`);
+  console.log(`🚀 Skilldome Admin Panel Server running on Network`);
+  console.log(`🏠 Local:   http://localhost:${PORT}`);
+  console.log(`🌐 Network: http://${localIp}:${PORT}`);
   console.log(`📊 DB Host: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
   console.log(`📋 Source Tables: candidate_registrations, test_answers & mock_interviews`);
   console.log(`=======================================================`);

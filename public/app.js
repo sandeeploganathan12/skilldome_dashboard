@@ -432,7 +432,7 @@ function openMockInterviewHub() {
 }
 
 // 4. Dedicated Evaluation Input Form View (Student ID Dropdown + 7 Evaluation Areas)
-function openMockInputForm(preSelectStudentId) {
+async function openMockInputForm(preSelectStudentId) {
   state.currentSection = 'mockInput';
   state.currentView = 'mockInput';
 
@@ -471,7 +471,7 @@ function openMockInputForm(preSelectStudentId) {
   const filterToolbar = document.getElementById('assessmentFilterToolbar');
   if (filterToolbar) filterToolbar.classList.add('hidden');
 
-  loadMockInputFormCandidates(preSelectStudentId);
+  await loadMockInputFormCandidates(preSelectStudentId);
   calcFormMockTotal();
 }
 
@@ -2145,6 +2145,12 @@ async function loadMockInterviewView(targetSessionId) {
   const studentSelect = document.getElementById('mockSelectStudent');
   if (!studentSelect) return;
 
+  if (!state.allStudentsMaster || state.allStudentsMaster.length === 0) {
+    try {
+      await loadStudentsListDropdown();
+    } catch (e) {}
+  }
+
   // Build list of candidates including Dinesh Kumar demo
   let studentOptions = [];
   const hasDinesh = (state.allStudentsMaster || []).some(s => s.studentId === 'SKD-2026-0001');
@@ -2173,6 +2179,11 @@ async function loadMockInterviewView(targetSessionId) {
   state.selectedMockStudentId = activeStudentId;
   const studentId = activeStudentId;
 
+  // If a specific session ID was requested (e.g. freshly submitted evaluation), load and display it immediately
+  if (targetSessionId) {
+    await displayMockInterviewById(targetSessionId);
+  }
+
   try {
     const res = await apiRequest(`/api/students/${encodeURIComponent(studentId)}/mock-interviews`);
     const sessionSelect = document.getElementById('mockSelectSession');
@@ -2186,13 +2197,15 @@ async function loadMockInterviewView(targetSessionId) {
         `).join('');
       }
 
-      let selectedId = targetSessionId || res.history[res.history.length - 1].id;
-      if (targetSessionId && !res.history.some(h => String(h.id) === String(targetSessionId))) {
+      let selectedId = targetSessionId;
+      if (!selectedId || !res.history.some(h => String(h.id) === String(targetSessionId))) {
         selectedId = res.history[res.history.length - 1].id;
       }
       if (sessionSelect) sessionSelect.value = selectedId;
-      await displayMockInterviewById(selectedId);
-    } else {
+      if (!targetSessionId || String(selectedId) !== String(targetSessionId)) {
+        await displayMockInterviewById(selectedId);
+      }
+    } else if (!targetSessionId) {
       state.mockInterviewHistory = [];
       if (sessionSelect) {
         sessionSelect.innerHTML = `<option value="">Interview #1 – CodeStart Sprint</option>`;
@@ -2201,7 +2214,9 @@ async function loadMockInterviewView(targetSessionId) {
     }
   } catch (err) {
     console.error('Failed to load student mock interviews:', err);
-    renderMockInterviewBlueprintData(studentId);
+    if (!targetSessionId) {
+      renderMockInterviewBlueprintData(studentId);
+    }
   }
 }
 
@@ -2222,6 +2237,17 @@ async function displayMockInterviewById(interviewId) {
     const res = await apiRequest(`/api/mock-interviews/${encodeURIComponent(interviewId)}`);
     if (res && res.success && res.interview) {
       state.currentMockInterview = res.interview;
+      if (res.interview.student_id) {
+        state.selectedMockStudentId = res.interview.student_id;
+        const studentSelect = document.getElementById('mockSelectStudent');
+        if (studentSelect) {
+          studentSelect.value = res.interview.student_id;
+        }
+      }
+      const sessionSelect = document.getElementById('mockSelectSession');
+      if (sessionSelect) {
+        sessionSelect.value = interviewId;
+      }
       renderMockInterviewScorecard(res.interview);
     }
   } catch (err) {
@@ -2423,10 +2449,10 @@ function renderMockInterviewScorecard(interview) {
     calculatedGivenTotal += Number(a.given_score !== undefined ? a.given_score : (a.score !== undefined ? a.score : 0));
   });
 
-  // Total Score: Always prioritize the actual sum of given scores so report marks and total ALWAYS match
-  const totalScore = (interview.total_score !== undefined && interview.total_score !== null)
-    ? Number(interview.total_score)
-    : calculatedGivenTotal;
+  // Total Score: Strictly match the actual sum of given scores so circular gauge and table breakdown ALWAYS match 100%
+  const totalScore = calculatedGivenTotal > 0
+    ? calculatedGivenTotal
+    : ((interview.total_score !== undefined && interview.total_score !== null) ? Number(interview.total_score) : 0);
 
   // Row 1: Overall Result Circular Gauge
   const scoreNumEl = document.getElementById('mockOverallScore');
@@ -2483,9 +2509,6 @@ function renderMockInterviewScorecard(interview) {
       const color = a.color || (['#8b5cf6', '#2563eb', '#16a34a', '#ea580c', '#db2777', '#0891b2', '#1d4ed8'][idx % 7]);
       const badgeClass = a.badge_class || (`badge-${['purple', 'blue', 'green', 'orange', 'pink', 'teal', 'navy'][idx % 7]}`);
 
-      calculatedMaxTotal += maxScore;
-      calculatedGivenTotal += givenScore;
-
       return `
         <tr>
           <td style="text-align: center; vertical-align: middle;">
@@ -2516,7 +2539,7 @@ function renderMockInterviewScorecard(interview) {
     }).join('');
   }
 
-  const finalOverallScore = interview.total_score !== undefined ? interview.total_score : calculatedGivenTotal;
+  const finalOverallScore = totalScore;
   const overallPct = calculatedMaxTotal > 0 ? Math.round((finalOverallScore / calculatedMaxTotal) * 100) : finalOverallScore;
 
   if (totalMaxBadge) totalMaxBadge.textContent = calculatedMaxTotal || 100;
@@ -2872,9 +2895,15 @@ function generateMockInterviewSummary({ studentName, targetRole, interviewNum, s
 // ============================================================================
 // Dedicated Evaluation Input Form Handlers
 // ============================================================================
-function loadMockInputFormCandidates(preSelectStudentId) {
+async function loadMockInputFormCandidates(preSelectStudentId) {
   const selectEl = document.getElementById('formStudentSelect');
   if (!selectEl) return;
+
+  if (!state.allStudentsMaster || state.allStudentsMaster.length === 0) {
+    try {
+      await loadStudentsListDropdown();
+    } catch (e) {}
+  }
 
   // Build list of all students (Hostinger MySQL + Dinesh demo)
   let candidates = [];
@@ -3191,6 +3220,7 @@ async function handleSaveMockInterview(e) {
     score_behavioral: behav,
     score_confidence: conf,
     score_role_knowledge: role,
+    total_score: comm + tech + prob + resume + behav + conf + role,
 
     evaluation_scores: [
       { area_number: 1, area: 'Communication & Clarity', criteria: 'Expressing thoughts clearly, structured articulation', max_score: 15, given_score: comm, percentage: Math.round((comm / 15) * 100), color: '#8b5cf6', badge_class: 'badge-purple' },
